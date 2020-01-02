@@ -3,7 +3,7 @@ package com.mfw.user.controller;
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
-import com.mfw.user.dto.UserDTO;
+import com.mfw.api.dto.UserDTO;
 import com.mfw.user.service.RegisterService;
 import com.mfw.user.util.Sms;
 import org.springframework.web.bind.annotation.RequestMapping;

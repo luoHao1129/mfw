@@ -1,7 +1,8 @@
 package com.mfw.user.dao;
 
 
-import com.mfw.user.dto.UserDTO;
+
+import com.mfw.api.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 

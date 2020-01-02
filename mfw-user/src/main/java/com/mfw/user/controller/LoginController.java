@@ -1,7 +1,8 @@
 package com.mfw.user.controller;
 
 
-import com.mfw.user.dto.UserDTO;
+
+import com.mfw.api.dto.UserDTO;
 import com.mfw.user.service.LoginService;
 import com.mfw.user.util.ToHtml;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ public class LoginController {
     @RequestMapping("/login")
     public String login(String account, String password, HttpSession session, HttpServletRequest request) {
         UserDTO userDTO = loginService.loginByAccount(account);
-
         MessageDigest md;
         String pwd = "";
         try {

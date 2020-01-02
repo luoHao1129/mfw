@@ -1,7 +1,7 @@
 package com.mfw.user.service;
 
 
-import com.mfw.user.dto.UserDTO;
+import com.mfw.api.dto.UserDTO;
 
 public interface LoginService {
 

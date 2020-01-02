@@ -4,6 +4,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     #时区设置
     time-zone: Asia/Chongqing
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
 
   profiles:
     active: dev
@@ -11,8 +15,8 @@ spring:
   datasource:
 
     url: jdbc:mysql://rm-wz94ccy660ac03o3dio.mysql.rds.aliyuncs.com:3306/travel_project?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF8
-    username: benben
-    password: Bb66564564123
+    username: yizu
+    password: yizu123456A
     driver-class-name: com.mysql.cj.jdbc.Driver
     #Druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
@@ -41,7 +45,7 @@ spring:
 #mybatis
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
-  type-aliases-package: com.mfw.user.dto
+  type-aliases-package: com.mfw.api.dto
 
 logging:
   config: classpath:logback-zg.xml

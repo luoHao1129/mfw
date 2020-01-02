@@ -1,24 +1,20 @@
 .not-cont ul li {
     margin-bottom: 10px;
 }
-
 ul, li, ol {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
 ul, ol, li, dl, dd, dt {
     margin: 0;
     padding: 0;
     list-style: none;
 }
-
 li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
-
 .not-cont ul li h2 {
     font-size: 14px;
     color: #666;
@@ -27,17 +23,14 @@ li {
     padding-left: 10px;
     float: left;
 }
-
 h1, h2, h3, h4, h5, h6, p, dl, dt, dd {
     margin: 0;
 }
-
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
     font-size: 100%;
 }
-
 h2 {
     display: block;
     font-size: 1.5em;
