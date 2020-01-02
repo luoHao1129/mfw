@@ -134,6 +134,7 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 
+
         <!--        redis依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -144,7 +145,15 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.mfw</groupId>
+            <artifactId>api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
+
 
     <build>
         <plugins>
