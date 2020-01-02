@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>欢迎注册——马蜂窝</title>
+    <link rel="shortcut icon" href="img/MFW头像.jfif"/>
+    <link rel="stylesheet" type="text/css" href="css/注册.css"/>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+</head>
+<body background="img/17.jpg">
+<a href="index.html"><img src="img/fdc64b35ee7ea54908991461b31ca6f.png"
+                          style="height: 200px ;width: 50px; margin-left: 720px;margin-top: 40px;"></a>
+<div id="d1">
+    <div id="d5">
+        <form action="" method="post">
+            <input type="text" name="" id="input1" value="" placeholder="请输入手机号"/>
+            <div id="d2">
+                <input type="submit" name="" id="input2" value="立即注册"/>
+
+            </div>
+        </form>
+
+        <div id="d3">
+            <span id="span1">注册视为同意</span><span id="span2">《马蜂窝用户协议》</span>
+        </div>
+        <span id="span3">用合作网页直接登陆</span>
+        <br>
+        <br>
+        <a class="a1" href=""><img src="img/wb.png"></a>
+        <a class="a1" href=""><img src="img/qqq.png"></a>
+        <a class="a1" href=""><img src="img/wx.png"></a>
+        <br>
+        <a class="a2" href="">微博</a>
+        <a class="a3" href="">Q&nbsp;Q</a>
+        <a class="a4" href="">微信</a>
+    </div>
+
+    <div id="d4">
+        <img src="img/16b1c852b340f9aa26742eec481d447.png" style="height:300px;">
+    </div>
+</div>
+
+<script type="text/jscript">
+					
+					$("#input2").click(function(){
+					  var phoneNumReg =/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+					  // 通过正则表达式验证手机号
+					  if(!phoneNumReg.test($('#input1').val())) {
+					  alert('请填写正确电话号码!!');
+					  return false;
+					  }else{
+						alert('号码正确!!');
+					  	return true;
+					  }
+					});
+					
+					
+					
+								
+
+</script>
+
+</body>
+</html>

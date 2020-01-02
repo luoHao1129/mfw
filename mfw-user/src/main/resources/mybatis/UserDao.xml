@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--配置与DepartmentDAO的映射-->
+<mapper namespace="com.mfw.user.dao.UserDao">
+
+
+    <!--    配置travels映射-->
+    <resultMap id="resultMap" type="UserDTO">
+        <id column="id" property="id" javaType="String"/>
+        <result property="account" column="account" javaType="String"/>
+        <result property="pwd" column="pwd" javaType="String"/>
+        <result property="name" column="name" javaType="String"/>
+        <result property="tel" column="tel" javaType="String"/>
+        <result property="birthday" column="birthday" javaType="Date"/>
+        <result property="idcard" column="idcard" javaType="String"/>
+        <result property="sex" column="sex" javaType="String"/>
+        <result property="address" column="address" javaType="String"/>
+        <result property="permission" column="permission" javaType="String"/>
+        <result property="avatar" column="avatar" javaType="String"/>
+        <result property="remarks" column="remarks" javaType="String"/>
+
+
+    </resultMap>
+
+    <!--    配置响应的dao方法-->
+
+    <insert id="addUser" parameterType="UserDTO">
+        INSERT INTO user(id,account,pwd,name,tel,birthday,idcard,sex,address,permission,avatar,remarks)
+        VALUES (replace(uuid(),'-',''),#{account},#{pwd},#{name},#{tel},#{birthday},#{idcard},#{sex},#{address},#{permission},#{avatar},#{remarks})
+    </insert>
+
+
+    <select id="selectUserByAccount" resultMap="resultMap">
+        select * from user where account=#{account} or tel=#{account};
+    </select>
+
+    <select id="selectPhone" resultType="Integer">
+        select count(1) from user where tel=#{account};
+    </select>
+
+</mapper>
