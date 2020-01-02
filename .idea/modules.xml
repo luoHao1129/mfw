@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/mfw.iml" filepath="$PROJECT_DIR$/.idea/mfw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfw-parent/mfw-parent.iml" filepath="$PROJECT_DIR$/mfw-parent/mfw-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfw-user/mfw-user.iml" filepath="$PROJECT_DIR$/mfw-user/mfw-user.iml" />
+    </modules>
+  </component>
+</project>

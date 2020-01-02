@@ -1,0 +1,214 @@
+/* 头部css */
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+ul li {
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hd {
+    box-shadow: 2px 4px 6px #ddd;
+    margin-bottom: 20px;
+}
+
+.head {
+    height: 68px;
+    width: 80%;
+    margin: auto;
+    vertical-align: top;
+
+}
+
+.logo {
+    margin-top: 8px;
+    height: 50px;
+    width: 180px;
+    float: left;
+}
+
+.head ul {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 65px;
+    float: left;
+
+
+}
+
+.head ul .in {
+    background-color: #FF9D00;
+    border-bottom: #FF9D00 2px solid;
+
+}
+
+.head ul .in .go_lv {
+    color: #FFFFFF;
+}
+
+.head ul .in:hover .go_lv {
+    color: #FFFFFF;
+}
+
+.head ul .hd_li {
+    margin: 0px;
+    padding: 0px 12px;
+    float: left;
+
+
+}
+
+.head ul .hd_li:hover {
+    border-bottom: #FF9D00 2px solid;
+}
+
+.head ul .hd_li:hover .hd_li_a {
+    color: #FF9D00;
+}
+
+.search_li:hover {
+    border-bottom: #FFFFFF 1px solid;
+}
+
+.logo_lxz {
+    float: right;
+    height: 65px;
+    margin-left: 5px;
+
+}
+
+.logo_lxz:hover {
+    border-bottom: #FF9D00 2px solid;
+}
+
+.logo_lxz img {
+    height: 35px;
+    margin-top: 15px;
+
+}
+
+
+.search_input {
+    position: absolute;
+    top: 0px;
+    left: 1010px;
+    background-color: #eee;
+    width: 125px;
+    height: 35px;
+    margin-top: 12px;
+    border-radius: 5px;
+
+}
+
+.search_input img {
+    float: right;
+    margin-top: 8px;
+    margin-right: 3px;
+}
+
+.search_input input {
+    display: none;
+}
+
+.search_input img {
+    height: 20px;
+    width: 20px;
+}
+
+.login_div {
+    float: right;
+}
+
+
+.login_div .line {
+    color: #DDDDDD;
+}
+
+.login_div ul li {
+    font-size: 14px;
+    padding: 0px;
+
+}
+
+.login_div ul li:hover {
+    border-bottom: none;
+}
+
+.login_div ul img {
+    height: 40px;
+    width: 40px;
+    float: left;
+    margin-top: 15px;
+}
+
+.login_div ul a {
+
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    color: #FF9D00;
+}
+
+.go ul {
+    float: none;
+    position: absolute;
+    left: 548px;
+    width: 150px;
+    padding: 0px;
+    border: #EEEEEE 1px solid;
+    height: 220px;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 9;
+    display: none;
+
+}
+
+.go ul .go_li {
+    /* float: none; */
+    display: block;
+    color: #000000;
+    height: 40px;
+    text-align: center;
+
+}
+
+.go ul .go_li a {
+    color: #000000;
+    display: block;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.go ul .go_li:hover {
+    background-color: #EEEEEE;
+}
+
+.go:hover .go_lv {
+    color: #FFFFFF;
+}
+
+.go:hover ul {
+    display: block;
+    color: #000000;
+}
+
+.in ul {
+    visibility: hidden;
+}
+
+
+
+
+
