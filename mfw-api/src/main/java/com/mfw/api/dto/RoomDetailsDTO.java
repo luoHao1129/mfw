@@ -23,7 +23,7 @@ public class RoomDetailsDTO implements Serializable {
 	private	int roomNum;
 	private	double roomPrice;
 	private	String userDetails;
-	private int RoomState;
+	private int roomState;
 	private Date checkInTime;
 	private Date checkOutTime;
 	
