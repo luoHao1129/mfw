@@ -4,10 +4,18 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     #时区设置
     time-zone: Asia/Chongqing
+    #redis
   redis:
     host: 127.0.0.1
     port: 6379
     database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: 10000
+        max-idle: 8
+        min-idle: 0
+    timeout: 300
 
   profiles:
     active: dev
@@ -41,6 +49,10 @@ spring:
     prefix:
     suffix: .ftl
     content-type: text/html
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/static,classpath:/resources/,classpath:/public/,file:${web.upload-path}
 
 #mybatis
 mybatis:
@@ -50,11 +62,15 @@ mybatis:
 logging:
   config: classpath:logback-zg.xml
 
+#设置独立的文件目录
+web.upload-path: e:/webpath/
+
+
 ---
 spring:
   profiles: dev
 server:
-  port: 8081
+  port: 8086
 ---
 spring:
   profiles: test
