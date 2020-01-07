@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mfw.hotel.dao.HotelDAO">
+
+    <resultMap id="resultMap" type="HotelDTO">
+        <id property="hotelId" column="hotelId" javaType="String"/>
+        <result property="hotelName" column="hotelName" javaType="String" />
+        <result property="hotelAddress" column="hotelAddress" javaType="String" />
+        <result property="hotelDetails" column="hotelDetails" javaType="String" />
+        <result property="hotelPic" column="hotelPic" javaType="String" />
+        <result property="hotelBrand" column="hotelBrand" javaType="String" />
+        <result property="hotelCity" column="hotelCity" javaType="String" />
+        <collection property="roomInfo" ofType="com.mfw.api.dto.RoomDetailsDTO" >
+            <id property="roomId" column="roomId" javaType="String" />
+            <result property="hotelId" column="hotelId" javaType="String" />
+            <result property="type" column="type" javaType="String" />
+            <result property="numOfBeds" column="numOfBeds" javaType="int" />
+            <result property="numOfPeople" column="numOfPeople" javaType="int" />
+            <result property="roomNum" column="roomNum" javaType="int" />
+            <result property="roomPrice" column="roomPrice" javaType="double" />
+            <result property="userDetails" column="userDetails" javaType="String" />
+            <result property="roomState" column="roomState" javaType="int" />
+            <result property="checkInTime" column="checkInTime" javaType="Date" />
+            <result property="checkOutTime" column="checkOutTime" javaType="Date" />
+        </collection>
+
+    </resultMap>
+
+
+    <select id="selectHotelById" resultMap="resultMap" parameterType="String">
+        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        and hotel.hotelId=#{id}
+    </select>
+
+    <select id="selectHotelByCity" resultMap="resultMap" parameterType="String">
+        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        and hotelCity=#{#city}
+    </select>
+
+    <select id="selectHotelByName" resultMap="resultMap" parameterType="String">
+        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        and hotel.hotelName like concat('%',#{hotelName},'%')
+    </select>
+
+
+</mapper>

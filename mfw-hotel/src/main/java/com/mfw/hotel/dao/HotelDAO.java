@@ -8,6 +8,10 @@ import java.util.List;
 public interface HotelDAO extends Mapper<HotelDTO> {
     void addTheHotel(HotelDTO hotelDTO);
 
-    List<HotelDTO> selectHotelById(String id);
+    HotelDTO selectHotelById(String id);
+
+    List<HotelDTO> selectHotelByCity(String city);
+
+    List<HotelDTO> selectHotelByName(String name);
 
 }

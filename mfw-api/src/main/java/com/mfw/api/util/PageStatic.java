@@ -28,8 +28,9 @@ public class PageStatic {
         try {
             Template temp = cfg.getTemplate(ftlFile);
             String path = pagePath + ftlName + ".html";
-            System.out.println(path);
-            Writer file = new FileWriter(new File(path.substring(path.indexOf("/"))));
+            System.out.println("啦啦啦啦啦"+path);
+            String ss = path.substring(path.indexOf("/"));
+            Writer file = new FileWriter(new File(path));
             temp.process(data, file);
             file.flush();
             file.close();

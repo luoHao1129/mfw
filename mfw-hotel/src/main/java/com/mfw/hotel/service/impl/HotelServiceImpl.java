@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class HotelServiceImpl implements HotelService {
     @Resource
-    HotelDAO hotelDAO;
+    private HotelDAO hotelDAO;
 
 
     @Override
@@ -20,7 +20,20 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<HotelDTO> selectHotelById(String id) {
+    public HotelDTO selectHotelById(String id) {
+
         return hotelDAO.selectHotelById(id);
     }
+
+    @Override
+    public List<HotelDTO> selectHotelByCity(String city) {
+        return hotelDAO.selectHotelByCity(city);
+    }
+
+    @Override
+    public List<HotelDTO> selectHotelByName(String name) {
+        return hotelDAO.selectHotelByName(name);
+    }
+
+
 }
