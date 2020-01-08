@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,10 +47,25 @@ public class HotelController {
         Map<String,Object> mapdata= new HashMap<>();
         ModelAndView modelAndView = new ModelAndView();
         this.hotelNum=hotelNum;
+        int pagelength = hotelService.selectPage(hotelNum.getCity());
+        int page = pagelength/5;
+        List<Integer> pages = new ArrayList<>();
+        for(int i = 1; i <= page; i++){
+            pages.add(i);
+        }
+        mapdata.put("pagelength",pagelength);
+//		返回页码数组
+        mapdata.put("pages",pages);
+//		返回页码总数
+        mapdata.put("page",page);
 
-        List<HotelDTO> hotelDTOS = hotelService.selectHotelByCity(hotelNum.getCity());
+        List<HotelDTO> hotelDTOS = hotelService.selectHotelByCity(hotelNum.getCity(),1,5);
         modelAndView.addObject("hdtols",hotelDTOS);
         modelAndView.addObject("hotelNum",hotelNum);
+        modelAndView.addObject("page",page);
+        modelAndView.addObject("pages",pages);
+        modelAndView.addObject("pagelength",pagelength);
+
         mapdata.put("hotelNum",hotelNum);
         mapdata.put("hdtols",hotelDTOS);
         modelAndView.setViewName("hotel-data");
@@ -69,11 +85,20 @@ public class HotelController {
         return modelAndView;
     }
 
+    @RequestMapping("/selectLimit")
+    public List<HotelDTO> selectLimit(String city,int pageNo){
+        int size = 5;
+
+        List<HotelDTO> hotelDTOList = hotelService.selectHotelByCity(city,pageNo,size);
+        return hotelDTOList;
+    }
 
 
-    public ModelAndView searchHotelName(){
 
-        return null;
+    @RequestMapping("/selectWord")
+    public List<HotelDTO> searchHotelName(String city,String name){
+        List<HotelDTO> hotelDTOS = hotelService.selectHotelByName(city,name);
+        return hotelDTOS;
     }
 
 }

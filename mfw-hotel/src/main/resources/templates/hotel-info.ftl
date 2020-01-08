@@ -154,7 +154,6 @@
             position: [104.045311, 30.651936]
         })
         map.add(marker);
-
     </script>
     </div>
 <#--    <img style="width: 1000px;" src="../img/hotel-map.png" />-->

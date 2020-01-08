@@ -10,8 +10,11 @@ public interface HotelDAO extends Mapper<HotelDTO> {
 
     HotelDTO selectHotelById(String id);
 
-    List<HotelDTO> selectHotelByCity(String city);
+    List<HotelDTO> selectHotelByCity(String city,int pageNo,int size);
 
-    List<HotelDTO> selectHotelByName(String name);
+
+    List<HotelDTO> selectHotelByName(String city,String name);
+
+    int selectPage(String city);
 
 }

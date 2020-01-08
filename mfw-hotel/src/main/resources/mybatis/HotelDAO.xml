@@ -34,14 +34,18 @@
         and hotel.hotelId=#{id}
     </select>
 
-    <select id="selectHotelByCity" resultMap="resultMap" parameterType="String">
+    <select id="selectHotelByCity" resultMap="resultMap" >
         select * from hotel,room_details where hotel.hotelId=room_details.hotelId
-        and hotelCity=#{city}
+        and hotelCity=#{city} and room_details.type=1 limit #{pageNo},#{size}
+    </select>
+
+    <select id="selectPage" resultType="Integer">
+        select count(1) from hotel where hotelCity=#{city}
     </select>
 
     <select id="selectHotelByName" resultMap="resultMap" parameterType="String">
         select * from hotel,room_details where hotel.hotelId=room_details.hotelId
-        and hotel.hotelName like concat('%',#{name},'%')
+        and hotel.hotelName like concat('%',#{name},'%') and hotel.hotelCity=#{city}
     </select>
 
 
