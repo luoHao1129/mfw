@@ -1,53 +1,49 @@
-#background {
-    background-image: url(../img/a2.png);
-    height: 500px;
-
+#background{
+	background-image: url(../img/a2.png);
+	height: 500px;
+	
 }
-
 /* 设置搜索框边框 */
-#search_box {
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 100px;
-    width: 644px;
-    font-size: 15px;
-    color: #FFFFFF;
-
-    /* 设置透明度 */
-    /* opacity:0.5; */
-
-    /* 设置边框角的弧度 */
-    border-radius: 5px;
-    float: left;
-    margin: 370px 0px 30px 31%;
+#search_box{
+	background-color: rgba(0,0,0,0.5);
+	height: 100px;
+	width: 644px;
+	font-size: 15px;
+	color: #FFFFFF;
+	
+	/* 设置透明度 */
+	/* opacity:0.5; */
+	
+	/* 设置边框角的弧度 */
+	border-radius: 5px;
+	float: left;
+	margin: 370px 0px 30px 31%;
 }
 
 /* 搜索框 */
-#put {
-
-    background-color: #FFFFFF;
-    height: 40px;
-    width: 80%;
-    border-radius: 5px;
-    margin: 10px 0px 20px 6%;
-
+#put{
+	
+	background-color: #FFFFFF;
+	height:40px ;
+	width: 80%;
+	border-radius: 5px;
+	margin: 10px 0px 20px 6%;
+	
 }
-
-.put {
-    /* 设置单选框与div'之间的距离 */
-    margin-top: 10px;
+.put{
+	/* 设置单选框与div'之间的距离 */
+	margin-top: 10px;
 }
 
 
 /* 搜索符号 */
-#img1 {
-    /* 设置搜索图片的位置 */
-    position: relative;
-    top: 20px;
-
-
+#img1{
+	/* 设置搜索图片的位置 */
+	position:relative;top:20px;
+	
+	
 }
-
-span {
-    /* 设置span字体的位置 */
-    margin: 0px 40px 0px 0px;
+span{
+	/* 设置span字体的位置 */
+	margin: 0px 40px 0px 0px;
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--配置与DepartmentDAO的映射-->
+<mapper namespace="com.mfw.travels.dao.TravelsDao">
+
+
+<!--    配置travels映射-->
+    <resultMap id="resultMap" type="Travels">
+        <id property="id" column="id" javaType="String"/>
+        <result property="authorId" column="authorId" javaType="String"/>
+        <result property="title" column="title" javaType="String"/>
+        <result property="destination" column="destination" javaType="String"/>
+        <result property="travelstype" column="travelstype" javaType="String"/>
+        <result property="tpic" column="tpic" javaType="String"/>
+        <result property="date" column="date" javaType="Date"/>
+        <result property="pageviews" column="pageviews" javaType="Integer"/>
+        <result property="likeNum" column="likeNum" javaType="Integer"/>
+        <collection property="contents" ofType="com.mfw.api.dto.Content" >
+        	<id column="cId" property="id"  javaType="String"/>
+        	<result property="text" column="text" javaType="String"/>
+        	<result property="pic" column="pic" javaType="String"/>
+        	<result property="sequence" column="sequence"  javaType="int"/>
+        	<result property="travelsId" column="travelsId" javaType="String"/>
+        	
+        </collection>
+        
+        
+    </resultMap>
+
+<!--    配置响应的dao方法-->
+
+    <insert id="addTravels" parameterType="Travels" useGeneratedKeys="true">
+        INSERT INTO travels(id,authorId,title,`destination`,travelstype,`date`,pageviews,likeNum,tpic)
+        VALUES (#{id},#{authorId},#{title},#{destination},#{travelstype},#{date},#{pageviews},#{likeNum},#{tpic})
+    </insert>
+
+    <delete id="deleteTravels" parameterType="Integer">
+        delete from travels where id=#{id}
+    </delete>
+
+    <update id="updateTeavels" parameterType="Travels">
+        update  travels set title=#{title},authorId=#{authorId},`destination`=#{destination},travelstype=#{travelstype},`date`=#{date},
+        pageviews=#{pageviews},likeNum=#{likeNum} where id=#{id}
+    </update>
+
+    <select id="selectTravelsById" parameterType="String" resultMap="resultMap">
+        select * from content,travels where travels.id=content.travelsId and id=#{id}
+    </select>
+    
+    <select id="selectTravelsByDestination" parameterType="String" resultMap="resultMap">
+        select * from travels where `destination`=#{destination}
+    </select>
+    
+    <select id="selectAllByAuthorId" parameterType="String" resultMap="resultMap">
+        select * from travels where authorId=#{authorId}
+    </select>
+
+    <select id="selectLimit"  parameterType="Integer" resultMap="resultMap">
+        select * from content,travels where travels.id=content.travelsId and content.sequence=1 order by travels.id desc limit #{param1},#{param2}
+    </select>
+
+    <select id="selectCount" resultType="Integer">
+        select count(1) from travels
+    </select>
+
+</mapper>

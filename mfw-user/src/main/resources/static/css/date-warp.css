@@ -4,17 +4,14 @@
     position: relative;
     z-index: 9;
 }
-
 body, p, div {
     margin: 0;
     padding: 0;
     word-wrap: break-word;
 }
-
 div {
     display: block;
 }
-
 .date-warp .hs-item {
     height: 47px;
     position: relative;

@@ -1,0 +1,136 @@
+.hotel-info img{
+	margin-top: 25px;
+	margin-bottom: 25px;
+	border:0;
+	border-radius:5px;
+	width: 330px;
+	height: 230px;
+	float: left;
+	
+}
+
+.hotel-info{
+	border: none;
+	height: 280px;
+	border-bottom:1px solid #D7D7D7;
+	
+}
+
+.hotel-info .hote-detail{
+	float: left;
+	display: inline-block;
+	margin-left: 20px;
+	width: 300px;
+	
+	
+}
+.hotel-info 
+.hote-detail
+h2{
+	display: inline-block;
+
+}
+.hotel-info 
+.hote-detail
+h2
+a{
+	font-weight: lighter;
+	color: #000000;
+	background-color:transparent;
+	text-decoration: none;
+}
+
+.hotel-info 
+.hote-detail
+#pf{
+	margin-top: 10px;
+	width: 250px;
+	height: 50px;
+	margin-bottom: 20px;
+}
+.hotel-info 
+.hote-detail
+span{
+	display: inline-block;
+}
+
+.hotel-info 
+.hote-detail
+span a{
+	color: #999999;
+}
+
+.hotel-info 
+.hote-detail
+#dw{
+	margin-top:0px;
+	width: 15px;
+	height: 15px;
+	margin-bottom: 20px;
+}
+.hotel-info 
+.hotel-rate
+ul li{
+	list-style: none;
+}
+.hotel-info 
+.hotel-rate{
+	float: left;
+	width: 300px;
+}
+
+
+.hotel-info 
+.hotel-rate
+#mfwyx{
+	margin-left: 15px;
+	margin-top:50px;
+	margin-bottom: 0px;
+	
+	width: 213px;
+	height:45px;
+}
+.hotel-info 
+.hotel-rate
+#booking{
+	margin-left: 20px;
+	margin-top:0px;
+	margin-bottom: 2px;
+	width: 213px;
+	height:45px;
+}
+
+.hotel-info 
+.hotel-rate
+#jiantou{
+	float: right;
+	margin-top:0px;
+	width: 15px;
+	height: 15px;
+	margin-bottom: 20px;
+}
+
+.hotel-info 
+.hotel-rate
+#mfrate{
+	margin-left: 20px;
+	margin-top:20px;
+
+}
+.hotel-info 
+.hotel-rate
+#bookrate{
+	margin-left: 20px;
+	margin-top:20px;
+
+}
+.hotel-info 
+.hotel-rate
+#jiantou1{
+	float: right;
+	margin-top:0px;
+	width: 15px;
+	height: 15px;
+	margin-bottom: 20px;
+}
+

@@ -1,8 +1,9 @@
 package com.mfw.user.service.impl;
 
 
+import com.mfw.api.dto.UserDTO;
 import com.mfw.user.dao.UserDao;
-import com.mfw.user.dto.UserDTO;
+
 import com.mfw.user.service.RegisterService;
 import org.springframework.stereotype.Service;
 
