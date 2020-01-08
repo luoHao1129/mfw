@@ -1,0 +1,34 @@
+.train{
+	display: inline-block;
+	left: 80px;
+}
+.train #round{
+	float: left;
+	margin-left: -25px;
+	width: 20px;
+	height: 20px;
+	background: url(../img/圆圈.png) no-repeat 80% -center;
+}
+.train #round-one{
+	float: left;
+	margin-left: 5px;
+	width: 20px;
+	height: 20px;
+	background: url(../img/圆圈.png) no-repeat 80% -center;
+}
+
+.train a{
+	color:#575A5B;
+	text-decoration: none;
+}
+
+.train .round1{
+	margin-left: 5px;
+}
+
+.train input{
+	border: none;
+	border-bottom:2px solid #D7D7D7;
+	margin-left: 20px;
+	width: 100px;
+}

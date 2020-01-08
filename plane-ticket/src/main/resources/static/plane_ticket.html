@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>特价机票——马蜂窝</title>
+		<link rel="shortcut icon" href="img/MFW头像.jfif" />
+		<link rel="stylesheet" type="text/css" href="css/机票.css" />
+		<link rel="stylesheet" type="text/css" href="css/head.css"/>
+		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<!-- <body> -->
+
+		<div id="d1">
+			<div id="div1">
+				<img src="img/飞机.png" style="height: 45px ; width: 180px;">
+			</div>
+
+			<div id="d2">
+				<input type="radio" name="1" id="" value="" class="put" /><span style=" font-size: 20px;" class="span">单程</span>
+				<input type="radio" name="1" id="" value="" class="put" /><span style="font-size: 20px;" class="span">往返</span>
+				<br>
+				<a class="a1">出发城市</a><input type="text" placeholder="选择城市" id="place" name="" class="input8"><!-- <input type="text" name="" id="" value="" class="p1" placeholder="中文/拼音/简拼" /> -->
+				<br>
+				<a class="a1">到达城市</a><input type="text" placeholder="您要去哪？" id="destination" name="" class="input8"><!-- <input type="text" name="" id="" value="" class="p1" placeholder="中文/拼音/简拼" /> -->
+				
+				<br>
+				<a class="a1">出发日期</a><input type="date" name="" id="" value="" class="p1" />
+				<br>
+				<a class="a2">返回日期</a><input type="date" name="" id="" value="" class="p1" />
+				<br />
+				<input type="radio" name="" id="input1" value="" /><span style="font-size: 13px;">携带儿童&nbsp;&nbsp;(2-12岁儿童)</span>
+				<a href="" id="a"><img src="img/911144c6b66b62f8ff44e2e099a971b.png" id="img1"></a>
+				
+					
+					<!-- 城市 -->
+					<div id="in_city" style="display: none"></div>
+				
+					<script type="text/javascript" src="js/cityTemplate_1.js"></script>
+					<script type="text/javascript">
+				
+					    var cityA = $(".city_a_le1 a"); //城市
+					    var pla = $("#place");  //出发地
+					    var dest = $("#destination");  //目的地
+					    // 默认值
+					    inCity.width = "345";  //城市选择框  宽
+					    inCity.height = "auto";  //城市选择框  高
+					    inCity.id = "#in_city";  //城市选择框  父级ID
+					    inCity.Children = '.city_a_le1';  //城市名box
+					    // 初始化 城市HTML模板
+					    $(inCity.id).prepend(inCity._template.join(''));
+					    inCity.Hot(cityA);
+					    
+					    //城市 导航
+					    var apay = $(".screen a");
+				
+					    var placeThis; //当前选择标签
+					    apay.click(function(obj){  //城市导航
+					        inCity.payment($(this));
+					    })
+				
+					    inCity.place(pla); //出发地
+					    inCity.destination(dest);  //目的地
+					    inCity.cityClick(cityA); //显示赋值城市
+					</script>
+				<div style="text-align:center;">
+				
+				</div>
+				
+			</div>
+			<div id="" style="height: 390px;">
+				<img src="img/45aef0a2b03a57237e9e5ddfd06a6ff.png" class="img2">
+			</div>
+
+
+			<!-- <div id="d3">
+				<ul>
+					<li style="margin-left: 70px;" class="li" style="background-image: url(img/c11da4c0bcfab3eeac8da1c05d509ac.png);"><img src="img/c11da4c0bcfab3eeac8da1c05d509ac.png" class="img3"><span class="span2">100%航协认证</span></li>
+					<li class="li" ><img src="img/981ad54bf9a23619cb344957fd06835.png"></li>
+					<li class="li"><img src="img/dcbd1f9fe2cf87483782db23f5b15dd.png" class="img3"><span class="span2">出行保证</span></li>
+					<li class="li"><img src="img/981ad54bf9a23619cb344957fd06835.png"></li>
+					<li class="li"><img src="img/7471bff4a1840a555aa7f0c920409c9.png" class="img3"><span class="span2">7X24小时服务</span><span id="span1">110120119</span></li>
+				</ul>
+
+			</div> -->
+			<img src="img/wyx.png"  style="width: 100%;" >
+			<div id="">
+				<img src="img/364bb559c5ca09b5d3e64fb08db96d8.png" >
+			</div>
+			<div id="d4">
+				<div class="d5" style="background-image: url(img/2b656b92faa565604787dc09aab9174.png);">
+					
+					<!-- <img src="img/b47829e805ab9d1a2dc2c7bb96887e2.png" height="140px" width="225px" > -->
+					<div id="" class="d6">
+						<a class="A11">成都-北京&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥566</a>
+					</div>
+				</div>
+				<div class="d5" style="background-image: url(img/0c05e92cd9541061fe584e9ffa7a2f1.png);">
+					<!-- <img src="img/16e98d4756804b4011ed0a556d0b132.png" height="140px" width="225px" > -->
+					<div id="" class="d6">
+						<a class="A11">成都-天津&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥564</a>
+					</div>
+				</div>
+				<div class="d5" style="background-image: url(img/8dc78c96a6990a2c8a837b49ba5ce78.png);">
+					<!-- <img src="img/a999b0951291084cf2dd4a0292048b1.png" height="140px" width="225px" > -->
+					<div id="" class="d6">
+						<a class="A11">成都-太原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥416</a>
+					</div>
+				</div>
+				<div class="d5" style="background-image: url(img/cae71f6399072b309e1c29e56102f16.png);">
+					<!-- <img src="img/6e583cedc57a4b4f13877ba621e0e8b.png" height="140px" width="225px" > -->
+					<div id="" class="d6">
+						<a class="A11">成都-大连&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥478</a>
+					</div>
+				</div>
+				<div id="d7">
+					<ul>
+						<li class="li2"><a class="A2"  id="sh">上海</a></li>
+						<li class="li2"><a class="A2"  id="bj">北京</a></li>
+						<li class="li2"><a class="A2"  id="cd">成都</a></li>
+						<li class="li2"><a class="A2"  id="gz">广州</a></li>
+						<li class="li2"><a class="A2"  id="cq">重庆</a></li>
+						<li class="li2"><a class="A2"  id="xa">西安</a></li>
+						<li class="li2"><a class="A2"  id="km">昆明</a></li>
+						<li class="li2"><a class="A2"  id="hz">杭州</a></li>
+						<li class="li2"><a class="A2"  id="sz">深圳</a></li>
+						<li class="li2"><a class="A2"  id="sy">三亚</a></li>
+						<li class="li2"><a class="A2"  id="xm">厦门</a></li>
+						<li class="li2"><a class="A2"  id="nj">南京</a></li>
+					</ul>
+				</div>
+				<div id="d8">
+					<table style="border: none;" >
+						
+						<tr >
+							<td id="c0">成都-上海</td>
+							<td >特价</td>
+							<td id="p0" class="t1">￥555</td>
+						</tr>
+						<tr>
+							<td id="c1">成都-上海</td>
+							<td>特价</td>
+							<td id="p1" class="t1">￥555</td>
+						</tr>
+						<tr>
+							<td id="c2">成都-上海</td>
+							<td>特价</td>
+							<td id="p2" class="t1">￥555</td>
+						</tr>
+					</table>
+				</div>
+				<div id="d9">
+					<table style="border: none;" >
+						
+						<tr >
+							<td id="c3">成都-上海</td>
+							<td >特价</td>
+							<td id="p3" class="t1">￥555</td>
+						</tr>
+						<tr>
+							<td id="c4">成都-上海</td>
+							<td>特价</td>
+							<td id="p4" class="t1">￥555</td>
+						</tr>
+						<tr>
+							<td id="c5">成都-上海</td>
+							<td>特价</td>
+							<td id="p5" class="t1">￥555</td>
+						</tr>
+					</table>
+				</div>
+				<div id="d10">
+					<table style="border: none;" >
+						
+						<tr >
+							<td id="c6">成都-上海</td>
+							<td >特价</td>
+							<td id="p6" class="t1">￥555</td>
+						</tr>
+						<tr>
+							<td id="c7">成都-上海</td>
+							<td>特价</td>
+							<td id="p7" class="t1">￥555</td>
+						</tr>
+						<tr>
+							<td id="c8">成都-上海</td>
+							<td>特价</td>
+							<td id="p8" class="t1">￥555</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+<!--  -->
+
+		<script src="js/机票.js" type="text/javascript" charset="utf-8"></script>
+		
+	<!-- </body> -->
+	
+</html>
