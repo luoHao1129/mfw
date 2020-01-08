@@ -41,6 +41,15 @@ spring:
     prefix:
     suffix: .ftl
     content-type: text/html
+    enabled: true
+    check-template-location: true
+    template-loader-path: classpath:/templates
+    charset: utf-8
+    cache: false
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/static,classpath:/resources/,classpath:/public/,file:${web.upload-path}
 
 #mybatis
 mybatis:
@@ -49,6 +58,11 @@ mybatis:
 
 logging:
   config: classpath:logback-zg.xml
+
+#设置独立的文件目录
+web.upload-path: e:/webpath/
+
+
 
 ---
 spring:

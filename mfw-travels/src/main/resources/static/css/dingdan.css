@@ -1,0 +1,209 @@
+*{
+	
+	margin: 0px;
+	padding: 0px;
+}
+#d1{
+	
+	height: 2000px;
+	width: 100%;
+	margin: auto;
+	background-color: #ECECEC;
+}
+#d2{
+	width:85%;
+	height: 1500px;
+}
+#d3{
+	height: 350px;
+	width: 550px;
+	background-color: #fff;
+	margin: auto;
+}
+.p1{
+	font-size: 20px;
+	font-family: "楷书";
+}
+.s1{
+	font-size: 22px;
+}
+#input1{
+	margin: 150px 0 0 40px;
+	width: 350px;
+	height: 40px;
+}
+.Certificates{
+	margin: 10px 0 0 52px;
+	width: 80px;
+	height: 40px;
+}
+
+#input2{
+	margin: 0px 0 0 16px;
+	width: 255px;
+	height: 35px;
+}
+
+#d4{
+	margin-top: 10px;
+	margin-left: 51px;
+	height: 40px;
+	width: 150px;
+	background-color: #FF9D00;
+}
+#span1{
+	color: #FFF;
+	margin: 0px 0 0 20px;
+	line-height: 40px;
+}
+#d5{
+	background-color: aquamarine;
+	margin-left: 20px;
+	display: inline-block;
+	height: 20px;
+	width: 70px;
+}
+.a1{
+	text-decoration: none;
+}
+#Insurance{
+	
+	height: 160px;
+	width: 550px;
+	background-color: #fff;
+	margin: auto;
+}
+
+
+
+.bx{
+	
+	display: block;
+	
+}
+
+#Insurance-two{
+	margin-left: 20px;
+	border: 1px #000000 solid;
+	display: inline-block;
+	height: 30px;
+	width: 130px;
+}
+#Insurance-one{
+	margin-left: 20px;
+	border: 1px #000000 solid;
+	display: inline-block;
+	height: 30px;
+	width: 130px;
+}
+.dd1{
+	
+	display: inline-block;
+	height: 30px;
+	width: 500px;
+}
+#Contacts{
+	height: 300px;
+	width: 550px;
+	background-color: #fff;
+	margin: auto;
+}
+#Contacts-1{
+	font-size: 20px;
+	font-family: "楷书";
+}
+.one{
+	font-size: 22px;
+}
+#phone{
+	margin: 0px 0 0 16px;
+	width: 255px;
+	height: 35px;
+}
+#Reimbursement{
+	height: 150px;
+	width: 550px;
+	background-color: #fff;
+	margin: auto;
+}
+#Coupon{
+	height: 150px;
+	width: 550px;
+	background-color: #fff;
+	margin: auto;
+}
+#Submission{
+	margin: auto;
+	height: 50px;
+	width: 550px;
+	background-color: #FFDB26;
+}
+#frame{
+	float: right;
+	height: 350px;
+	width: 350px;
+	background-color: #fff;
+}
+.date{
+	font-size: 20px;
+	font-weight: bold;
+}
+.line{
+	color: #ECECEC;
+}
+.word{
+	font-weight: bold;
+}
+.Airpo{
+	font-size: 12px;
+	color:#555555;
+}
+.ticket{
+	font-size: 12px;
+	color: #555555;
+}
+.Ticket-Price{
+	font-size: 15px;
+	font-weight: bold;
+}
+.ride{
+	font-size: 12px;
+	color: #555555;
+}
+.Set-meal{
+	font-size: 12px;
+	color: #FFA800;
+}
+.Total-price{
+	font-size: 20px;
+	font-weight: bold;
+	color: #555555;
+}
+.mony{
+	color: red;
+}
+.wyx{
+	font-size: 30px;
+	color: red;
+	font-weight: bold;
+}
+.ckb_div{
+    height: 70px;
+	
+    line-height: 100px;
+   }
+   
+   .ckb{
+    height:20px;
+    width: 20px;
+   }
+   
+   .ckb_price{
+    display: inline-block;
+    border: 1px #BEBEBE solid;
+    height: 30px;
+    width: 170px;
+    text-align: center;
+    line-height: 30px;
+    margin: 0px 15px;
+   }
