@@ -36,12 +36,12 @@
 
     <select id="selectHotelByCity" resultMap="resultMap" parameterType="String">
         select * from hotel,room_details where hotel.hotelId=room_details.hotelId
-        and hotelCity=#{#city}
+        and hotelCity=#{city}
     </select>
 
     <select id="selectHotelByName" resultMap="resultMap" parameterType="String">
         select * from hotel,room_details where hotel.hotelId=room_details.hotelId
-        and hotel.hotelName like concat('%',#{hotelName},'%')
+        and hotel.hotelName like concat('%',#{name},'%')
     </select>
 
 

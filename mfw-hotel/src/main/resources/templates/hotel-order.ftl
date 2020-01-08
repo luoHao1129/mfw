@@ -113,7 +113,14 @@
 
     <div class="title2">
         <div class="room-info" >
-            房间 - 标准间
+            房间 -
+            <#if price.type =="1" >
+                标准间
+                <#elseif price.type =="2">
+                大床房
+                <#else >
+                家庭套房
+            </#if>
             <br /><br />
             <span style="font-weight: initial;font-size: 12px;" >入住信息: ${hotelNum.peopleNum }成人  ${price.numOfBeds }张床位(宽1.8-2.0m)</span>
             <br /><br />联系人信息(必填)<br /><br />
@@ -137,16 +144,6 @@
         <input class="title3" type="submit" style="cursor: pointer;color: #fff;font-size:20px;font-weight: bold;" value="提交订单（¥ ）"/>
 
 
-        <!-- 	<a style="cursor: pointer;" >
-                <div class="title3">
-                    <div class="put-in">
-                    提交订单（¥
-                    <span class="roomRate" ></span>
-                    ）
-                    </div>
-                </div>
-            </a>
-        -->
     </form>
 </div>
 

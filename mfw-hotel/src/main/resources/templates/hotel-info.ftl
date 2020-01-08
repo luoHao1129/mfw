@@ -2,13 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>${hdto.hotelName }预订，${hdto.hotelName }价格_地址_图片_点评，成都wo shi zhe ge jiu dian de ping yin预订</title>
+    <title>${hdto.hotelName }预订，${hdto.hotelName }价格_地址_图片_点评，wo shi zhe ge jiu dian de ping yin预订</title>
     <link rel="shortcut icon" href="../img/MFW头像.jfif" />
     <link rel="stylesheet" href="../css/icon-info.css"/>
     <link rel="stylesheet" href="../css/hotel-main.css" />
     <link rel="stylesheet" href="../css/info-hd.css" />
     <link rel="stylesheet" href="../css/room-list.css" />
 
+    <!-- 地图大小 -->
+    <style type="text/css">
+        #container {width: 1000px;height: 500px}
+    </style>
 
 
 
@@ -18,7 +22,7 @@
 <body>
 <div class="hotel-main">
     <div class="top-info" >
-        <p style="font-size: 15px;" >您在这里：酒店  >  中国酒店  >  成都酒店预订  ></p>&nbsp;
+        <p style="font-size: 15px;" >您在这里：酒店  >  中国酒店  >  ${hotelNum.city }酒店预订  ></p>&nbsp;
         <p class="chotel" style="font-size: 15px;color: #FF9D00;"> ${hdto.hotelName }预订</p>
     </div>
     <br />
@@ -136,7 +140,27 @@
 
     </div>
     <br /><br /><br /><br />
-    <img style="width: 1000px;" src="../img/hotel-map.png" />
+<#-- http://webapi.amap.com/maps?v=1.4.7&key=c571c7b3f5bd01e4a10f05f03801bcf6   -->
+
+    <div id="container">这是一个地图
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.7&key=c571c7b3f5bd01e4a10f05f03801bcf6"></script>
+    <script type="text/javascript">
+        var map = new AMap.Map('container', {
+            zoom:16,//级别
+            center: [104.045311,30.651936],//中心点坐标
+            viewMode:'3D'//使用3D视
+        });
+        var marker = new AMap.Marker({
+            position: [104.045311, 30.651936]
+        })
+        map.add(marker);
+
+    </script>
+    </div>
+<#--    <img style="width: 1000px;" src="../img/hotel-map.png" />-->
+
+
+
     <br /><br /><br /><br /><br /><br />
 
 
@@ -176,6 +200,7 @@
             </dd>
         </dl>
     </div>
+
     <div class="hotel-infomation hotelss">
         <div class="info-section hotel-s">
             <dt>主要设施</dt>

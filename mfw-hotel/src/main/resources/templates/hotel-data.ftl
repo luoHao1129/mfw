@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>【成都酒店预订】成都酒店价格查询，成都酒店推荐 - 马蜂窝</title>
+    <title>【${hotelNum.city }酒店预订】${hotelNum.city }酒店价格查询，${hotelNum.city }酒店推荐 - 马蜂窝</title>
     <link rel="shortcut icon" href="../img/MFW头像.jfif" />
     <link rel="stylesheet" href="../css/hotel-main.css" />
     <link rel="stylesheet" href="../css/chotel.css" />
@@ -28,7 +28,7 @@
 
 <div class="hotel-main">
     <div class="top-info" >
-        <p style="font-size: 20px;" >您在这里：酒店  >  中国酒店  ></p>&nbsp;<p class="chotel" style="font-size: 20px;color: #FF9D00;"> 成都酒店预订</p>
+        <p style="font-size: 20px;" >您在这里：酒店  >  中国酒店  ></p>&nbsp;<p class="chotel" style="font-size: 20px;color: #FF9D00;"> ${hotelNum.city }酒店预订</p>
     </div>
     <div class="select-city1">
         <input type="text" placeholder="出行目的地" id="destination" name="destCity" value="${hotelNum.city }">
@@ -250,7 +250,7 @@
     </div>
 
 
-    <!-- forEach循环遍历酒店信息 -->
+    <!-- 循环遍历酒店信息 -->
 
     <#list hdtols as each>
         <a href="/hotelId/${each.hotelId }">
