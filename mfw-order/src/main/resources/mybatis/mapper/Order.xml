@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--配置与DepartmentDAO的映射-->
+<mapper namespace="com.mfw.order.dao.OrderDAO">
+
+    <!--    配置travels映射-->
+    <resultMap id="resultMap" type="OrderDTO">
+        <id column="id" property="id" javaType="String"/>
+        <result property="orderId" column="orderId" javaType="String"/>
+        <result property="userId" column="userId" javaType="String"/>
+        <result property="amount" column="amount" javaType="decimal"/>
+        <result property="status" column="status" javaType="int"/>
+        <result property="orderTime" column="orderTime" javaType="datetime"/>
+        <result property="people" column="people" javaType="int"/>
+        <result property="details" column="details" javaType="String"/>
+        <result property="typeId" column="typeId" javaType="int"/>
+    </resultMap>
+
+    <!--    配置响应的dao方法-->
+    <insert id="addOrder" parameterType="OrderDTO">
+        insert into order(orderId,userId,amount,status,orderTime,people,details,typeId)
+        values (replace(uuid(),replace(uuid(),#{amount},#{status},#{orderTime},#{people},#{details},#{typeId})
+    </insert>
+
+    <select id="selectOrderById" resultMap="resultMap" parameterType="OrderDTO">
+        select * from order where orderId=#{orderId};
+    </select>
+
+</mapper>
