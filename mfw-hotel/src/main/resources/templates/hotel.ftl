@@ -5,57 +5,32 @@
     <title>马蜂窝酒店预订,网上预订酒店,国内外酒店价格查询预订平台</title>
     <link rel="shortcut icon" href="img/MFW头像.jfif" />
 
-    <link rel="stylesheet" href="css/hotel-main.css" />
-    <link rel="stylesheet" href="css/h-title.css" />
-    <link rel="stylesheet" href="css/add-travle.css" />
-    <link rel="stylesheet" href="css/head.css"/>
+    <link rel="stylesheet" href="../css/hotel-main.css" />
+    <link rel="stylesheet" href="../css/h-title.css" />
+    <link rel="stylesheet" href="../css/add-travle.css" />
+    <link rel="stylesheet" href="../css/head.css"/>
 
-    <link rel="stylesheet" href="css/clearfix.css" />
-    <script src="js/cityTemplate.js"></script>
-    <script src="${pageContext.request.contextPath }/js/jquery-1.9.1.min.js"></script>
-    <script src="js/cut.js"></script>
+    <link rel="stylesheet" href="../css/clearfix.css" />
+    <script src="../js/cityTemplate.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/cut.js"></script>
 
-    <script type="text/javascript">
-        $(function(){
-            $("#search").on("click",function(){
-                //取出表单元素
-                var city=$("#destination").val();
-                var intoTime=$("#intoTime").val();
-                var leaveTime=$("#leaveTime").val();
-                var	peopleNum=$("#peopleNum").val();
-                var url="${pageContext.request.contextPath }/hotelServlet"
-                var params = {city:city,intoTime:intoTime,leaveTime:leaveTime,peopleNum:peopleNum};
-                $.ajax({
-                    //请求方式
-                    async:true,
-                    //提交方式
-                    type:"POST",
-                    //服务器返回的数据格式
-                    dataType:"json",
-                    //请求的URL
-                    url:url,
-                    //请求参数
-                    data:params,
-                    //回调函数,取得数据并显示
-                    success:function(data){
-                        if(null == data.error){
-                            if(data.loginResult == 'Y'){
-
-                                location.href = "${pageContext.request.contextPath }/main.jsp?f=hotel-data";
-
-                            }
-                        }
-                    },
-                    //请求失败时被调用的函数,如请求的url不正确等
-                    error:function(){
-                        alert("莫乱点,按成都!");
-                    }
-
-                });
-            });
-        });
-    </script>
-
+    <link rel="stylesheet" type="text/css" href="../css/global.css"/>
+    <link rel="stylesheet" href="../css/smoothness/jquery.ui.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../css/css.css"/>
+    <style type="text/css">
+        .sea-div{
+            display: inline-block;
+        }
+        .search-lab{
+            font-family:arial,"microsoft yahei";
+            color: #666;
+            font-size: 19px;
+        }
+        #num-div{
+            top: -10px;
+        }
+    </style>
 
 
 </head>
@@ -65,81 +40,76 @@
 
 
 
-
-
-
-
-
-
-
 <!-- 酒店预订 -->
 <div class="hotel-main">
     <div class="h-title">订酒店</div>
-    <div class="clearfix date-warp">
-        <div class="add-travle">
-            <input type="text" placeholder="出行目的地" id="destination" name="destCity">
-            <!-- 城市 -->
-            <div id="in_city" style="display: none"></div>
+    <form method="post" action="/selectHotelCity">
+        <div class="clearfix date-warp">
+            <div class="add-travle">
+                <input type="text" placeholder="出行目的地" id="destination" name="city">
+                <!-- 城市 -->
+                <div id="in_city" style="display: none"></div>
 
-            <script type="text/javascript" src="js/cityTemplate.js"></script>
-            <script type="text/javascript">
-                var cityA = $(".city_a_le1 a"); //城市
-                var pla = $("#place"); //出发地
-                var dest = $("#destination"); //目的地
-                // 默认值
-                inCity.width = "345"; //城市选择框  宽
-                inCity.height = "auto"; //城市选择框  高
-                inCity.id = "#in_city"; //城市选择框  父级ID
-                inCity.Children = '.city_a_le1'; //城市名box
-                // 初始化 城市HTML模板
-                $(inCity.id).prepend(inCity._template.join(''));
-                inCity.Hot(cityA);
+                <script type="text/javascript" src="../js/cityTemplate.js"></script>
+                <script type="text/javascript">
+                    var cityA = $(".city_a_le1 a"); //城市
+                    var dest = $("#destination"); //目的地
+                    // 默认值
+                    inCity.width = "345"; //城市选择框  宽
+                    inCity.height = "auto"; //城市选择框  高
+                    inCity.id = "#in_city"; //城市选择框  父级ID
+                    inCity.Children = '.city_a_le1'; //城市名box
+                    // 初始化 城市HTML模板
+                    $(inCity.id).prepend(inCity._template.join(''));
+                    inCity.Hot(cityA);
 
-                //城市 导航
-                var apay = $(".screen a");
+                    //城市 导航
+                    var apay = $(".screen a");
 
-                var placeThis; //当前选择标签
-                apay.click(function(obj) { //城市导航
-                    inCity.payment($(this));
-                })
+                    var placeThis; //当前选择标签
+                    apay.click(function(obj) { //城市导航
+                        inCity.payment($(this));
+                    })
 
-                // inCity.place(pla); //出发地
-                inCity.destination(dest); //目的地
-                inCity.cityClick(cityA); //显示赋值城市
-            </script>
-            <div style="text-align:center;">
 
+                    inCity.destination(dest); //目的地
+                    inCity.cityClick(cityA); //显示赋值城市
+                </script>
+                <div style="text-align:center;">
+
+                </div>
+            </div>
+            <div class="stay-list clearFloat">
+                <div class="stay-list-left">
+                    <span class="search-sign"></span>
+                    <div class="sea-div">
+                        <label class="search-lab">入住日期</label><input type="text" readonly name="intoTime" id="startDate"/>
+                    </div>
+                    <div class="sea-div">
+                        <label class="search-lab">退房日期</label><input type="text" readonly name="leaveTime" id="endDate"/>
+                    </div>
+                    <div class="sea-div" id="num-div">
+                        <select style="width:70px;height:32px;border-radius:4px;" name="peopleNum" id="peopleNum" >
+                            <option value="人数">人数</option>
+                            <option value="1">1人</option>
+                            <option value="2">2人</option>
+                            <option value="3">3人</option>
+                            <option value="4">4人</option>
+                            <option value="5">5人</option>
+                            <option value="6">6人</option>
+                            <option value="7">7人</option>
+                            <option value="8">8人</option>
+                        </select>
+
+                        <img id="search" width="36" height="36" style="width:36px;height:36px;" src="img/放大镜.png">
+                        <input type="submit" style="position: absolute;height: 30px;left: 73px;top: 5px;opacity: 0" value="提交">
+                    </div>
+                </div>
             </div>
 
-
         </div>
-        <div class="datatime">
-            <span>&nbsp;入住日期</span>
-            <input type="date" class="hasDatepicker" id="intoTime" >
+    </form>
 
-        </div>
-        <div class="datatime">
-            <span>&nbsp;离店日期</span>
-            <input type="date" class="hasDatepicker" id="leaveTime" >
-
-        </div>&nbsp;
-
-        <select style="width:70px;height:32px;border-radius:4px;" name="peopleNum" id="peopleNum" >
-            <option value="人数">人数</option>
-            <option value="1">1人</option>
-            <option value="2">2人</option>
-            <option value="3">3人</option>
-            <option value="4">4人</option>
-            <option value="5">5人</option>
-            <option value="6">6人</option>
-            <option value="7">7人</option>
-            <option value="8">8人</option>
-        </select>
-
-
-
-        <img id="search" width="36" height="36" style="width:36px;height:36px;" src="img/放大镜.png">
-    </div>
     <div class="h-notice clearfix">
         <ul>
             <li>
@@ -1217,7 +1187,11 @@
     </div>
 </div>
 
-
-<script src="js/切换.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.ui.js"></script>
+<script type="text/javascript" src="../js/moment.min.js"></script>
+<script type="text/javascript" src="../js/hotel/hotel.search.js"></script>
+<script type="text/javascript" src="../js/stay.js"></script>
+<script src="../js/切换.js"></script>
 <!-- </body> -->
 </html>

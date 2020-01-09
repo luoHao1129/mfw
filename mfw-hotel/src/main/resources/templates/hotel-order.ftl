@@ -46,7 +46,6 @@
             $(".title3").val("提交订单（¥"+rate+"）");
             $("#amount").val(rate);
         }
-
     </script>
 </head>
 

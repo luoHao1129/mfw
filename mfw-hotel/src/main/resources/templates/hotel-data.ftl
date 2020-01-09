@@ -21,7 +21,7 @@
 
 
 </head>
-<!--  	<body> -->
+<#--<body>-->
 
 
 
@@ -30,8 +30,9 @@
     <div class="top-info" >
         <p style="font-size: 20px;" >您在这里：酒店  >  中国酒店  ></p>&nbsp;<p class="chotel" style="font-size: 20px;color: #FF9D00;"> ${hotelNum.city }酒店预订</p>
     </div>
+    <form method="post" action="/selectHotelCity">
     <div class="select-city1">
-        <input type="text" placeholder="出行目的地" id="destination" name="destCity" value="${hotelNum.city }">
+        <input type="text" placeholder="出行目的地" id="destination" name="city" value="${hotelNum.city }">
         <!-- 城市 -->
         <div id="in_city" style="display: none"></div>
 
@@ -70,17 +71,17 @@
 
     <div class="datatime">
         <span>&nbsp;入住日期</span>
-        <input type="date" id="intoTime" value="${hotelNum.intoTime }" >
+        <input type="date" id="intoTime" name="intoTime" value="${hotelNum.intoTime }" >
 
     </div>
     <div class="datatime">
         <span>&nbsp;离店日期</span>
-        <input type="date" id="leaveTime" value="${hotelNum.leaveTime }">
+        <input type="date" id="leaveTime" name="leaveTime" value="${hotelNum.leaveTime }">
 
     </div>&nbsp;
 
     <select style="width:70px;height:32px;border-radius:4px;" name="peopleNum" id="peopleNum" >
-        <option value="人数">${hotelNum.peopleNum }</option>
+        <option value="${hotelNum.peopleNum }">${hotelNum.peopleNum }</option>
         <option value="1">1人</option>
         <option value="2">2人</option>
         <option value="3">3人</option>
@@ -91,7 +92,9 @@
         <option value="8">8人</option>
     </select>
 
-    <a><img width="100" height="36" src="../img/查看价格.png"></a>
+    <img width="100" height="36" src="../img/查看价格.png">
+    <input type="submit" style="cursor: pointer;position: absolute;height: 30px;left: 735px;top: 110px;width: 100px;opacity: 0" value="提交">
+    </form>
     <br>
     .
 
@@ -150,12 +153,15 @@
     <!-- 搜索条件排 -->
     <div class="kind">
         <div id="kind1" >
-            <form action="" method="post">
-                <input style="width:70px;height:25px;border-radius:4px;" id="k1" type="number" name="min" placeholder="最低价格"/>
-                --<input style="width:70px;height:25px;border-radius:4px;" id="k2" type="number" name="max" placeholder="最高价格" />
-                <input style="width:70px;height:25px;border-radius:4px;" type="submit" value="提交"/>
-            </form>
+
+            <input style="width:70px;height:25px;border-radius:4px;" id="min" type="number" name="min" placeholder="最低价格"/>
+            --<input style="width:70px;height:25px;border-radius:4px;" id="max" type="number" name="max" placeholder="最高价格" />
+            <input style="width:70px;height:25px;border-radius:4px;cursor:pointer" id="getPrice" type="button" value="搜索"/>
+
         </div>
+
+
+
         <div id="kind2" >
             <p>住宿等级</p>
             <br />
@@ -230,12 +236,18 @@
                     收藏
                 </a>
             </div>
+
+            <!-- 酒店名字查询 -->
             <div class="train">
-                <input type="text" placeholder="搜索关键词">
+                <input id="theWord" type="text" placeholder="搜索关键词">
                 <a style="cursor:pointer">
                 <img src="../img/sui.png" id="search-word"/>
                 </a>
             </div>
+
+
+
+
             <div class="hotel-sort">
                 <a id="search1">综合排序</a>
                 <a id="search2">销量</a>
@@ -251,7 +263,7 @@
 
 
     <!-- 循环遍历酒店信息 -->
-
+    <div id="suibian">
     <#list hdtols as each>
         <a href="/hotelId/${each.hotelId }">
             <div class="hotel-info">
@@ -301,15 +313,16 @@
             </div>
         </a>
     </#list>
-
+    </div>
 
 
     <div class="youji_bot">
         <ul>
-            <li>共2页/10条</li>
+            <li>共${page}页/${pagelength}条</li>
             <li class="upd">&lt;&lt;上一页</li>
-            <li class="num"><a href="#">1</a></li>
-            <li class="num"><a href="#">2</a></li>
+            <#list pages as p>
+                <li class="num"><a class="pageNo">${p}</a></li>
+            </#list>
             <li class="upd">下一页&gt;&gt;</li>
         </ul>
     </div>
@@ -322,11 +335,330 @@
 
 
 
+    <script type="text/javascript">
+        $(function () {
+            // 分页显示
+            $('.num').click(function(){
+
+                var pageNo = $(this).find($('.pageNo')).text();
+                var city = $('#destination').val();
+                var url = "/selectLimit"
+                var params = {city:city,pageNo:pageNo};
+
+                $.ajax({
+                    async:true,
+                    type:"POST",
+                    dataType:"json",
+                    url:url,
+                    data:params,
+                    success:function (json) {
+                        var html= ""
+                        for(var index in json){
+                            html=html+"   <a href=\"/hotelId/"+json[index].hotelId+" \">\n" +
+                                "            <div class=\"hotel-info\">\n" +
+                                "                <input type=\"hidden\" id=\"hotel_id\" value=\""+json[index].hotelId+"\" >\n" +
+                                "                <img src=\""+json[index].hotelPic +" \"/>\n" +
+                                "                <div class=\"hote-detail\">\n" +
+                                "                    <h2>\n" +
+                                "                        <a href=\"/hotelId/"+json[index].hotelId +"\" style=\"cursor: pointer;\" >"+json[index].hotelName +" </a>\n" +
+                                "                    </h2>\n" +
+                                "                    <br/>\n" +
+                                "                    <span>wu tong li international youth hostel</span>\n" +
+                                "                    <br />\n" +
+                                "                    <img id=\"pf\" src=\"../img/评分.png\" />\n" +
+                                "                    <br />\n" +
+                                "                    <span>\n" +
+                                "                            "+json[index].hotelDetails+"\n" +
+                                "                            </span>\n" +
+                                "                    <br/><br/><br/>\n" +
+                                "                    <img id=\"dw\" src=\"../img/小定位.png\" />\n" +
+                                "                    <span>\n" +
+                                "                                位于:\n" +
+                                "                                <a>"+json[index].hotelAddress +"</a>\n" +
+                                "                            </span>\n" +
+                                "                </div>\n" +
+                                "                <div class=\"hotel-rate\">\n" +
+                                "                    <ul>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"mfwyx\" src=\"../img/mfwyx.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"mfrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥"+json[index].roomInfo[0].roomPrice +"</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"booking\" src=\"../img/bookingrate.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"bookrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥259</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou1\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                    </ul>\n" +
+                                "                </div>\n" +
+                                "            </div>\n" +
+                                "        </a>\n"
+
+                        }
+
+                        $('#suibian').html(html);
+                    },
+                    //请求失败时被调用的函数,如请求的url不正确等
+                    error:function() {
+                        alert("一定是你的打开方式不对!");
+                    }
+                });
+            });
+
+
+            //搜索酒店关键字
+            $('#search-word').click(function () {
+                $('.youji_bot').css("display","none");
+                var desCity = $('#destination').val();
+                var word = $('#theWord').val();
+                var url ="/selectWord"
+                var params = {city:desCity,name:word};
+
+                $.ajax({
+                    async:true,
+                    type:"POST",
+                    dataType:"json",
+                    url:url,
+                    data:params,
+                    success:function (json) {
+                        var html= ""
+                        for(var index in json){
+                            html=html+"   <a href=\"/hotelId/"+json[index].hotelId+" \">\n" +
+                                "            <div class=\"hotel-info\">\n" +
+                                "                <input type=\"hidden\" id=\"hotel_id\" value=\""+json[index].hotelId+"\" >\n" +
+                                "                <img src=\""+json[index].hotelPic +" \"/>\n" +
+                                "                <div class=\"hote-detail\">\n" +
+                                "                    <h2>\n" +
+                                "                        <a href=\"/hotelId/"+json[index].hotelId +"\" style=\"cursor: pointer;\" >"+json[index].hotelName +" </a>\n" +
+                                "                    </h2>\n" +
+                                "                    <br/>\n" +
+                                "                    <span>wu tong li international youth hostel</span>\n" +
+                                "                    <br />\n" +
+                                "                    <img id=\"pf\" src=\"../img/评分.png\" />\n" +
+                                "                    <br />\n" +
+                                "                    <span>\n" +
+                                "                            "+json[index].hotelDetails+"\n" +
+                                "                            </span>\n" +
+                                "                    <br/><br/><br/>\n" +
+                                "                    <img id=\"dw\" src=\"../img/小定位.png\" />\n" +
+                                "                    <span>\n" +
+                                "                                位于:\n" +
+                                "                                <a>"+json[index].hotelAddress +"</a>\n" +
+                                "                            </span>\n" +
+                                "                </div>\n" +
+                                "                <div class=\"hotel-rate\">\n" +
+                                "                    <ul>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"mfwyx\" src=\"../img/mfwyx.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"mfrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥"+json[index].roomInfo[0].roomPrice +"</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"booking\" src=\"../img/bookingrate.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"bookrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥259</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou1\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                    </ul>\n" +
+                                "                </div>\n" +
+                                "            </div>\n" +
+                                "        </a>\n"
+                        }
+                        $('#suibian').html(html);
+                    },
+                    //请求失败时被调用的函数,如请求的url不正确等
+                    error:function() {
+                        alert("一定是你的打开方式不对!");
+                    }
+                });
+            });
+
+
+            //搜索酒店品牌
+            $('#brand').change(function () {
+                $('.youji_bot').css("display","none");
+                var desCity = $('#destination').val();
+                var brand = $('#brand').val();
+                var url ="/selectBrand"
+                var params = {city:desCity,brand:brand};
+
+                $.ajax({
+                    async:true,
+                    type:"POST",
+                    dataType:"json",
+                    url:url,
+                    data:params,
+                    success:function (json) {
+                        var html= ""
+                        for(var index in json){
+                            html=html+"   <a href=\"/hotelId/"+json[index].hotelId+" \">\n" +
+                                "            <div class=\"hotel-info\">\n" +
+                                "                <input type=\"hidden\" id=\"hotel_id\" value=\""+json[index].hotelId+"\" >\n" +
+                                "                <img src=\""+json[index].hotelPic +" \"/>\n" +
+                                "                <div class=\"hote-detail\">\n" +
+                                "                    <h2>\n" +
+                                "                        <a href=\"/hotelId/"+json[index].hotelId +"\" style=\"cursor: pointer;\" >"+json[index].hotelName +" </a>\n" +
+                                "                    </h2>\n" +
+                                "                    <br/>\n" +
+                                "                    <span>wu tong li international youth hostel</span>\n" +
+                                "                    <br />\n" +
+                                "                    <img id=\"pf\" src=\"../img/评分.png\" />\n" +
+                                "                    <br />\n" +
+                                "                    <span>\n" +
+                                "                            "+json[index].hotelDetails+"\n" +
+                                "                            </span>\n" +
+                                "                    <br/><br/><br/>\n" +
+                                "                    <img id=\"dw\" src=\"../img/小定位.png\" />\n" +
+                                "                    <span>\n" +
+                                "                                位于:\n" +
+                                "                                <a>"+json[index].hotelAddress +"</a>\n" +
+                                "                            </span>\n" +
+                                "                </div>\n" +
+                                "                <div class=\"hotel-rate\">\n" +
+                                "                    <ul>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"mfwyx\" src=\"../img/mfwyx.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"mfrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥"+json[index].roomInfo[0].roomPrice +"</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"booking\" src=\"../img/bookingrate.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"bookrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥259</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou1\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                    </ul>\n" +
+                                "                </div>\n" +
+                                "            </div>\n" +
+                                "        </a>\n"
+                        }
+                        $('#suibian').html(html);
+                    },
+                    //请求失败时被调用的函数,如请求的url不正确等
+                    error:function() {
+                        alert("一定是你的打开方式不对!");
+                    }
+                });
+            });
+
+
+
+
+            //搜索酒店价格区间
+            $('#getPrice').click(function () {
+                $('.youji_bot').css("display","none");
+                var desCity = $('#destination').val();
+                var min = $('#min').val();
+                if(min == "" || min < 0){
+                    min=0;
+                }
+                var max = $('#max').val();
+                if(max == "" || max < 0){
+                    max=99999;
+                }
+                var url ="/selectPrice"
+                var params = {city:desCity,min:min,max:max};
+
+                $.ajax({
+                    async:true,
+                    type:"POST",
+                    dataType:"json",
+                    url:url,
+                    data:params,
+                    success:function (json) {
+                        var html= ""
+                        for(var index in json){
+                            html=html+"   <a href=\"/hotelId/"+json[index].hotelId+" \">\n" +
+                                "            <div class=\"hotel-info\">\n" +
+                                "                <input type=\"hidden\" id=\"hotel_id\" value=\""+json[index].hotelId+"\" >\n" +
+                                "                <img src=\""+json[index].hotelPic +" \"/>\n" +
+                                "                <div class=\"hote-detail\">\n" +
+                                "                    <h2>\n" +
+                                "                        <a href=\"/hotelId/"+json[index].hotelId +"\" style=\"cursor: pointer;\" >"+json[index].hotelName +" </a>\n" +
+                                "                    </h2>\n" +
+                                "                    <br/>\n" +
+                                "                    <span>wu tong li international youth hostel</span>\n" +
+                                "                    <br />\n" +
+                                "                    <img id=\"pf\" src=\"../img/评分.png\" />\n" +
+                                "                    <br />\n" +
+                                "                    <span>\n" +
+                                "                            "+json[index].hotelDetails+"\n" +
+                                "                            </span>\n" +
+                                "                    <br/><br/><br/>\n" +
+                                "                    <img id=\"dw\" src=\"../img/小定位.png\" />\n" +
+                                "                    <span>\n" +
+                                "                                位于:\n" +
+                                "                                <a>"+json[index].hotelAddress +"</a>\n" +
+                                "                            </span>\n" +
+                                "                </div>\n" +
+                                "                <div class=\"hotel-rate\">\n" +
+                                "                    <ul>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"mfwyx\" src=\"../img/mfwyx.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"mfrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥"+json[index].roomInfo[0].roomPrice +"</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                        <li>\n" +
+                                "                            <img id=\"booking\" src=\"../img/bookingrate.png\" />\n" +
+                                "                            <br />\n" +
+                                "                            <span id=\"bookrate\">\n" +
+                                "                                        <strong style=\"font-size: 13px;color:#FF8A00;\">￥259</strong>\n" +
+                                "                                        <strong style=\"font-size: 5px;color: #666;padding-left: 2px;vertical-align: 1px;\">起</strong>\n" +
+                                "                                        <img id=\"jiantou1\" src=\"../img/右箭头.png\" />\n" +
+                                "                                    </span>\n" +
+                                "                        </li>\n" +
+                                "                    </ul>\n" +
+                                "                </div>\n" +
+                                "            </div>\n" +
+                                "        </a>\n"
+                        }
+                        $('#suibian').html(html);
+                    },
+                    //请求失败时被调用的函数,如请求的url不正确等
+                    error:function() {
+                        alert("一定是你的打开方式不对!");
+                    }
+                });
+            });
+
+
+
+
+        });
+    </script>
+
+
 
 </div>
 
 
 
+<#--</body>-->
 
-<!--  	</body> -->
 </html>

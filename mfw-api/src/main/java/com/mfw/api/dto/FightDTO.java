@@ -16,7 +16,7 @@ import java.util.List;
 public class FightDTO implements Serializable {
 	private int price;
 	private String img;
-	private List<AirTicketsDTO> AirTicketsDTOls;
+	private List<AirTicketsDTO> airTicketsDTOls;
 	private String company;
 	private String departure;
 	private String arrival;

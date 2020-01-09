@@ -7,5 +7,5 @@ public class HotelNum {
     private String city;
     private String intoTime;
     private String leaveTime;
-    private int peopleNum;
+    private String peopleNum;
 }
