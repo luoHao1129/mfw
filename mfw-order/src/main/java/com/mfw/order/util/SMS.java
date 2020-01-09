@@ -1,4 +1,4 @@
-package com.mfw.api.util;
+package com.mfw.order.util;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -10,7 +10,7 @@ import com.aliyuncs.profile.IClientProfile;
 
 import java.util.Map;
 
-public class Sms {
+public class SMS {
 
     private static final String product = "Dysmsapi";
     //产品域名,开发者无需替换
@@ -22,10 +22,6 @@ public class Sms {
      */
     public static final String TEMPLATE_CODE_REGISTER = "SMS_181550467";
     /**
-     * 验证码-修改密码模板
-     */
-    public static final String TEMPLATE_CODE_PASSWORD = "SMS_181550469";
-    /**
      * 酒店
      */
     public static final String TEMPLATE_CODE_HOTEL = "SMS_181857021";
@@ -33,6 +29,10 @@ public class Sms {
      * 机票
      */
     public static final String TEMPLATE_CODE_FIGHT = "SMS_181857037";
+    /**
+     * 验证码-修改密码模板
+     */
+    public static final String TEMPLATE_CODE_PASSWORD = "SMS_181550469";
 
     // 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
     private static final String accessKeyId = "LTAI4FxYSGdyYFsDaMN55VJL";
