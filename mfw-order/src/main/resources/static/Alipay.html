@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>支付页面</title>
+</head>
+<body>
+
+<dd>
+    <span th:text="'订单提交成功，请尽快付款！订单号：'+${orderId}"> </span>
+    <span th:text="'应付金额'+${totalAmount}+'元'"> </span>
+</dd>
+
+
+<form    method="post" id="paymentForm">
+
+    <input type="hidden" name="orderId" th:value="${orderId}" >
+</form>
+
+
+<!--js-->
+<script type="text/javascript">
+    $(function() {
+        $("#paymentButton").click(function () {
+            $("#paymentForm").attr("action","/"+$("input[type='radio']:checked").val()+"/submit")  ;
+            $("#paymentForm").submit();
+            console.log($("#paymentForm").html()) ;
+            console.log($("#paymentForm").attr("action")) ;
+        })
+
+
+    })
+
+    </body>
+</html>

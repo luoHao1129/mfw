@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--配置与DepartmentDAO的映射-->
+<mapper namespace="com.mfw.travels.dao.ContentDao">
+
+
+<!--    配置department映射-->
+    <resultMap id="resultMap" type="Travels">
+        <id property="id" column="cId" javaType="String"/>
+        <result property="text" column="text" javaType="String"/>
+        <result property="pic" column="pic" javaType="String"/>
+        <result property="travelsId" column="travelsId" javaType="String"/>
+        <result property="sequence" column="sequence" javaType="Integer"/>
+        
+        
+        
+    </resultMap>
+
+<!--    配置响应的dao方法-->
+
+    <insert id="addContent" parameterType="Content" useGeneratedKeys="true">
+        INSERT INTO content (cId,`text`,pic,sequence,travelsId) VALUES(#{id},#{text},#{pic},#{sequence},#{travelsId})
+    </insert>
+
+    <delete id="deleteContent" parameterType="String">
+        delete from content where cId=#{id}
+    </delete>
+
+    <update id="updateContent" parameterType="Content">
+        update  content set `text`=#{text},pic=#{pic},sequence=#{sequence},travelsId=#{travelsId} where cId=#{id}
+    </update>
+
+    <select id="sselectContentById" parameterType="String" resultMap="resultMap">
+        select * from content where cId=#{id}
+    </select>
+
+    <select id="selectContentByTravelsId" resultMap="resultMap">
+        select * from content where travelsId=#{travelsId}
+    </select>
+
+</mapper>

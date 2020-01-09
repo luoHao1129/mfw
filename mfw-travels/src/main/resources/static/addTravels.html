@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .title_div{
+            height: 506px;
+        }
+        .title_bj{
+            position: absolute;
+            opacity: 0.5;
+            width: 100%;
+            height: 506px;
+            z-index: -1;
+        }
+
+        .up_pic{
+            display: block;
+            margin: auto;
+            position: relative;
+            top: 205px;
+            z-index: 2;
+            background-color: #000000;
+            left: -160px;
+            height: 60px;
+            width: 60px;
+            opacity: 0;
+        }
+
+        .up_img{
+            height: 60px;
+            width: 60px;
+            display: block;
+            margin: auto;
+            position: relative;
+            top: 150px;
+            left: -160px;
+            z-index: 1;
+        }
+
+        .up_text{
+            /* display: block; */
+            margin: auto;
+            position: relative;
+            top: 90px;
+            left: 650px;
+
+        }
+
+        .up_text span{
+            font-size: 20px;
+        }
+
+        .up_text p{
+            margin-top: 5px;
+        }
+
+        .title_text{
+            display: block;
+            margin: auto;
+            position: relative;
+            top: 260px;
+            height: 30px;
+            width: 900px;
+            font-size: 20px;
+            padding: 10px;
+        }
+
+
+        .edit_text{
+            width: 60%;
+            margin: auto;
+        }
+        .textarea{
+            border: none;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 100px;
+        }
+        .text{
+            width: 70%;
+        }
+        .img_youji{
+            width: 100%;
+        }
+        .edit_util{
+            position:fixed;
+            top: 596px;
+            left: 970px;
+        }
+
+        .edit_util ul{
+            float: right;
+            list-style: none;
+            font-size: 22px;
+            margin-top: 5px;
+        }
+
+        .edit_util ul li{
+            display:block;
+            margin-bottom: 37px;
+        }
+        .up_pic_util{
+            position: absolute;
+            top: 3px;
+            opacity: 0;
+
+        }
+
+        .edit_util ul li:hover{
+            color: #FEA901;
+            cursor: pointer;
+        }
+
+        .up_pic_util:hover{
+            cursor: pointer;
+
+        }
+
+
+
+        .caogao_save{
+            display: block;
+            margin: auto;
+            background-color: #FFFFFF;
+            border: 1px #D6D6D6 solid;
+            border-radius: 40px;
+            height: 45px;
+            width: 150px;
+
+        }
+        .caogao_save:hover{
+            background-color: #FEA901;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        .text_save{
+            display: block;
+            margin: auto;
+            background-color: #FEA901;
+            border: 1px #D6D6D6 solid;
+            border-radius: 40px;
+            height: 60px;
+            width: 220px;
+            font-size: 20px;
+            color: #FFFFFF;
+
+
+        }
+
+
+    </style>
+
+    <script src="js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+
+<body>
+
+
+<div class="title_div">
+
+
+            <img class="title_bj" src="img/addyoujibj.jpg" >
+
+            <input class="up_pic" type="file"/>
+            <img class="up_img" src="img/shangchuan.PNG" />
+            <div class="up_text">
+                <span>设置游记头图</span>
+                <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
+            </div>
+            <input class="title_text" type="text" placeholder="填写游记标题"/>
+
+
+    </c:choose>
+
+</div>
+
+<div class="edit_text">
+
+
+    <div class="text">
+				<textarea class="textarea _j_textarea"  rows="100" cols="100"
+                          data-exclude_class="_j_textarea _j_textareaplc">
+				</textarea>
+        <img class="img_youji" src="" />
+    </div>
+
+    <input type="submit" class="text_save" value="发表游记"/>
+
+
+</div>
+
+<div class="edit_util">
+    <img src="img/edit_util.PNG" >
+    <ul>
+        <li>插入图片</li>
+        <li>插入表情</li>
+        <li>插入视频</li>
+        <li>插入段落标题</li>
+        <li>插入添加游记音乐</li>
+    </ul>
+    <input class="up_pic_util" type="file"/>
+    <input type="submit" class="caogao_save" value="保存草稿"/>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    // 获取滑动事件
+    $(window).scroll(function(){
+        var allHeight = Math.max(document.documentElement.scrollHeight, document.documentElement.clientHeight);
+        if(window.pageYOffset<(allHeight-985)){
+            // 判断滑动量大小,根据滑动的大小来调整滑块的偏移量
+            if(window.pageYOffset>596){
+                $('.edit_util').css('top','0');
+
+            }
+            else{
+                $('.edit_util').css('top',(596-window.pageYOffset)+'px');
+            }
+        }else{
+            // alert((allHeight-1800)-window.pageYOffset);
+            // $('.edit_util').css('position','absolute');
+            $('.edit_util').css('top',(allHeight-985)-window.pageYOffset+'px');
+        }
+    });
+
+    $('.title_text').blur(function() {
+
+        var formData = new FormData();
+        formData.append('file', $('.up_pic')[0].files[0]);  //添加图片信息的参数
+        formData.append("title", $(".title_text").val());
+        alert($('.up_pic')[0].files[0]);
+        url = "${pageContext.request.contextPath }/addTravels"
+        alert(url);
+        $.ajax({
+            url: url,
+            type: "post",
+            dataType: "json",
+            cache: false,
+            data: formData,
+            processData: false,// 不处理数据
+            contentType: false, // 不设置内容类型
+            success: function (data) {
+                alert("ok");
+                location.href = "${pageContext.request.contextPath }/main.jsp?f=addtravels";
+            }
+        })
+        location.href = "${pageContext.request.contextPath }/main.jsp?f=addtravels";
+    });
+
+</script>
+</body>
+</html>

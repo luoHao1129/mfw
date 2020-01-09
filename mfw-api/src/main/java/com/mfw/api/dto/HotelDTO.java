@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.Id;
 
 
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.List;
 

@@ -4,18 +4,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     #时区设置
     time-zone: Asia/Chongqing
-    #redis
   redis:
     host: 127.0.0.1
     port: 6379
     database: 0
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: 10000
-        max-idle: 8
-        min-idle: 0
-    timeout: 300
 
   profiles:
     active: dev
@@ -49,6 +41,11 @@ spring:
     prefix:
     suffix: .ftl
     content-type: text/html
+    enabled: true
+    check-template-location: true
+    template-loader-path: classpath:/templates
+    charset: utf-8
+    cache: false
   mvc:
     static-path-pattern: /**
   resources:
@@ -66,11 +63,12 @@ logging:
 web.upload-path: e:/webpath/
 
 
+
 ---
 spring:
   profiles: dev
 server:
-  port: 8086
+  port: 8081
 ---
 spring:
   profiles: test

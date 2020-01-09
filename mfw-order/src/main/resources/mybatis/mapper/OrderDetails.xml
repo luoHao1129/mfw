@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--配置与DepartmentDAO的映射-->
+<mapper namespace="com.mfw.order.dao.OrderDetailsDAO">
+
+    <!--    配置travels映射-->
+    <resultMap id="resultMap" type="OrderDetailsDTO">
+        <id column="id" property="id" javaType="String"/>
+        <result property="commodityId" column="commodityId" javaType="String"/>
+        <result property="id" column="id" javaType="String"/>
+        <result property="userDetails" column="userDetails" javaType="String"/>
+        <result property="orderId" column="orderId" javaType="String"/>
+        <result property="checkInTime" column="checkInTime" javaType="date"/>
+        <result property="checkOutTime" column="checkOutTime" javaType="date"/>
+    </resultMap>
+
+    <!--    配置响应的dao方法-->
+    <insert id="addOrderDetails" parameterType="OrderDetailsDTO">
+        insert into order(commodityId,id,userDetails,orde rId,checkInTime,checkOutTime)
+        values (#{commodityId},#{id},#{userDetails},replace(uuid(),#{checkInTime},#{checkOutTime})
+    </insert>
+
+    <select id="selectOrderDetailsById" resultMap="resultMap" parameterType="OrderDetailsDTO">
+        select * from order_details where commodityId=#{commodityId};
+    </select>
+
+</mapper>

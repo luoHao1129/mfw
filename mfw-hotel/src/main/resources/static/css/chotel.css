@@ -1,0 +1,19 @@
+p{
+	display: inline-block;
+	line-height: 10px;
+}
+.mapIp{
+	float:right;
+	margin-top: -110px;
+	margin-right: -460px;
+}
+.chotel{
+	width: 500px;
+}
+.chotel a{
+	color:#575A5B;
+	
+}
+a:hover{
+	color: #FF8A00;
+}

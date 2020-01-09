@@ -4,14 +4,23 @@ package com.mfw.user.controller;
 
 import com.mfw.api.dto.UserDTO;
 import com.mfw.user.service.LoginService;
-import com.mfw.user.util.ToHtml;
+import com.mfw.user.util.PageStatic;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,10 +31,13 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private LoginService loginService;
+    @Resource
+    private  Configuration cfg;
+
 
 
     @RequestMapping("/login")
-    public String login(String account, String password, HttpSession session, HttpServletRequest request) {
+    public String login(String account, String password, HttpSession session) {
         UserDTO userDTO = loginService.loginByAccount(account);
         MessageDigest md;
         String pwd = "";
@@ -37,8 +49,7 @@ public class LoginController {
             e.printStackTrace();
         }
         Map<String, Object> a = new HashMap<>();
-        a.put("a", "a");
-        ToHtml.toHtmlFile(a, "login", request);
+        a.put("user", userDTO);
         if (userDTO.getPwd().equals(pwd)) {
             session.setAttribute("user", userDTO);
             return "personal";
@@ -46,4 +57,5 @@ public class LoginController {
             return "login";
         }
     }
+
 }
