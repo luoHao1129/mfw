@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--配置与DepartmentDAO的映射-->
+<mapper namespace="com.mfw.planeticket.DAO.AirTicketsDAO">
+
+
+    <!--    配置travels映射-->
+    <resultMap id="resultMap" type="AirTicketsDTO">
+
+        <result property="airTicketsID" column="airTicketsID" javaType="int"/>
+        <result property="numbers" column="numbers" javaType="int"/>
+        <result property="fightNum" column="fightNum" javaType="String"/>
+        <result property="price" column="price" javaType="double"/>
+    </resultMap>
+
+    <!--    配置响应的dao方法-->
+
+
+
+
+    <select id="selectflight" resultMap="resultMap">
+        select * from air_Tickets where fightNum=#{fightNum} ;
+    </select>
+
+
+
+</mapper>

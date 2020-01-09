@@ -19,4 +19,9 @@ public class FightServiceImpl implements FightService {
     public List<FightDTO> selectPlaneticket(String departure, String arrival) {
         return fightDAO.selectFightDTOs(departure,arrival) ;
     }
+
+    @Override
+    public FightDTO selectFightDTObyid(String id) {
+        return fightDAO.selectFightDTObyid(id);
+    }
 }
