@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import javax.mail.internet.MimeMessage;
 
+
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ public class MyJavaMailSenderImpl extends JavaMailSenderImpl implements JavaMail
 	private int currentMailId = 0;
 
 	private final MailProperties properties;
+
 
 	public MyJavaMailSenderImpl(MailProperties properties) {
 		this.properties = properties;

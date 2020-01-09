@@ -2,11 +2,15 @@ package com.mfw.order.controller;
 
 
 import com.mfw.api.dto.*;
+import com.mfw.order.mail.MailComponent;
 import com.mfw.order.service.OrderDetailsService;
 import com.mfw.order.service.OrderService;
 import com.mfw.order.service.UserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -26,6 +30,30 @@ public class OrderController {
     @Resource
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private MailComponent component;
+
+    //发送邮件
+    @RequestMapping("/mail")
+    public String mail(String email) {
+        System.out.println("开始发送！");
+        component.sendMail(email);
+        System.out.println("发送成功！");
+        return "success";
+    }
+
+    //进入发送页面
+    @RequestMapping("/showUser")
+    public ModelAndView showUser(ModelMap map) {
+        map.addAttribute("title", "请输入收件人邮箱");
+        return new ModelAndView("mail/index");
+    }
+
+
+
+
+
+    //酒店
     @RequestMapping("/hotelOrderDetailsDTO")
     public RoomDetailsDTO hotelOrderDetailsDTO(RoomDetailsDTO roomDetailsDTO, String amount, HttpSession session, UserDetailsDTO userDetailsDTO){
 
@@ -65,6 +93,8 @@ public class OrderController {
         return roomDetailsDTO;
     }
 
+
+    //机票
     @RequestMapping("/fightOrderDetailsDTO")
     public AirTicketsDTO fightOrderDetailsDTO(AirTicketsDTO airTicketsDTO,String amount,HttpSession session,UserDetailsDTO userDetailsDTO){
 
@@ -113,4 +143,9 @@ public class OrderController {
 
         return orderNo;
     }
+
+
+
+
+
 }

@@ -17,7 +17,7 @@ import java.io.IOException;
 public class AlipayController {
 
     @RequestMapping("/pay")
-    public String alipayController(HttpServletRequest request, HttpServletResponse response) throws IOException, AlipayApiException {
+    public String alipayController(){
 
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
@@ -28,19 +28,19 @@ public class AlipayController {
 //        alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
 
         //商户订单号，商户网站订单系统中唯一订单号，必填
-        String out_trade_no = new String(request.getParameter("1001").getBytes("ISO-8859-1"),"UTF-8");
+        //String out_trade_no = new String(request.getParameter("1001").getBytes("ISO-8859-1"),"UTF-8");
         //付款金额
-        String total_amount = new String(request.getParameter("1").getBytes("ISO-8859-1"),"UTF-8");
+        //String total_amount = new String(request.getParameter("1").getBytes("ISO-8859-1"),"UTF-8");
         //订单名称
-        String subject = new String (request.getParameter("123").getBytes("ISO-8859-1"),"UTF-8");
+        //String subject = new String (request.getParameter("123").getBytes("ISO-8859-1"),"UTF-8");
         //商品描述
-        String body = new String(request.getParameter("没有描述").getBytes("ISO-8859-1"),"UTF-8");
+        //String body = new String(request.getParameter("没有描述").getBytes("ISO-8859-1"),"UTF-8");
 
-        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
-                        + "\"total_amount\":\""+ total_amount +"\","
-                        + "\"subject\":\""+ subject +"\","
-                        + "\"body\":\""+ body +"\","
-                        + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+        alipayRequest.setBizContent("{\"out_trade_no\":\""+ "2365987548" +"\","
+                + "\"total_amount\":\""+ "1000" +"\","
+                + "\"subject\":\""+ "酒店" +"\","
+                + "\"body\":\""+ "酒店预订" +"\","
+                + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
 
         //请求
 //        String form = "";
@@ -53,9 +53,14 @@ public class AlipayController {
 //        response.getWriter().write(form);//直接将完整的表单html输出到页面
 //        response.getWriter().flush();
 //        response.getWriter().close();
-        AlipayTradePagePayResponse response1 = alipayClient.pageExecute(alipayRequest);
+        AlipayTradePagePayResponse response1 = null;
+        try {
+            response1 = alipayClient.pageExecute(alipayRequest);
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
         if(response1.isSuccess()){
-            return "调用成功";
+            return response1.getBody();
         } else {
             return "调用失败";
         }

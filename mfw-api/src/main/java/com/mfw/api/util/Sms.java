@@ -25,6 +25,14 @@ public class Sms {
      * 验证码-修改密码模板
      */
     public static final String TEMPLATE_CODE_PASSWORD = "SMS_181550469";
+    /**
+     * 酒店
+     */
+    public static final String TEMPLATE_CODE_HOTEL = "SMS_181857021";
+    /**
+     * 机票
+     */
+    public static final String TEMPLATE_CODE_FIGHT = "SMS_181857037";
 
     // 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
     private static final String accessKeyId = "LTAI4FxYSGdyYFsDaMN55VJL";

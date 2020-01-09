@@ -48,6 +48,24 @@ spring:
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/static,classpath:/resources/,classpath:/public/,file:${web.upload-path}
 
+  #mail
+  mail:
+    host: smtp.163.com
+    protocol: smtp
+    port: 465
+    default-encoding: UTF-8
+    #发送邮件
+    username: yanghang108@163.com
+    password: root123456
+    properties:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+          requied: true
+
+  #多账号轮询发送邮件
+
 #mybatis
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
