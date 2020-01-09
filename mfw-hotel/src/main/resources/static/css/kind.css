@@ -7,13 +7,13 @@
 	width: 940px;
 }
 
-#kind1 #k1{
+#kind1 #min{
 	text-align: center;
 	margin-left:30px;
 	width: 80px;
 	margin-top: 25px;
 }
-#kind1 #k2{
+#kind1 #max{
 	margin-left:5px;
 	text-align: center;
 	width: 80px;

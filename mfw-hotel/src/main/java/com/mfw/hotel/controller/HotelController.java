@@ -31,17 +31,33 @@ public class HotelController {
     private HotelNum hotelNum;
 
 
+    @RequestMapping("/hotel")
+    public ModelAndView showHotel(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("hotel-main");
+        return modelAndView;
+    }
 
+    /**
+     * 根据酒店id返回所选酒店页面
+     * @param id
+     * @return
+     */
     @RequestMapping("/hotelId/{id}")
     public ModelAndView hotelId(@PathVariable("id") String id){
         HotelDTO hotelDTO= hotelService.selectHotelById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("hdto",hotelDTO);
         modelAndView.addObject("hotelNum",hotelNum);
-        modelAndView.setViewName("hotel-info");
+        modelAndView.setViewName("hotel-main-info");
         return modelAndView;
     }
 
+    /**
+     * 根据选择城市显示所选城市酒店
+     * @param hotelNum
+     * @return
+     */
     @RequestMapping("/selectHotelCity")
     public ModelAndView hotelCity(HotelNum hotelNum){
         Map<String,Object> mapdata= new HashMap<>();
@@ -68,11 +84,16 @@ public class HotelController {
 
         mapdata.put("hotelNum",hotelNum);
         mapdata.put("hdtols",hotelDTOS);
-        modelAndView.setViewName("hotel-data");
-        PageStatic.toHtmlFile(cfg,mapdata,"hotel-data","E:/webpath/");
+        modelAndView.setViewName("hotel-main-data");
+        PageStatic.toHtmlFile(cfg,mapdata,"hotel-main-data","E:/webpath/");
         return modelAndView;
     }
 
+    /**
+     * 酒店订单页面
+     * @param id
+     * @return
+     */
     @RequestMapping("/hotelOrder/{id}")
     public ModelAndView hotelOrder(@PathVariable("id")String id){
         RoomDetailsDTO roomDetailsDTO = roomService.selectRoomById(id);
@@ -85,6 +106,12 @@ public class HotelController {
         return modelAndView;
     }
 
+    /**
+     * 分页
+     * @param city
+     * @param pageNo
+     * @return
+     */
     @RequestMapping("/selectLimit")
     public List<HotelDTO> selectLimit(String city,int pageNo){
         int size = 5;
@@ -94,11 +121,40 @@ public class HotelController {
     }
 
 
-
+    /**
+     * 搜索酒店关键字
+     * @param city
+     * @param name
+     * @return
+     */
     @RequestMapping("/selectWord")
     public List<HotelDTO> searchHotelName(String city,String name){
         List<HotelDTO> hotelDTOS = hotelService.selectHotelByName(city,name);
         return hotelDTOS;
     }
+
+    /**
+     * 根据酒店品牌显示
+     * @param city
+     * @param brand
+     * @return
+     */
+    @RequestMapping("/selectBrand")
+    public List<HotelDTO> searchHotelBrand(String city,String brand){
+        List<HotelDTO> hotelDTOList = hotelService.selectHotelByBrand(city, brand);
+        return hotelDTOList;
+    }
+
+    /**
+     * 根据价格区间显示酒店
+     * @param city
+     * @return
+     */
+    @RequestMapping("/selectPrice")
+    public List<HotelDTO> searchHotelByRoomPrice(String city,Integer min,Integer max){
+        List<HotelDTO> hotelDTOList = hotelService.selectHotelByPrice(city,min,max);
+        return hotelDTOList;
+    }
+
 
 }

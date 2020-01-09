@@ -48,5 +48,15 @@
         and hotel.hotelName like concat('%',#{name},'%') and hotel.hotelCity=#{city}
     </select>
 
+    <select id="selectHotelByBrand" resultMap="resultMap" parameterType="String">
+        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        and hotel.hotelCity=#{city} and hotel.hotelBrand=#{brand}
+    </select>
+
+    <select id="selectHotelByPrice" resultMap="resultMap">
+        select * from hotel,room_details room where hotel.hotelId=room.hotelId
+        and hotel.hotelCity=#{city} and room.type = 1 and room.roomPrice > #{min} and room.roomPrice &lt; #{max}
+    </select>
+
 
 </mapper>

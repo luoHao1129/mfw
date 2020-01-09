@@ -51,5 +51,15 @@ public class HotelServiceImpl implements HotelService {
         return hotelDAO.selectPage(city);
     }
 
+    @Override
+    public List<HotelDTO> selectHotelByBrand(String city, String brand) {
+        return hotelDAO.selectHotelByBrand(city,brand);
+    }
+
+    @Override
+    public List<HotelDTO> selectHotelByPrice(String city, Integer min,Integer max) {
+        return hotelDAO.selectHotelByPrice(city,min,max);
+    }
+
 
 }

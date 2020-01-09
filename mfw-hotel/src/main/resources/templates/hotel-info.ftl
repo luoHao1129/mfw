@@ -83,31 +83,7 @@
     <a href="https://w.mafengwo.cn/sales_promotion/w/promotion/894?bus_type=hotel_promotion&mfw_chid=10697" ><img id="guanggao" src="../img/guanggao.png" /></a>
     <br />
     <br />
-    <div class="datatime">
-        <span>&nbsp;入住日期</span>
-        <input type="date" name="intoTime" value="${hotelNum.intoTime }">
 
-    </div>
-    <div class="datatime">
-        <span>&nbsp;离店日期</span>
-        <input type="date" name="leaveTime" value="${hotelNum.leaveTime }">
-
-    </div>&nbsp;
-
-    <select style="width:70px;height:32px;border-radius:4px;" name="peopleNum" id="peopleNum" >
-        <option value="人数">${hotelNum.peopleNum }</option>
-        <option value="1">1人</option>
-        <option value="2">2人</option>
-        <option value="3">3人</option>
-        <option value="4">4人</option>
-        <option value="5">5人</option>
-        <option value="6">6人</option>
-        <option value="7">7人</option>
-        <option value="8">8人</option>
-    </select>
-
-
-    <a><img width="100" height="36" src="../img/查看价格.png"></a>
     <br /><br />
 
     <div class="room-list" >
