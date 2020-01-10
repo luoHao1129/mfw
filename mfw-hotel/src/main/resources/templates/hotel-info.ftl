@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/hotel-main.css" />
     <link rel="stylesheet" href="../css/info-hd.css" />
     <link rel="stylesheet" href="../css/room-list.css" />
-
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
     <!-- 地图大小 -->
     <style type="text/css">
         #container {width: 1000px;height: 500px}
@@ -127,12 +127,26 @@
             viewMode:'3D'//使用3D视
         });
         var marker = new AMap.Marker({
-            position: [104.045311, 30.651936]
+            map:map,
+            position: [104.045311, 30.651936],
+            label:{
+                offset:new AMap.Pixel(20,20),
+                content:"点击打开酒店地图"
+            }
         })
+        marker.on('click',function(e){
+            marker.markOnAMAP({
+                name:'吾桐里国际青年旅舍',
+                position:marker.getPosition()
+            })
+        })
+        if(AMap.UA.mobile){
+            document.getElementsByClassName('info')[0].style.display='none';
+        }
         map.add(marker);
     </script>
     </div>
-<#--    <img style="width: 1000px;" src="../img/hotel-map.png" />-->
+
 
 
 

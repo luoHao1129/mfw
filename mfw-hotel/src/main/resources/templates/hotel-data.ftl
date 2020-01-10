@@ -20,6 +20,7 @@
 
 
 
+
 </head>
 <#--<body>-->
 
@@ -126,7 +127,12 @@
         <p><a>太古里</a></p>&nbsp;
         <p><a>世纪城</a></p>
         <br />
+
+
         <img class="mapIp" src="../img/酒店坐标.png" />
+
+
+
         <p>周边：</p>
         <p><a>海螺沟</a></p>&nbsp;
         <p><a>西岭雪山</a></p>&nbsp;
