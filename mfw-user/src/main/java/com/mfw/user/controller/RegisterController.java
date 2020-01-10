@@ -26,12 +26,17 @@ public class RegisterController {
         Map<String, String> json = new HashMap();
         String phoneNumber = phone;
         String randomNum = createRandomNum(6);
+//
         String jsonContent = "{\"code\":\"" + randomNum + "\"}";
+
+//        String jsonContent ="{\"name\":\"不怕得\",\"hotelname\":\"北大青旅\",\"orderId\":\"365846\"}";
 
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("phoneNumber", phoneNumber);
         paramMap.put("msgSign", Sms.MSG_SIGN);
+
         paramMap.put("templateCode", Sms.TEMPLATE_CODE_REGISTER);
+//        paramMap.put("templateCode", "SMS_181857021");
         paramMap.put("jsonContent", jsonContent);
         SendSmsResponse sendSmsResponse = Sms.sendSms(paramMap);
         if (!(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK"))) {
