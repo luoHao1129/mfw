@@ -52,6 +52,16 @@ a {
 input{
 	border-radius:5px 5px 5px 5px;
 	font: inherit;
+	outline: none;
+	border: 1px solid #ffa800;
+
+
+}
+
+select{
+	outline: none;
+	border: 1px solid #ffa800;
+
 }
 
 .highlight {
