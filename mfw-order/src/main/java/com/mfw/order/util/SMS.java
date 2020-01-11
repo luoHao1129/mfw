@@ -16,7 +16,7 @@ public class SMS {
     //产品域名,开发者无需替换
     private static final String domain = "dysmsapi.aliyuncs.com";
 
-    public static final String MSG_SIGN = "智谷马蜂";
+    public static final String MSG_SIGN = "奔奔";
     /**
      * 验证码-注册模板
      */

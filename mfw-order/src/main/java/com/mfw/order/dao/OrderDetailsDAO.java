@@ -12,6 +12,6 @@ public interface OrderDetailsDAO {
 
 	List<OrderDetailsDTO> selectOrderDetailsByUserId(String commodityId);
 
-	List<OrderDetailsDTO> selectOrderDetailsById(String id);
+	OrderDetailsDTO selectOrderDetailsById(String id);
 
 }

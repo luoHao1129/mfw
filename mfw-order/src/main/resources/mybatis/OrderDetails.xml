@@ -18,12 +18,12 @@
 
     <!--    配置响应的dao方法-->
     <insert id="addOrderDetails" parameterType="OrderDetailsDTO">
-        insert into order(commodityId,id,userDetails,orde rId,checkInTime,checkOutTime)
-        values (#{commodityId},#{id},#{userDetails},replace(uuid(),#{checkInTime},#{checkOutTime})
+        insert into order_details (commodityId,id,userDetails,orderId,checkInTime,checkOutTime)
+        values (#{commodityId},#{id},#{userDetails},replace(uuid(),'-',''),#{checkInTime},#{checkOutTime})
     </insert>
 
     <select id="selectOrderDetailsById" resultMap="resultMap" parameterType="OrderDetailsDTO">
-        select * from order_details where commodityId=#{commodityId};
+        select * from order_details where id=#{id};
     </select>
 
 </mapper>

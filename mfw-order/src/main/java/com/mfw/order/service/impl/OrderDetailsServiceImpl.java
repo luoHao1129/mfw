@@ -24,7 +24,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    public List<OrderDetailsDTO> selectOrderDetailsById(String id) {
+    public OrderDetailsDTO selectOrderDetailsById(String id) {
         return orderDetailsDAO.selectOrderDetailsById(id);
     }
 }

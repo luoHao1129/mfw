@@ -6,9 +6,15 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/mfw-parent/pom.xml" />
         <option value="$PROJECT_DIR$/mfw-user/pom.xml" />
+        <option value="$PROJECT_DIR$/mfw-destination/pom.xml" />
+        <option value="$PROJECT_DIR$/mfw-order/pom.xml" />
+        <option value="$PROJECT_DIR$/mfw-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/mfw-api/pom.xml" />
+        <option value="$PROJECT_DIR$/mfw-hotel/pom.xml" />
+        <option value="$PROJECT_DIR$/plane-ticket/pom.xml" />
       </list>
     </option>
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

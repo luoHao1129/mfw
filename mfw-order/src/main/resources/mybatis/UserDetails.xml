@@ -15,8 +15,8 @@
 
     <!--    配置响应的dao方法-->
     <insert id="addUserDetails" parameterType="UserDetailsDTO">
-        insert into order(userDetailsId,name,cardId)
-        values (replace(uuid(),#{name},#{cardId})
+        insert into user_details(userDetailsId,`name`,cardId)
+        values (replace(uuid(),'-',''),#{name},#{cardId})
     </insert>
 
     <select id="selectUserDetailsById" resultMap="resultMap" parameterType="UserDetailsDTO">

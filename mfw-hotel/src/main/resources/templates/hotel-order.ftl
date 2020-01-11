@@ -110,6 +110,7 @@
         </div>
     </div>
 
+    <form action="http://localhost:8083/hotelOrder"  method="post">
     <div class="title2">
         <div class="room-info" >
             房间 -
@@ -127,14 +128,16 @@
             <br />
             <input name="tel" type="number" style="width: 100px;height: 20px;border-radius: 4px;" placeholder="手机" />
             <br />
+            <input name="mail" type="email" style="width: 100px;height: 20px;border-radius: 4px;" placeholder="邮箱" />
+            <br />
             <span style="color: #ABABAB;font-size: 12px;">*请按相应证件准确填写第一入住人信息，订单提交后将无法变更或收费变更。</span>
             <br />
             <span style="color: #ABABAB;font-size: 12px;">*与证件姓名一致，填写1人即可。</span>
         </div>
     </div>
 
-
-    <form action="<%=request.getContextPath() %>/AddOrderServlet"  method="post">
+        <input type="hidden" value="${hotelNum.peopleNum } " name="peopleHotel" >
+        <input type="hidden" value="${hdto.hotelName } " name="hotelName" >
         <input type="hidden" value="${price.roomId } " name="commodityId" >
         <input type="hidden" value="" name="amount" id="amount"/>
         <input type="hidden" value="1" name="typeId" id="typeId"/>

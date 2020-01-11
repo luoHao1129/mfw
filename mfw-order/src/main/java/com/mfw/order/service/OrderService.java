@@ -10,5 +10,9 @@ public interface OrderService {
 
     public void addOrder(OrderDTO orderDTO);
 
-    public List<OrderDTO> getOrderByCase(String orderId);
+    public OrderDTO getOrderByCase(String orderId);
+
+    public List<OrderDTO> getOrderDetailsById(String userId);
+
+    public void updateOrder(OrderDTO orderDTO);
 }
