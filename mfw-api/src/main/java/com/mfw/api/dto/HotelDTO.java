@@ -27,6 +27,7 @@ public class HotelDTO implements Serializable {
 	private String hotelPic;
 	private String hotelBrand;
 	private String hotelCity;
+	private int hotelType;
 	private List<RoomDetailsDTO> roomInfo;
 
 

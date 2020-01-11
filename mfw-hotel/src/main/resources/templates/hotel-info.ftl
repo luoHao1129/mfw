@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/hotel-main.css" />
     <link rel="stylesheet" href="../css/info-hd.css" />
     <link rel="stylesheet" href="../css/room-list.css" />
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
 
     <!-- 地图大小 -->
     <style type="text/css">
@@ -49,24 +50,18 @@
                     预订&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </a>
             </li>
-
             <li>
-                <a>
+                <a href="#container">
                     位置&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </a>
             </li>
             <li>
-                <a>
-                    攻略&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#facility">
+                    酒店设施&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </a>
             </li>
             <li>
-                <a>
-                    点评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </a>
-            </li>
-            <li>
-                <a>
+                <a href="#otherHotel">
                     周边酒店&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </a>
             </li>
@@ -95,7 +90,6 @@
 
         <!-- 房间列表信息 -->
         <#list hdto.roomInfo as details>
-
             <div class="list2 hand">
                 <a style="color:#666;" href = "/hotelOrder/${details.roomId}">
                     <div id="roomRate">
@@ -127,19 +121,33 @@
             viewMode:'3D'//使用3D视
         });
         var marker = new AMap.Marker({
-            position: [104.045311, 30.651936]
+            map:map,
+            position: [104.045311, 30.651936],
+            label:{
+                offset:new AMap.Pixel(20,20),
+                content:"点击打开酒店地图"
+            }
         })
+        marker.on('click',function(e){
+            marker.markOnAMAP({
+                name:'吾桐里国际青年旅舍',
+                position:marker.getPosition()
+            })
+        })
+        if(AMap.UA.mobile){
+            document.getElementsByClassName('info')[0].style.display='none';
+        }
         map.add(marker);
     </script>
     </div>
-<#--    <img style="width: 1000px;" src="../img/hotel-map.png" />-->
+
 
 
 
     <br /><br /><br /><br /><br /><br />
 
 
-    <div class="hotel-infomation">
+    <div id="facility" class="hotel-infomation">
         <dl class="info-section">
             <dt>基本信息</dt>
             <dd class="cell" style="width: 180px;">
@@ -231,10 +239,11 @@
                     <li>
                         <i class="icon-bg icon-ok"></i>一次性账单结算
                     </li>
-                    <li>
+
+                    <li style="margin-left:77px">
                         <i class="icon-bg icon-ok" style="margin-left: 30px;"></i>快速入住服务
                     </li>
-                    <li>
+                    <li style="margin-left:45px">
                         <i class="icon-bg icon-ok"style="margin-left: -30px;"></i>旅游交通图
                     </li>
                 </ul>
@@ -290,7 +299,7 @@
                     <li>
                         <i class="icon-bg icon-ok" style="margin-left: 45px;" ></i>电视
                     </li>
-                    <li>
+                    <li style="margin-left:80px">
                         <i class="icon-bg icon-ok" style="margin-left: 30px;" ></i>暖气
                     </li>
                     <li>
@@ -311,7 +320,7 @@
                     <li>
                         <i class="icon-bg icon-ok"></i>智能门锁
                     </li>
-                    <li>
+                    <li style="margin-left:80px">
                         <i class="icon-bg icon-ok" style="margin-left: 30px;"></i>书桌
                     </li>
                     <li>
@@ -343,8 +352,8 @@
 
     </div>
     <br/><br/><br/><br/>
-    <img style="width: 1000px;" src="../img/周边推荐.png" />
-
+    <img id="otherHotel" style="width: 1000px;" src="../img/周边推荐.png" />
+    <br/><br/><br/><br/>
 
 
 

@@ -5,7 +5,7 @@ import com.mfw.api.dto.HotelDTO;
 import java.util.List;
 
 public interface HotelService {
-    void addTheHotel(HotelDTO hotelDTO);
+
 
     /**
      * 根据酒店ID显示酒店信息

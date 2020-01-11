@@ -500,11 +500,6 @@
 <#--                <li class="num"><a href="#">9</a></li>-->
                 <li class="upd">下一页&gt;&gt;</li>
 
-                <#if 1<2>
-
-                    <#else if>
-
-                </#if>
             </ul>
         </div>
     </div>
@@ -521,6 +516,7 @@
             url: "/limitPage/"+pageNO,
             success: function (json) {
 
+                console.log(json);
                 var html = "";
                 for(var index in json){
 
