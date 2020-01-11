@@ -16,11 +16,6 @@ public class HotelServiceImpl implements HotelService {
 
 
     @Override
-    public void addTheHotel(HotelDTO hotelDTO) {
-        hotelDAO.addTheHotel(hotelDTO);
-    }
-
-    @Override
     public HotelDTO selectHotelById(String id) {
 
         return hotelDAO.selectHotelById(id);

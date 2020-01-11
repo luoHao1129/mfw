@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/info-hd.css" />
     <link rel="stylesheet" href="../css/room-list.css" />
     <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+
     <!-- 地图大小 -->
     <style type="text/css">
         #container {width: 1000px;height: 500px}
