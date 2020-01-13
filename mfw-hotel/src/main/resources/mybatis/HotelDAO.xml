@@ -30,31 +30,37 @@
 
 
     <select id="selectHotelById" resultMap="resultMap" parameterType="String">
-        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        select * from hotel,room_details
+        where hotel.hotelId=room_details.hotelId and hotelType=0
         and hotel.hotelId=#{id}
     </select>
 
     <select id="selectHotelByCity" resultMap="resultMap" >
-        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        select * from hotel,room_details
+        where hotel.hotelId=room_details.hotelId and hotelType=0
         and hotelCity=#{city} and room_details.type=1 limit #{pageNo},#{size}
     </select>
 
     <select id="selectPage" resultType="Integer">
-        select count(1) from hotel where hotelCity=#{city}
+        select count(1) from hotel
+        where hotelCity=#{city} and hotelType=0
     </select>
 
     <select id="selectHotelByName" resultMap="resultMap" parameterType="String">
-        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        select * from hotel,room_details
+        where hotel.hotelId=room_details.hotelId and hotelType=0
         and hotel.hotelName like concat('%',#{name},'%') and hotel.hotelCity=#{city}
     </select>
 
     <select id="selectHotelByBrand" resultMap="resultMap" parameterType="String">
-        select * from hotel,room_details where hotel.hotelId=room_details.hotelId
+        select * from hotel,room_details
+        where hotel.hotelId=room_details.hotelId and hotelType=0
         and hotel.hotelCity=#{city} and hotel.hotelBrand=#{brand}
     </select>
 
     <select id="selectHotelByPrice" resultMap="resultMap">
-        select * from hotel,room_details room where hotel.hotelId=room.hotelId
+        select * from hotel,room_details room
+        where hotel.hotelId=room.hotelId and hotelType=0
         and hotel.hotelCity=#{city} and room.type = 1 and room.roomPrice > #{min} and room.roomPrice &lt; #{max}
     </select>
 

@@ -8,6 +8,8 @@ import com.mfw.hotel.dto.HotelNum;
 import com.mfw.hotel.service.HotelService;
 import com.mfw.hotel.service.RoomService;
 import freemarker.template.Configuration;
+
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,31 +60,34 @@ public class HotelController {
      * @param hotelNum
      * @return
      */
-    @RequestMapping("/selectHotelCity")
-    public ModelAndView hotelCity(HotelNum hotelNum){
-        Map<String,Object> mapdata= new HashMap<>();
-        ModelAndView modelAndView = new ModelAndView();
-        this.hotelNum=hotelNum;
-        int pagelength = hotelService.selectPage(hotelNum.getCity());
-        int page = pagelength/5;
-        List<Integer> pages = new ArrayList<>();
-        for(int i = 1; i <= page; i++){
-            pages.add(i);
-        }
-        mapdata.put("pagelength",pagelength);
-//		返回页码数组
-        mapdata.put("pages",pages);
-//		返回页码总数
-        mapdata.put("page",page);
+        @RequestMapping("/selectHotelCity")
+        public ModelAndView hotelCity(HotelNum hotelNum){
+            Map<String,Object> mapdata= new HashMap<>();
+            ModelAndView modelAndView = new ModelAndView();
+            this.hotelNum=hotelNum;
+            int pagelength = hotelService.selectPage(hotelNum.getCity());
+            int page = pagelength/5;
+            List<Integer> pages = new ArrayList<>();
+            for(int i = 1; i <= page; i++){
+                pages.add(i);
+            }
+            mapdata.put("pagelength",pagelength);
+    //		返回页码数组
+            mapdata.put("pages",pages);
+    //		返回页码总数
+            mapdata.put("page",page);
 
-        List<HotelDTO> hotelDTOS = hotelService.selectHotelByCity(hotelNum.getCity(),1,5);
-        modelAndView.addObject("hdtols",hotelDTOS);
-        modelAndView.addObject("hotelNum",hotelNum);
-        modelAndView.addObject("page",page);
-        modelAndView.addObject("pages",pages);
-        modelAndView.addObject("pagelength",pagelength);
 
-        mapdata.put("hotelNum",hotelNum);
+
+            List<HotelDTO> hotelDTOS = hotelService.selectHotelByCity(hotelNum.getCity(),1,5);
+            modelAndView.addObject("hdtols",hotelDTOS);
+            modelAndView.addObject("hotelNum",hotelNum);
+            modelAndView.addObject("page",page);
+            modelAndView.addObject("pages",pages);
+            modelAndView.addObject("pagelength",pagelength);
+            modelAndView.addObject("size",hotelDTOS.size());
+            mapdata.put("size",hotelDTOS.size());
+            mapdata.put("hotelNum",hotelNum);
         mapdata.put("hdtols",hotelDTOS);
         modelAndView.setViewName("hotel-main-data");
         PageStatic.toHtmlFile(cfg,mapdata,"hotel-main-data","E:/webpath/");
@@ -101,6 +106,9 @@ public class HotelController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("price",roomDetailsDTO);
         modelAndView.addObject("hdto",hotelDTO);
+        if(hotelNum.getPeopleNum().equals("人数")){
+            hotelNum.setPeopleNum("1");
+        }
         modelAndView.addObject("hotelNum",hotelNum);
         modelAndView.setViewName("hotel-order");
         return modelAndView;
@@ -140,7 +148,7 @@ public class HotelController {
      * @return
      */
     @RequestMapping("/selectBrand")
-    public List<HotelDTO> searchHotelBrand(String city,String brand){
+    public List<HotelDTO> searchHotelBrand(String city, String brand){
         List<HotelDTO> hotelDTOList = hotelService.selectHotelByBrand(city, brand);
         return hotelDTOList;
     }

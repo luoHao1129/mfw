@@ -1,0 +1,69 @@
+*, *:before,
+*:after {
+	
+  box-sizing: border-box;
+}
+
+.toggle {
+	display: inline-block;
+	position: relative;
+	margin: 0 auto;
+	width: 50px;
+	height: 20px;
+	color: white;
+	outline: 0;
+	text-decoration: none;
+	border-radius: 100px;
+	border: 1px solid #D7D7D7;
+	background-color: #FF8A00;
+	transition: all 500ms;
+}
+
+.toggle:hover:not(.toggle--moving):after {
+	display: inline-block;
+  background-color: #FFFFFF;
+}
+.toggle:after {
+	display: inline-block;
+  display: block;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  line-height: 45px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  color: white;
+  background-color: #FFFFFF;
+  border: 2px solid;
+  transition: all 500ms;
+}
+
+.toggle--on:after {
+	display: inline-block;
+  content: '';
+  border-radius: 50px 5px 5px 50px;
+  color: #FFFFFF;
+}
+
+.toggle--off:after {
+	display: inline-block;
+  content: '';
+  border-radius: 5px 50px 50px 5px;
+  transform: translate(100%, 0);
+  color: #FFFFFF;
+}
+
+.toggle--moving {
+	display: inline-block;
+  background-color: #FFFFFF;
+}
+.toggle--moving:after {
+	display: inline-block;
+  color: transparent;
+  border-color: #FFFFFF;
+  background-color: #FFFFFF;
+  transition: color 0s, transform 500ms, border-radius 500ms,           background-color 500ms;
+}

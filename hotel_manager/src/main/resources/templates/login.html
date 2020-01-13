@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>马蜂窝后台管理系统</title>
+<link href="../css/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+<link rel="shortcut icon" href="img/MFW头像.jfif" />
+
+<script type="text/javascript" src="../js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="../js/Validform_v5.3.2_min.js"></script>
+<script type="text/javascript" src="../js/loginVerification.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var $tab_li = $('#tab ul li');
+	$tab_li.hover(function(){
+		$(this).addClass('selected').siblings().removeClass('selected');
+		var index = $tab_li.index(this);
+		$('div.tab_box > div').eq(index).show().siblings().hide();
+	});	
+});
+</script>
+
+</head>
+
+<body>
+<div id="tab">
+  <ul class="tab_menu">
+    <li class="selected">酒店管理系统</li>
+    <li>航班管理系统</li>
+	<li>超级管理员系统</li>
+  </ul>
+  
+  <div class="tab_box"> 
+  
+    <!-- 酒店登录开始 -->
+    <div>
+      <div class="hm_error_box"></div>
+      <form action="" method="post" class="hm_login_error">
+        <div id="username">
+          <label>账&nbsp;&nbsp;&nbsp;号：</label>
+          <input type="text" id="hm_username_hide" name="username" value="输入酒店管理员账号" nullmsg="账号不能为空！" datatype="s6-18" errormsg="账号范围在6~18个字符之间！" sucmsg="账号验证通过！"/>
+          
+        </div>
+        <div id="password">
+          <label>密&nbsp;&nbsp;&nbsp;码：</label>
+          <input type="password" id="hm_password_hide" name="password" value="输入密码" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+        </div>
+		
+        <div id="code">
+          <label style="margin-left: -70px;">验证码：</label>
+          <input type="text" id="hm_code_hide" name="code"  value="输入验证码" nullmsg="验证码不能为空！" datatype="*4-4" errormsg="验证码有4位数！" /> 
+          <span class="codes"></span>
+		</div>
+		
+        <div id="login">
+          <button type="submit">登录</button>
+        </div>
+      </form>
+    </div>
+   <!-- 酒店登录结束-->
+   
+   
+   
+   <!-- 航空登录开始-->
+    <div class="hide">
+     <div class="fm_error_box"></div>
+      <form action="" method="post" class="fm_login_error">
+        <div id="username">
+          <label>账&nbsp;&nbsp;&nbsp;号：</label>
+          <input type="text" id="fm_username_hide" name="username" value="输入航空部管理员帐号" nullmsg="账号不能为空！" datatype="s6-18" errormsg="账号范围在6~18个字符之间！" sucmsg="账号验证通过！"/>
+         
+        </div>
+        <div id="password">
+          <label>密&nbsp;&nbsp;&nbsp;码：</label>
+          <input type="password" id="fm_password_hide" name="password" value="输入密码" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+        </div>
+        <div id="code">
+          <label style="margin-left: -70px;">验证码：</label>
+          <input type="text" id="fm_code_hide" name="code"  value="输入验证码" nullmsg="验证码不能为空！" datatype="*4-4" errormsg="验证码有4位数！" sucmsg="验证码验证通过！"/> 
+          <span class="codes"></span>
+        </div>
+        <div id="login">
+          <button type="submit">登录</button>
+        </div>
+      </form>
+    </div>
+     <!-- 航空登录结束-->
+
+	 
+	 <!--管理员登录开始 -->
+	 <div class="hide">
+	   <div class="sys_error_box"></div>
+	   <form action="" method="post" class="sys_login_error">
+	     <div id="username">
+	       <label>账&nbsp;&nbsp;&nbsp;号：</label>
+	       <input type="text" id="sys_username_hide" name="username" value="输入超级管理员账号" nullmsg="账号不能为空！" datatype="s6-18" errormsg="账号范围在6~18个字符之间！" sucmsg="账号验证通过！"/>
+	       
+	     </div>
+	     <div id="password">
+	       <label>密&nbsp;&nbsp;&nbsp;码：</label>
+	       <input type="password" id="sys_password_hide" name="password" value="输入密码" nullmsg="密码不能为空！" datatype="*6-16" errormsg="密码范围在6~16位之间！" sucmsg="密码验证通过！"/>
+	     </div>
+	 	
+	     <div id="code">
+	       <label style="margin-left: -70px;">验证码：</label>
+	       <input type="text" id="sys_code_hide" name="code"  value="输入验证码" nullmsg="验证码不能为空！" datatype="*4-4" errormsg="验证码有4位数！" sucmsg="验证码验证通过！"/> 
+	       <span class="codes"></span>
+	 	</div>
+	 	
+	     <div id="login">
+	       <button type="submit">登录</button>
+	     </div>
+	   </form>
+	 </div>
+	 <!--管理员登录结束 -->
+	 
+  </div>
+</div>
+<div class="bottom">©2020 Learn <a target="_blank">关于</a> <span>川ICP证888888号</span>  The First Group <a style="font-size: xx-large;color: darkred;font-weight: bold;" target="_blank" title="第一小组">第一小组</a> - Collect from <a  title="MyHand" target="_blank">Internet</a><img width="13" height="16" src="img/copy_rignt_24.png" /></div>
+<div class="screenbg">
+  <ul>
+    <li><img src="img/IronMan1.jpg"></li>
+    <li><img src="img/deadPool.jpg"></li>
+	<li><img src="img/joker.jpg"></li>
+  </ul>
+</div>
+</body>
+
+
+</html>

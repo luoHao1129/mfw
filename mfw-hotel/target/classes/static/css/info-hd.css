@@ -1,0 +1,21 @@
+.info-hd{
+	position: relative;
+}
+
+.info-hd .hd1{
+	font-size: 15px;
+	color:#333;
+	line-height: 30px;
+}
+
+.info-hd .hd1
+h1{
+	display: inline;
+	font-weight: normal;
+}
+
+
+.hdd{
+	display: inline-block;
+	margin-top: 10px;
+}
