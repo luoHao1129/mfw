@@ -15,4 +15,8 @@ public class DepartureDateDTO {
     private String arrival;
     private String departureDate;
     private String returnDate;
+    private Date departureTime;
+    public Date landingTime;
+    private String aircraftType;
+    private String company;
 }

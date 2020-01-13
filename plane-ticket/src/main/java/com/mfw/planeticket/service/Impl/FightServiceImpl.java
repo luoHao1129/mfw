@@ -6,6 +6,7 @@ import com.mfw.planeticket.service.FightService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,4 +25,36 @@ public class FightServiceImpl implements FightService {
     public FightDTO selectFightDTObyid(String id) {
         return fightDAO.selectFightDTObyid(id);
     }
+
+    @Override
+    public List<FightDTO> selecttakeOffAirport(String departure) {
+        return fightDAO.selecttakeOffAirport(departure);
+    }
+
+    @Override
+    public List<FightDTO> selectarrivalAtTheAirport(String arrival) {
+        return fightDAO.selectarrivalAtTheAirport(arrival);
+    }
+
+    @Override
+    public List<FightDTO> selectdepartureTime(String departure) {
+        return fightDAO.selectdepartureTime(departure);
+    }
+
+    @Override
+    public List<FightDTO> selectaircraftType(String departure) {
+        return fightDAO.selectaircraftType(departure);
+    }
+
+    @Override
+    public List<FightDTO> selectcompany(String departure) {
+        return fightDAO.selectcompany(departure);
+    }
+
+    @Override
+    public List<FightDTO> screeningInformation(FightDTO fightDTO) {
+        return fightDAO.screeningInformation(fightDTO);
+    }
+
+
 }
