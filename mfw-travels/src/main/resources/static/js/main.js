@@ -7,7 +7,7 @@ $(function () {
 		success: function (json) {
 		if(json.isSession){
 			$('.login_li').html("<a href=\"\">消息</a>");
-			$('.touxiang_li').html("<a href=\"personal.jsp\"><img id=\"touxiang\" style=\"border-radius: 50%;\" src=\""+json.user.avatar+"\"/></a>");
+			$('.touxiang_li').html("<a href=\"http://localhost:8081/toPersonal\"><img id=\"touxiang\" style=\"border-radius: 50%;\" src=\""+json.user.avatar+"\"/></a>");
 
 		}
 		}

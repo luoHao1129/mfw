@@ -13,7 +13,7 @@ public interface TravelsDao {
 //	添加游记
 	void addTravels(Travels travels);
 
-	void deleteTravels(int id);
+	void deleteTravels(String id);
 
 	void updateTeavels(Travels travels);
 
@@ -21,9 +21,13 @@ public interface TravelsDao {
 
 	Travels selectTravelsById(String id);
 
+	Travels findTravelsById(String id);
+
 	List<Travels> selectAllByAuthorId(String authorId);
 	List<Travels> selectLimit(Integer pageNo, Integer pageSize);
 
 	int selectCount();
+
+	List<String> selectID();
 	
 }

@@ -36,7 +36,7 @@
         VALUES (#{id},#{authorId},#{title},#{destination},#{travelstype},#{date},#{pageviews},#{likeNum},#{tpic})
     </insert>
 
-    <delete id="deleteTravels" parameterType="Integer">
+    <delete id="deleteTravels" parameterType="String">
         delete from travels where id=#{id}
     </delete>
 
@@ -46,7 +46,11 @@
     </update>
 
     <select id="selectTravelsById" parameterType="String" resultMap="resultMap">
-        select * from content,travels where travels.id=content.travelsId and id=#{id}
+        select * from content,travels where travels.id=content.travelsId and id=#{id} order by content.sequence
+    </select>
+
+    <select id="findTravelsById" parameterType="String" resultMap="resultMap">
+        select * from travels where id=#{id}
     </select>
     
     <select id="selectTravelsByDestination" parameterType="String" resultMap="resultMap">
@@ -54,15 +58,26 @@
     </select>
     
     <select id="selectAllByAuthorId" parameterType="String" resultMap="resultMap">
-        select * from travels where authorId=#{authorId}
+        select * from content,travels where travels.id=content.travelsId and authorId=#{authorId} order by content.sequence
     </select>
 
     <select id="selectLimit"  parameterType="Integer" resultMap="resultMap">
-        select * from content,travels where travels.id=content.travelsId and content.sequence=1 order by travels.id desc limit #{param1},#{param2}
+        select * from content,travels
+        where travels.id=content.travelsId
+          and content.sequence=1
+          and travels.travelstype=1
+        order by travels.id desc
+        limit #{param1},#{param2}
     </select>
 
     <select id="selectCount" resultType="Integer">
-        select count(1) from travels
+        select count(1) from travels where travelstype = 1
     </select>
+
+    <select id="selectID" resultType="String">
+        select id from travels where travelstype = 1
+    </select>
+
+
 
 </mapper>
