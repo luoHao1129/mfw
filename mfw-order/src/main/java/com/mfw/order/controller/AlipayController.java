@@ -44,6 +44,8 @@ public class AlipayController {
     private RestTemplate restTemplate;
     @Value("${OrderService.hotelOrderServieURLGet}")
     private String hotelOrderServieURLGet;
+    @Value("${OrderService.fightOrderServieURLGet}")
+    private String fightOrderServieURLGet;
     @Resource
     private OrderDetailsService orderDetailsService;
     @Resource
@@ -118,6 +120,36 @@ public class AlipayController {
         paramMap.put("phoneNumber", userDTO.getTel());
         paramMap.put("msgSign", Sms.MSG_SIGN);
         paramMap.put("templateCode", Sms.TEMPLATE_CODE_HOTEL);
+        paramMap.put("jsonContent", jsonContent);
+        SendSmsResponse sendSmsResponse = Sms.sendSms(paramMap);
+        Map<String,Object> json = new HashMap<>();
+        if (!(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK"))) {
+            if (sendSmsResponse.getCode() == null) {
+                json.put("code", "n");
+            }
+            if (!sendSmsResponse.getCode().equals("OK")) {
+                json.put("code", "n");
+            }
+        }
+        json.put("code", "y");
+        return JSON.toJSONString(json);
+    }
+
+    /**
+     * 机票短信通知
+     */
+    public String FightSMS(OrderDTO orderDTO) throws ClientException {
+        OrderDetailesPageDTO orderDetailes = orderUtil.getOrderDetailes(orderDTO,restTemplate,fightOrderServieURLGet,orderDetailsService);
+        String jsonContent = "{" +
+                "\"name\":\"" + userDTO.getName() + "\"," +
+                "\"fightname\":\"" + orderDetailes.getCompanyName() + "\"," +
+                "\"orderId\":\"" + orderDTO.getOrderId() + "\"" +
+                "}";
+
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("phoneNumber", userDTO.getTel());
+        paramMap.put("msgSign", Sms.MSG_SIGN);
+        paramMap.put("templateCode", Sms.TEMPLATE_CODE_FIGHT);
         paramMap.put("jsonContent", jsonContent);
         SendSmsResponse sendSmsResponse = Sms.sendSms(paramMap);
         Map<String,Object> json = new HashMap<>();

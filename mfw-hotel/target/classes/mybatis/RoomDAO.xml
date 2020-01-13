@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mfw.hotel.dao.RoomDAO">
+    <select id="selectRoomByHotelId" parameterType="RoomDetailsDTO" resultType="RoomDetailsDTO">
+        select hotelId,roomId,type,numOfBeds,numOfPeople,roomNum,roomPrice,roomState,checkInTime,checkOutTime
+		from room_details where hotelId=#{hotelId}
+    </select>
+
+    <select id="selectRoomById" parameterType="RoomDetailsDTO" resultType="RoomDetailsDTO">
+        select hotelId,roomId,type,numOfBeds,numOfPeople,roomNum,roomPrice,roomState,checkInTime,checkOutTime
+        from room_details where roomId=#{id}
+    </select>
+
+</mapper>

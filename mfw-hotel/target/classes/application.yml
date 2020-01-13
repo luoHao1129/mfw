@@ -1,0 +1,56 @@
+server:
+  port: 8088
+
+#时间格式化
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    #时区设置
+    time-zone: Asia/Chongqing
+  profiles:
+    active: dev
+
+#mysql
+  datasource:
+
+    url: jdbc:mysql://rm-wz94ccy660ac03o3dio.mysql.rds.aliyuncs.com:3306/travel_project?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF8
+    username: yizu
+    password: yizu123456A
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #Druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    #spring.datasource.type=org.apache.tomcat.jdbc.pool.DataSource
+    druid:
+      #初始化连接大小
+      initial-size: 8
+      #最小空闲连接数
+      min-idle: 5
+      #最大连接数
+      max-active: 100
+      #查询超时时间
+      query-timeout: 600
+      #事务查询超时时间
+      transaction-query-timeout: 6000
+      #关闭空闲连接超时时间
+      remove-abandoned-timeout: 1800
+      #sql 监控配置
+      #filter类名:stat,config,encoding,logging
+      filters: stat
+  freemarker:
+    prefix:
+    suffix: .ftl
+    content-type: text/html
+  mvc:
+    static-path-pattern: /**
+  resources:
+      static-locations: classpath:/META-INF/resources/,classpath:/static,classpath:/resources/,classpath:/public/,file:${web.upload-path}
+#mybatis
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml
+  type-aliases-package: com.mfw.api.dto
+
+logging:
+  config: classpath:logback-zg.xml
+
+#设置独立的文件目录
+web.upload-path: e:/webpath/

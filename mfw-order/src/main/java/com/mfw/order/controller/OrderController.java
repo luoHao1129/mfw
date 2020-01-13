@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -171,16 +170,26 @@ public class OrderController {
 
     /**
      * 机票
-     * @param airTicketsDTO
+     * @param mail
+     * @param peopleFight
+     * @param fightName
+     * @param commodityId
+     * @param departureTime
+     * @param landingTime
+     * @param name
+     * @param tel
      * @param amount
      * @param session
-     * @param userDetailsDTO
      * @return
      */
     @RequestMapping("/fightOrderDetailsDTO")
-    public AirTicketsDTO fightOrderDetailsDTO(AirTicketsDTO airTicketsDTO,String amount,HttpSession session,UserDetailsDTO userDetailsDTO){
+    public String fightOrderDetailsDTO(String mail, String peopleFight, String fightName, String commodityId, String departureTime, String landingTime, String name, String tel, String amount, HttpSession session) throws ParseException {
 
         String orderNo = this.getOrderNum();
+        String userDetailsId = UUID.randomUUID().toString().replace("-", "");
+        UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
+        userDetailsDTO.setUserDetailsId(userDetailsId).setName(name);
+
 
         //拿到user数据
         UserDTO userDTO = (UserDTO)session.getAttribute("user");
@@ -191,30 +200,49 @@ public class OrderController {
         //生成订单详情唯一识别码切去掉横线
         String id = UUID.randomUUID().toString().replace("-", "");
 
+        //时间格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+        Date dateFightDepartureTime = simpleDateFormat.parse(departureTime);
+        Date dateFightLandingTime = simpleDateFormat.parse(landingTime);
+
         //添加订单详情
-        orderDetailsDTO.setCommodityId(airTicketsDTO.getFightNum());
-        orderDetailsDTO.setUserDetails(userDetailsDTO.getUserDetailsId());
-        orderDetailsDTO.setOrderId(this.getOrderNum());
+        orderDetailsDTO.setCommodityId(commodityId);
+        orderDetailsDTO.setUserDetails(userDetailsId);
+        orderDetailsDTO.setOrderId(orderNo);
         orderDetailsDTO.setId(id);
+        orderDetailsDTO.setDepartureTime(dateFightDepartureTime);
+        orderDetailsDTO.setLandingTime(dateFightLandingTime);
 
         //添加订单
         OrderDTO orderDTO = new OrderDTO();
 
-        double amountHotel = Double.valueOf(amount);
+        double amountFight = Double.valueOf(amount);
+
         orderDTO.setOrderId(orderNo);
         orderDTO.setUserId(userDTO.getId());
         orderDTO.setStatus(2);
         orderDTO.setOrderTime(new Date());
-        orderDTO.setPeople(1);
+        String renshu666 = peopleFight.trim();
+        int people = Integer.valueOf(renshu666);
+
+        orderDTO.setPeople(people);
         orderDTO.setDetails(id);
+        orderDTO.setAmount(amountFight);
+        orderDTO.setTypeId(1);
+
 
         //持久化
         orderService.addOrder(orderDTO);
         orderDetailsService.addOrderDetails(orderDetailsDTO);
         userDetailsService.addUserDetails(userDetailsDTO);
 
-
-        return airTicketsDTO;
+        //邮件通知
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",name);
+        map.put("fightName",fightName);
+        map.put("orderId",orderNo);
+        component.sendMail(mail,map);
+        return "redirect:/getOrderDetails";
     }
 
 }
