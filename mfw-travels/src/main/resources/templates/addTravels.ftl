@@ -15,7 +15,6 @@
         }
         .title_bj{
             position: absolute;
-            opacity: 0.5;
             width: 100%;
             height: 506px;
             z-index: -1;
@@ -76,13 +75,14 @@
 
         .edit_text{
             width: 60%;
-            margin: 30px auto;
+            margin: auto;
         }
         .textarea{
             border: none;
             display: block;
             overflow: hidden;
             width: 100%;
+            margin: 10px;
         }
         .text{
             width: 70%;
@@ -155,6 +155,7 @@
 
 
         }
+
         .textarea{
             outline: none;
             overflow-y: auto;
@@ -163,7 +164,7 @@
 
     </style>
 
-    <script src="js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 
@@ -171,41 +172,82 @@
 
 
 <div class="title_div">
-    <img class="title_bj" src="img/addyoujibj.jpg" >
 
-    <input class="up_pic" type="file"/>
-    <img class="up_img" src="img/shangchuan.PNG" />
-    <div class="up_text">
-        <span>设置游记头图</span>
-        <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
-    </div>
-    <input class="title_text" type="text" placeholder="填写游记标题"/>
-    <input type="hidden" id="travels_id" value="">
-</div>
+    <#if travels.tpic?? || travels.tpic =="">
+        <img class="title_bj" src="/${travels.tpic }" >
+    <#else >
+        <img class="title_bj" src="../img/addyoujibj.jpg" >
 
-
-<div class="edit_text">
-    <div class="edit_text_ok">
-
-    </div>
-        <div class="text" style="height: 600px;" data-id="">
-            <div class="textarea _j_textarea" contenteditable="true" onblur="contentText(this)"  data-exclude_class="_j_textarea _j_textareaplc" data-id="" id="textarea">
-            </div>
-            <img class="img_youji" src=""  />
-            <input type="hidden" value="" id="sequence">
-            <input type="hidden" value="" id="content_id">
+        <input class="up_pic" type="file"/>
+        <img class="up_img" src="../img/shangchuan.PNG" />
+        <div class="up_text">
+            <span>设置游记头图</span>
+            <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
         </div>
 
 
 
+
+    </#if>
+    <#if travels.title?? || travels.title == "">
+        <input class="title_text" type="text" value="${travels.title }" />
+    <#else >
+        <input class="title_text" type="text" placeholder="填写游记标题"/>
+
+    </#if>
+
+    <input type="hidden" id="travels_id" value="${travels.id}">
+
+</div>
+
+<div class="edit_text">
+    <div class="edit_text_ok">
+        <#list travels.contents as content>
+             <div class="text"  data-id="">
+                <div class="textarea _j_textarea" contenteditable="true" onblur="contentText(this)"
+                     data-exclude_class="_j_textarea _j_textareaplc" data-id="${content.id}" data-sequence="${content.sequence}" id="textarea${content.sequence}">
+                    ${content.text}
+                    <#if content_has_next>
+
+                        <#else >
+
+                    </#if>
+                </div>
+                 <#if content.pic?? && content.pic != "">
+                     <img class="img_youji" src="/${content.pic}"  />
+
+                     <#if content_has_next>
+                         <#else >
+                             <input type="hidden" value="${content.sequence+1}" id="sequence">
+                             <input type="hidden" value="" id="content_id">
+
+                     </#if>
+
+                     <#elseif content_has_next>
+
+                     <#else >
+                     <input type="hidden" value="${content.sequence}" id="sequence">
+                     <input type="hidden" value="" id="content_id">
+                 </#if>
+
+            </div>
+        </#list>
+
+    </div>
+    <div class="text" data-id="">
+        <div class="textarea _j_textarea" contenteditable="true" onblur="contentText(this)"  data-exclude_class="_j_textarea _j_textareaplc" data-id="" id="textarea">
+        </div>
+        <img class="img_youji" src=""  />
+    </div>
+
     <a href="" style="text-decoration: none" id="text_save">
-    <input type="submit" class="text_save" value="发表游记"/>
+        <input type="submit" class="text_save" value="发表游记"/>
     </a>
 
 </div>
 
 <div class="edit_util">
-    <img src="img/edit_util.PNG" >
+    <img src="/img/edit_util.PNG" >
     <ul>
         <li>插入图片</li>
         <li>插入表情</li>
@@ -218,7 +260,7 @@
         <input type="submit" class="caogao_save" value="保存草稿"/>
     </a>
 </div>
-<script type="text/javascript" src="js/main.js"></script>
+<#--<script type="text/javascript" src="js/main.js"></script>-->
 
 
 
@@ -295,27 +337,27 @@
 
         <div class="ft-links">
             <a target="_blank" href="http://china.makepolo.com/">马可波罗</a><a target="_blank" href="http://www.onlylady.com/">Onlylady女人志</a><a
-                target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a
-                target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a
-                target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a
-                target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a
-                target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a
-                target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a
-                target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a
-                target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a
-                target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a
-                target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a
-                target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a
-                target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="https://daxue.mafengwo.cn/#/">马蜂窝大学</a><a
-                target="_blank" href="https://m.weelv.com">马尔代夫旅游</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a
-                target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a
-                target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a
-                target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a
-                target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a
-                target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a
-                target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a
-                target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a
-                target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
+                    target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a
+                    target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a
+                    target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a
+                    target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a
+                    target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a
+                    target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a
+                    target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a
+                    target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a
+                    target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a
+                    target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a
+                    target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a
+                    target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="https://daxue.mafengwo.cn/#/">马蜂窝大学</a><a
+                    target="_blank" href="https://m.weelv.com">马尔代夫旅游</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a
+                    target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a
+                    target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a
+                    target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a
+                    target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a
+                    target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a
+                    target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a
+                    target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a
+                    target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
             <a href="http://www.mafengwo.cn/s/link.html" target="_blank">更多友情链接&gt;&gt;</a>
         </div>
 
@@ -411,10 +453,10 @@
                     alert("上传图片为空，请重新上传");
                 }
             }
-            });
+        });
     });
 
-    var index_text = 1;
+    var index_text = $('#sequence').val();
     $('.up_pic_util').change(function () {
         var formData = new FormData();
         var text = $('#textarea').html();
@@ -445,7 +487,7 @@
                         " data-exclude_class=\"_j_textarea _j_textareaplc\" data-id='"+json.contentId+"'data-sequence='"+json.sequence+"'>\n" +
                         "\n" +json.cText+
                         "\t\t\t\t</div>\n" +
-                        "        <img class=\"img_youji\" src=\""+json.imgPath+"\" />\n" +
+                        "        <img class=\"img_youji\" src=\"/"+json.imgPath+"\" />\n" +
                         "    </div>";
                     $('.edit_text_ok').append(html);
                     $('#travels_id').val(json.tId);
@@ -468,19 +510,19 @@
     $('.title_text').blur(function () {
         var travelsId = $('#travels_id').val();
         var title = $('.title_text').val();
-            $.ajax({
-                async: true,
-                type: "POST",
-                dataType: "json",
-                url: "/updateTravelsTitle",
-                data:{"id":travelsId,"title":title},
-                success:function (msg) {
-                    if(msg.msg == "success"){
-                    }
-                    $('#travels_id').val(msg.tId);
-                    $('#text_save').attr("href","/toPublish/"+msg.tId);
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json",
+            url: "/updateTravelsTitle",
+            data:{"id":travelsId,"title":title},
+            success:function (msg) {
+                if(msg.msg == "success"){
                 }
-            });
+                $('#travels_id').val(msg.tId);
+                $('#text_save').attr("href","/toPublish/"+msg.tId);
+            }
+        });
     });
 
 
@@ -494,6 +536,7 @@
         if(sequence == ""){
             sequence = 1;
         }
+        console.log(sequence +"=============="+contentID)
         $.ajax({
             async: true,
             type: "POST",
@@ -511,3 +554,4 @@
 </script>
 </body>
 </html>
+

@@ -441,15 +441,17 @@
                 <li><a href="">最新发表</a></li>
             </ul>
             <div class="youji_edit">
-                <label>
-                    写游记
-                </label>
+                <a href="/toAddTravels">
+                    <label>
+                        写游记
+                    </label>
+                </a>
             </div>
         </div>
 
         <div class="youji_item_div">
         <#list travelsai as travels>
-            <a href="/toTravels/${travels.id }" style="color: black">
+            <a href="/travel${travels.id }.html" style="color: black">
             <div class="youji_item" >
                 <img src="${travels.tpic }" >
                 <input type="submit" style="display: none;" id="sub"/>
@@ -520,7 +522,7 @@
                 var html = "";
                 for(var index in json){
 
-                    html = html + "  <a href=\"/toTravels/"+json[index].id+"\" style=\"color: black\">\n" +
+                    html = html + "  <a href=\"/travel"+json[index].id+".html\" style=\"color: black\">\n" +
                         "            <div class=\"youji_item\" >\n" +
                         "                <img src=\""+json[index].tpic+"\" >\n" +
                         "                <input type=\"submit\" style=\"display: none;\" id=\"sub\"/>\n" +
