@@ -10,9 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.mfw.api.dto.Travels;
 import com.mfw.api.dto.UserDTO;
 import com.mfw.api.util.PageStatic;
+import com.mfw.travels.config.AlipayConfig;
 import com.mfw.travels.service.impl.TravelsServiceImpl;
 
 
@@ -111,44 +117,40 @@ public class TravelsController {
 	}
 	
 	@RequestMapping(value = "/addTravels")
-	public ModelAndView queryFileData(@RequestParam("file")MultipartFile file,HttpServletRequest request,HttpServletResponse response, @RequestParam("title")String title) throws IOException {
-	    	 ModelAndView modelAndView = new ModelAndView();
-        	 System.out.println(title);
-		// MultipartFile是对当前上传的文件的封装
-	         if (!file.isEmpty()) {
-	        	 System.out.println(title);
-	             String type = file.getOriginalFilename().substring(
-	                     file.getOriginalFilename().indexOf("."));// 取文件格式后缀名
-	             String filename = UUID.randomUUID().toString().replace("-", "") + type;// 取当前时间戳作为文件名
-	             String pathS = "D:/eclipse-workspace/mfw/WebContent/imgs/"+filename;
-	             String path = request.getSession().getServletContext()
-	                     .getRealPath("/imgs/" + filename);// 存放位置
-	             File destFile = new File(pathS);
-	             Travels travels = new Travels();
-	             UserDTO userDTO = (UserDTO)request.getSession().getAttribute("user");
-//	             对游记详情进行封装
-	             String patht = pathS.substring(pathS.indexOf("imgs"));
-	             travels.setId(UUID.randomUUID().toString().replace("-", ""));
-	             travels.setTitle(title);
-	             travels.setTpic(patht);
-	             travels.setAuthorId("ccc");
-	             travels.setDestination("��");
-	             travels.setPageviews(0);
-	             travels.setLikeNum(0);
-	             travelsServiceImpl.addTravels(travels);
-	             try {
-					 // FileUtils.copyInputStreamToFile()这个方法里对IO进行了自动操作，不需要额外的再去关闭IO流
-	                 FileUtils.copyInputStreamToFile(file.getInputStream(), destFile);// 复制临时文件到指定目录下
-	             } catch (IOException e) {
-	                 e.printStackTrace();
-	             }
-	             request.getSession().setAttribute("addt", travels);
-	             String jsonString = JSON.toJSONString(travels);
-	             response.getWriter().print(jsonString);
-	            return modelAndView;
-         }
-			return modelAndView; 
+	@ResponseBody
+	public Travels queryFileData(Travels travels) {
+
+	    	return travels;
      }
+
+
+     @RequestMapping("/uploadImg")
+	 @ResponseBody
+     public Map upload(MultipartFile file){
+		Map<String,Object> rData = new HashMap<>();
+
+		 if (!file.isEmpty()) {
+			 String type = file.getOriginalFilename().substring(
+					 file.getOriginalFilename().indexOf("."));// 取文件格式后缀名
+			 String filename = UUID.randomUUID().toString().replace("-", "") + type;// 取当前时间戳作为文件名
+			 String path = "E:\\webpath\\uploadImg\\" + filename;
+			 File destFile = new File(path);
+			 try {
+				 // FileUtils.copyInputStreamToFile()这个方法里对IO进行了自动操作，不需要额外的再去关闭IO流
+				 FileUtils.copyInputStreamToFile(file.getInputStream(), destFile);// 复制临时文件到指定目录下
+				 String patht = path.substring(path.indexOf("uploadImg"));
+				 rData.put("success","200");
+				 rData.put("imgPath",patht);
+			 } catch (IOException e) {
+				 e.printStackTrace();
+				 rData.put("success","500");
+			 }
+		 }else {
+			 rData.put("success","404");
+		 }
+		 return rData;
+
+	 }
 
 	/**
 	 * 静态页面异步获取session中的用户数据
@@ -202,5 +204,32 @@ public class TravelsController {
 		 }
 	 }
 
+
+	 @RequestMapping("/pay")
+	 @ResponseBody
+	 public String payTest(){
+
+		 //获得初始化的AlipayClient
+		 AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
+
+		 AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
+		 request.setBizContent("{\"out_trade_no\":\""+ "2365987548" +"\","
+				 + "\"total_amount\":\""+ "1000" +"\","
+				 + "\"subject\":\""+ "酒店" +"\","
+				 + "\"body\":\""+ "酒店预订" +"\","
+				 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+
+		 AlipayTradePagePayResponse response = null;
+		 try {
+			 response = alipayClient.pageExecute(request);
+		 } catch (AlipayApiException e) {
+			 e.printStackTrace();
+		 }
+		 if(response.isSuccess()){
+			 return response.getBody();
+		 } else {
+			 return "调用失败";
+		 }
+	 }
 
 }

@@ -6,17 +6,32 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api" />
+        <module name="destination" />
         <module name="mfw-user" />
+        <module name="hotel" />
+        <module name="plane-ticket" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="api" target="1.8" />
+      <module name="destination" target="1.8" />
+      <module name="hotel" target="1.8" />
+      <module name="mfw-order" target="1.8" />
       <module name="mfw-parent" target="1.8" />
       <module name="mfw-user" target="1.8" />
+      <module name="parent" target="1.8" />
+      <module name="plane-ticket" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api" options="-parameters" />
+      <module name="destination" options="-parameters" />
+      <module name="hotel" options="-parameters" />
+      <module name="mfw-order" options="-parameters" />
       <module name="mfw-user" options="-parameters" />
+      <module name="plane-ticket" options="-parameters" />
     </option>
   </component>
 </project>

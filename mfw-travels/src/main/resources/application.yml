@@ -17,6 +17,7 @@ spring:
         min-idle: 0
     timeout: 300
 
+
   profiles:
     active: dev
   # mysql
@@ -53,6 +54,14 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/static,classpath:/resources/,classpath:/public/,file:${web.upload-path}
+    #配置文件传输
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: 5MB
+      max-request-size: 300MB
+
 
 #mybatis
 mybatis:

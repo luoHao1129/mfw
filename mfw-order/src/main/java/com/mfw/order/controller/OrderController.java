@@ -2,25 +2,29 @@ package com.mfw.order.controller;
 
 
 import com.mfw.api.dto.*;
+import com.mfw.order.OrderDetailesPageDTO;
 import com.mfw.order.mail.MailComponent;
 import com.mfw.order.service.OrderDetailsService;
 import com.mfw.order.service.OrderService;
 import com.mfw.order.service.UserDetailsService;
+import com.mfw.order.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
-@RestController
-@RequestMapping("/OrderController")
+@Controller
 public class OrderController {
 
     @Resource
@@ -29,15 +33,22 @@ public class OrderController {
     private OrderDetailsService orderDetailsService;
     @Resource
     private UserDetailsService userDetailsService;
-
     @Autowired
     private MailComponent component;
+
+    //生成订单号的方法
+    public String getOrderNum(){
+        Random random = new Random();
+        Date date = new Date();
+        String orderNo = random.nextInt(100)+""+date.getTime()+"";
+
+        return orderNo;
+    }
 
     //发送邮件
     @RequestMapping("/mail")
     public String mail(String email) {
         System.out.println("开始发送！");
-        component.sendMail(email);
         System.out.println("发送成功！");
         return "success";
     }
@@ -50,14 +61,58 @@ public class OrderController {
     }
 
 
+    //从酒店机票拿到需要的订单详情
+    @Autowired
+    private RestTemplate restTemplate;
+    @Value("${OrderService.hotelOrderServieURLGet}")
+    private String hotelOrderServieURLGet;
+
+    private OrderUtil orderUtil = new OrderUtil();
+
+    @RequestMapping("/getOrderDetails")
+    public ModelAndView getOrderDetails(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        UserDTO userDTO = (UserDTO)session.getAttribute("user");
+        List<OrderDTO> ordersDTO = orderService.getOrderDetailsById(userDTO.getId());
+        List<OrderDetailesPageDTO> orderDetailesPageDTOs = new ArrayList<>();
+        for(OrderDTO orderDTO:ordersDTO){
+            switch (orderDTO.getTypeId()){
+                case 1:
+                    OrderDetailesPageDTO orderDetailesPageDTO = orderUtil.getOrderDetailes(orderDTO,restTemplate,hotelOrderServieURLGet,orderDetailsService);
+                    orderDetailesPageDTOs.add(orderDetailesPageDTO);
+
+            }
+        }
+        modelAndView.addObject("orders",orderDetailesPageDTOs);
+        modelAndView.addObject("user",userDTO);
+        modelAndView.setViewName("order");
+        return modelAndView;
+    }
 
 
+    /**
+     * 酒店
+     * @param mail
+     * @param peopleHotel
+     * @param hotelName
+     * @param commodityId
+     * @param checkInTime
+     * @param checkOutTime
+     * @param name
+     * @param tel
+     * @param amount
+     * @param session
+     * @return
+     * @throws ParseException
+     */
 
-    //酒店
-    @RequestMapping("/hotelOrderDetailsDTO")
-    public RoomDetailsDTO hotelOrderDetailsDTO(RoomDetailsDTO roomDetailsDTO, String amount, HttpSession session, UserDetailsDTO userDetailsDTO){
+    @RequestMapping("/hotelOrder")
+    public String hotelOrderDetailsDTO(String mail,String peopleHotel,String hotelName,String commodityId,String checkInTime,String checkOutTime,String name,String tel,String amount,HttpSession session) throws ParseException {
 
         String orderNo = this.getOrderNum();
+        String userDetailsId = UUID.randomUUID().toString().replace("-", "");
+        UserDetailsDTO userDetailsDTO = new UserDetailsDTO();
+        userDetailsDTO.setUserDetailsId(userDetailsId).setName(name);
 
         //拿到user数据
         UserDTO userDTO = (UserDTO)session.getAttribute("user");
@@ -68,33 +123,60 @@ public class OrderController {
         //生成订单详情唯一识别码切去掉横线
         String id = UUID.randomUUID().toString().replace("-", "");
 
+        //时间格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+        Date dateHotelCheckIn = simpleDateFormat.parse(checkInTime);
+        Date dateHotelCheckOut = simpleDateFormat.parse(checkOutTime);
+
         //添加订单详情
-        orderDetailsDTO.setCommodityId(roomDetailsDTO.getHotelId());
-        orderDetailsDTO.setUserDetails(userDetailsDTO.getUserDetailsId());
+        orderDetailsDTO.setCommodityId(commodityId);
+        orderDetailsDTO.setUserDetails(userDetailsId);
         orderDetailsDTO.setOrderId(orderNo);
         orderDetailsDTO.setId(id);
+        orderDetailsDTO.setCheckInTime(dateHotelCheckIn);
+        orderDetailsDTO.setCheckOutTime(dateHotelCheckOut);
+
 
         //添加订单
         OrderDTO orderDTO = new OrderDTO();
 
         double amountHotel = Double.valueOf(amount);
+
         orderDTO.setOrderId(orderNo);
         orderDTO.setUserId(userDTO.getId());
-        orderDTO.setStatus(1);
+        orderDTO.setStatus(2);
         orderDTO.setOrderTime(new Date());
-        orderDTO.setPeople(1);
+        String renshu666 = peopleHotel.trim();
+        int people = Integer.valueOf(renshu666);
+
+        orderDTO.setPeople(people);
         orderDTO.setDetails(id);
+        orderDTO.setAmount(amountHotel);
+        orderDTO.setTypeId(1);
 
         //持久化
         orderService.addOrder(orderDTO);
         orderDetailsService.addOrderDetails(orderDetailsDTO);
         userDetailsService.addUserDetails(userDetailsDTO);
 
-        return roomDetailsDTO;
+        //邮件通知
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",name);
+        map.put("hotelName",hotelName);
+        map.put("orderId",orderNo);
+        component.sendMail(mail,map);
+        return "redirect:/getOrderDetails";
     }
 
 
-    //机票
+    /**
+     * 机票
+     * @param airTicketsDTO
+     * @param amount
+     * @param session
+     * @param userDetailsDTO
+     * @return
+     */
     @RequestMapping("/fightOrderDetailsDTO")
     public AirTicketsDTO fightOrderDetailsDTO(AirTicketsDTO airTicketsDTO,String amount,HttpSession session,UserDetailsDTO userDetailsDTO){
 
@@ -121,7 +203,7 @@ public class OrderController {
         double amountHotel = Double.valueOf(amount);
         orderDTO.setOrderId(orderNo);
         orderDTO.setUserId(userDTO.getId());
-        orderDTO.setStatus(1);
+        orderDTO.setStatus(2);
         orderDTO.setOrderTime(new Date());
         orderDTO.setPeople(1);
         orderDTO.setDetails(id);
@@ -134,18 +216,5 @@ public class OrderController {
 
         return airTicketsDTO;
     }
-
-    //生成订单号的方法
-    public String getOrderNum(){
-        Random random = new Random();
-        Date date = new Date();
-        String orderNo = random.nextInt(100)+""+date.getTime()+"";
-
-        return orderNo;
-    }
-
-
-
-
 
 }

@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/mfw-api/api.iml" filepath="$PROJECT_DIR$/mfw-api/api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfw-order/destination.iml" filepath="$PROJECT_DIR$/mfw-order/destination.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfw-hotel/hotel.iml" filepath="$PROJECT_DIR$/mfw-hotel/hotel.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/mfw.iml" filepath="$PROJECT_DIR$/.idea/mfw.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mfw-parent/mfw-parent.iml" filepath="$PROJECT_DIR$/mfw-parent/mfw-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/mfw-user/mfw-user.iml" filepath="$PROJECT_DIR$/mfw-user/mfw-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mfw-parent/parent.iml" filepath="$PROJECT_DIR$/mfw-parent/parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plane-ticket/plane-ticket.iml" filepath="$PROJECT_DIR$/plane-ticket/plane-ticket.iml" />
     </modules>
   </component>
 </project>

@@ -10,9 +10,9 @@
         <id column="id" property="id" javaType="String"/>
         <result property="orderId" column="orderId" javaType="String"/>
         <result property="userId" column="userId" javaType="String"/>
-        <result property="amount" column="amount" javaType="decimal"/>
+        <result property="amount" column="amount" javaType="double"/>
         <result property="status" column="status" javaType="int"/>
-        <result property="orderTime" column="orderTime" javaType="datetime"/>
+        <result property="orderTime" column="orderTime" javaType="Date"/>
         <result property="people" column="people" javaType="int"/>
         <result property="details" column="details" javaType="String"/>
         <result property="typeId" column="typeId" javaType="int"/>
@@ -20,12 +20,20 @@
 
     <!--    配置响应的dao方法-->
     <insert id="addOrder" parameterType="OrderDTO">
-        insert into order(orderId,userId,amount,status,orderTime,people,details,typeId)
-        values (replace(uuid(),replace(uuid(),#{amount},#{status},#{orderTime},#{people},#{details},#{typeId})
+        insert into `order`(orderId,userId,amount,`status`,orderTime,people,details,typeId)
+        values (#{orderId},#{userId},#{amount},#{status},#{orderTime},#{people},#{details},#{typeId})
     </insert>
 
     <select id="selectOrderById" resultMap="resultMap" parameterType="OrderDTO">
-        select * from order where orderId=#{orderId};
+        select * from `order` where orderId=#{orderId};
     </select>
+
+    <select id="selectOrderByUserId" resultMap="resultMap" parameterType="OrderDTO">
+        select * from `order` where userId=#{userId};
+    </select>
+
+    <update id="updateOrder" parameterType="OrderDTO">
+        update `order` set status = #{status} where orderId = #{orderId};
+    </update>
 
 </mapper>

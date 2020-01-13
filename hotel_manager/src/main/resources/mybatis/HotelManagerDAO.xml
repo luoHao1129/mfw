@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mfw.hotel_manager.dao">
+
+
+    <insert id="addHotel" parameterType="HotelDTO">
+        insert into hotel
+        (hotelId, hotelName, hotelAddress, hotelCity, hotelDetails, hotelPic, hotelBrand,hotelType)
+        value
+        (
+            replace(uuid(),'-',''),
+            #{hotelName},
+            #{hotelCity},
+            #{hotelAddress},
+            #{hotelDetails},
+            #{hotelPic},
+            #{hotelBrand},
+            #{hotelType}
+        )
+    </insert>
+
+    <update id="updateHotelById" parameterType="HotelDTO">
+        update hotel set
+             hotelName=#{hotelName},
+             hotelCity=#{hotelCity},
+             hotelAddress=#{hotelAddress},
+             hotelDetails=#{hotelDetails},
+             hotelPic=#{hotelPic},
+             hotelBrand=#{hotelBrand},
+             hotelType=#{hotelType}
+        where
+            hotelId=#{hotelId}
+    </update>
+    
+    <select id="searchHotelByName" resultMap="HotelDTO">
+        select * from hotel where 
+        hotelName like concat('%',#{name},'%')
+    </select>
+    
+    
+
+</mapper>

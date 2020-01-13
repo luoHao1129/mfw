@@ -1,4 +1,6 @@
-
+OrderService:
+  hotelOrderServieURLGet: http://localhost:8088/getHotelDTO/
+  fightOrderServieURLPost: http://localhost:8086/getFightDTO/
 
 #时间格式化
 spring:
@@ -81,7 +83,7 @@ web.upload-path: e:/webpath/
 spring:
   profiles: dev
 server:
-  port: 8086
+  port: 8083
 ---
 spring:
   profiles: test

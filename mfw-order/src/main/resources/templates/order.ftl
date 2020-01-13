@@ -138,54 +138,56 @@
                     <div class="order_xq_title">
                         <ul>
                             <li>订单号：<a> ${meige.orderId } </a></li>
-                            <li class="order_xq_title_time">下单时间：<span>${meige.orderTime }</span> </li>
+                            <li class="order_xq_title_time">下单时间：<span>${meige.orderTime?string("yyyy-MM-dd") }</span> </li>
                             <li>联系电话：4006-345-678</li>
                         </ul>
                     </div>
 
-                        <#if meige.typeId=='1'>
+
 
                             <div class="order_xq_content">
                                 <ul>
-                                    <li><img class="order_xq_img" src="${hdto.hotelPic }"/></li>
-                                    <li><span class="order_xq_name">${hdto.hotelName }</span></li>
-                                    <li><span class="order_xq_type">酒店</span></li>
+                                    <li><img class="order_xq_img" src="${meige.companyPic }"/></li>
+                                    <li><span class="order_xq_name">${meige.companyName }</span></li>
+                                    <li><span class="order_xq_type">${meige.type }</span></li>
 
 
-                                    <li><div class="order_xq_xc"><span>入住: ${rddto.checkInTime }</span><span>离店: ${rddto.checkOutTime }</span></div></li>
-                                    <li><span class="order_xq_price">￥${meige.amount }</span></li>
+                                    <li><div class="order_xq_xc"><span>入住: ${meige.inTime?string("yyyy-MM-dd") }</span><span>离店: ${meige.outTime?string("yyyy-MM-dd") }</span></div></li>
+                                    <li><span class="order_xq_price">￥${meige.orderAmount }</span></li>
 
-                                    <#if meige.status=='1'>
+                                    <#if meige.status==1>
                                             <li><span>已支付</span></li>
-                                    <#elseif meige.status=='2'>
+                                        <li><div class="order_xq_cz"><a><span>查看订单 </span></a></div></li>
+                                    <#elseif meige.status==2>
                                             <li><span>未支付</span></li>
+                                        <li><div class="order_xq_cz"><a href="/pay/${meige.orderId }" ><span>支付订单 </span></a></div></li>
                                     </#if>
-                                    <li><div class="order_xq_cz"><span>删除订单 </span><span>查看订单 </span></div></li>
+
                                 </ul>
                             </div>
 
-                        </#if>
 
-                        <#if meige.typeId=='2'>
 
-                            <div class="order_xq_content">
-                                <ul>
-                                    <li><img class="order_xq_img" src="${fd.img }"/></li>
-                                    <li><span class="order_xq_name">${fd.company }</span></li>
-                                    <li><span class="order_xq_type">机票</span></li>
+<#--                        <#if meige.typeId=='2'>-->
 
-                                    <li><div class="order_xq_xc"><span>起飞时间: ${fd.departureTime?time('hh:mm')} </span><span>到达时间: ${fd.landingTime?time('hh:mm') }</span></div></li>
-                                    <li><span class="order_xq_price">￥${meige.amount }</span></li>
+<#--                            <div class="order_xq_content">-->
+<#--                                <ul>-->
+<#--                                    <li><img class="order_xq_img" src="${fd.img }"/></li>-->
+<#--                                    <li><span class="order_xq_name">${fd.company }</span></li>-->
+<#--                                    <li><span class="order_xq_type">机票</span></li>-->
 
-                                    <#if meige.status=='1'>
-                                        <li><span>已支付</span></li>
-                                    <#elseif meige.status=='2'>
-                                        <li><span>未支付</span></li>
-                                    </#if>
-                                    <li><div class="order_xq_cz"><span>删除订单 </span><span>查看订单 </span></div></li>
-                                </ul>
-                            </div>
-                        </#if>
+<#--                                    <li><div class="order_xq_xc"><span>起飞时间: ${fd.departureTime?time('hh:mm')} </span><span>到达时间: ${fd.landingTime?time('hh:mm') }</span></div></li>-->
+<#--                                    <li><span class="order_xq_price">￥${meige.amount }</span></li>-->
+
+<#--                                    <#if meige.status=='1'>-->
+<#--                                        <li><span>已支付</span></li>-->
+<#--                                    <#elseif meige.status=='2'>-->
+<#--                                        <li><span>未支付</span></li>-->
+<#--                                    </#if>-->
+<#--                                    <li><div class="order_xq_cz"><span>删除订单 </span><span>查看订单 </span></div></li>-->
+<#--                                </ul>-->
+<#--                            </div>-->
+<#--                        </#if>-->
 
 
                 </div>

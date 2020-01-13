@@ -18,10 +18,11 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDIgHnOn7LLILlKETd6BFRJ0GqgS2Y3mn1wMQmyh9zEyWlz5p1zrahRahbXAfCfSqshSNfqOmAQzSHRVjCqjsAw1jyqrXaPdKBmr90DIpIxmIyKXv4GGAkPyJ/6FTFY99uhpiq0qadD/uSzQsefWo0aTvP/65zi3eof7TcZ32oWpwIDAQAB";
 
     //4.服务器异步通知页面路径
-    public static String notify_url = "http://localhost:8081/alipay.trade.page.pay-JAVA-UTF-8/notify_url.jsp";
+    public static String notify_url = "http://localhost:8083/message";
 
     //5.服务器同步通知页面路径
-    public static String return_url = "http://localhost:8081/alipay.trade.page.pay-JAVA-UTF-8/return_url.jsp";
+//    public static String return_url = "http://localhost:8083/getOrderDetails";
+    public static String return_url = "http://localhost:8083/message";
 
     //6.签名方式
     public static String sign_type = "RSA2";
