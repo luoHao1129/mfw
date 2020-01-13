@@ -42,10 +42,10 @@ public class AlipayController {
 
     @Resource
     private RestTemplate restTemplate;
-    @Value("${OrderService.hotelOrderServieURLGet}")
-    private String hotelOrderServieURLGet;
-    @Value("${OrderService.fightOrderServieURLGet}")
-    private String fightOrderServieURLGet;
+    @Value("${OrderService.hotelOrderServiceURLGet}")
+    private String hotelOrderServiceURLGet;
+    @Value("${OrderService.fightOrderServiceURLGet}")
+    private String fightOrderServiceURLGet;
     @Resource
     private OrderDetailsService orderDetailsService;
     @Resource
@@ -109,7 +109,7 @@ public class AlipayController {
      * 酒店短信通知
      */
     public String HotelSMS(OrderDTO orderDTO) throws ClientException {
-        OrderDetailesPageDTO orderDetailes = orderUtil.getOrderDetailes(orderDTO,restTemplate,hotelOrderServieURLGet,orderDetailsService);
+        OrderDetailesPageDTO orderDetailes = orderUtil.getOrderDetailes(orderDTO,restTemplate,hotelOrderServiceURLGet,orderDetailsService);
         String jsonContent = "{" +
                 "\"name\":\"" + userDTO.getName() + "\"," +
                 "\"hotelname\":\"" + orderDetailes.getCompanyName() + "\"," +
@@ -139,7 +139,7 @@ public class AlipayController {
      * 机票短信通知
      */
     public String FightSMS(OrderDTO orderDTO) throws ClientException {
-        OrderDetailesPageDTO orderDetailes = orderUtil.getOrderDetailes(orderDTO,restTemplate,fightOrderServieURLGet,orderDetailsService);
+        OrderDetailesPageDTO orderDetailes = orderUtil.getOrderDetailes(orderDTO,restTemplate,fightOrderServiceURLGet,orderDetailsService);
         String jsonContent = "{" +
                 "\"name\":\"" + userDTO.getName() + "\"," +
                 "\"fightname\":\"" + orderDetailes.getCompanyName() + "\"," +
