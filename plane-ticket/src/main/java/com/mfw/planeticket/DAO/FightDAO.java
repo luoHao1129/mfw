@@ -10,4 +10,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FightDAO {
 	List<FightDTO> selectFightDTOs(String departure, String arrival);
 	FightDTO selectFightDTObyid(String id);
+	List<FightDTO> selecttakeOffAirport(String departure);
+	List<FightDTO> selectarrivalAtTheAirport(String arrival);
+	List<FightDTO> selectdepartureTime(String departure);
+	List<FightDTO> selectaircraftType(String departure);
+	List<FightDTO> selectcompany(String departure);
+	List<FightDTO> screeningInformation(FightDTO fightDTO);
+
 }

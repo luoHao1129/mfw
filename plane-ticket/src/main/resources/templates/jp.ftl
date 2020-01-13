@@ -99,36 +99,35 @@
         <div id="screen">
             <form>
                 <span class="choice">筛选：</span>
-                <select class="c1">
+                <select class="c1" id="departureTime">
                     <option value="">起飞时间</option>
-                    <option value="">02:00-09:59</option>
-                    <option value="">03:00-09:59</option>
-                    <option value="">04:00-09:59</option>
+                    <#list fightDTOdepartureTime as fight>
+                        <option value="${fight.departureTime}">${fight.departureTime?substring(0,5)}</option>
+                    </#list>
                 </select>
-                <select class="c1">
+                <select class="c1" id="takeOffAirport">
                     <option value="">起飞机场</option>
-                    <option value="">民用机场</option>
-                    <option value="">军用机场</option>
-                    <option value="">私人机场</option>
+                <#list fightDTO as fight>
+                        <option value="${fight.takeOffAirport}">${fight.takeOffAirport}</option>
+                </#list>
                 </select>
-                <select class="c1">
+                <select class="c1" id="arrivalAtTheAirport">
                     <option value="">到达机场</option>
-                    <option value="">空军基地</option>
-                    <option value="">陆军基地</option>
-                    <option value="">海军基地</option>
+                    <#list fightDTOS1 as fight>
+                        <option value="${fight.arrivalAtTheAirport}">${fight.arrivalAtTheAirport}</option>
+                    </#list>
                 </select>
-                <select class="c1">
+                <select class="c1" id="company">
                     <option value="">航空公司</option>
-                    <option value="">吴氏航空</option>
-                    <option value="">温氏航空</option>
-                    <option value="">罗氏航空</option>
-                    <option value="">杨氏航空</option>
+                    <#list fightDTOcompany as fight>
+                        <option value="${fight.company}">${fight.company}</option>
+                    </#list>
                 </select>
-                <select class="c1">
+                <select class="c1" id="aircraftType">
                     <option value="">机型</option>
-                    <option value="">歼20</option>
-                    <option value="">F16</option>
-                    <option value="">图灵轰炸机</option>
+                    <#list fightDTOaircraftType as fight>
+                        <option value="${fight.aircraftType}">${fight.aircraftType}</option>
+                    </#list>
                 </select>
             </form>
         </div>
@@ -143,14 +142,21 @@
                 <div id="flight">
 
                     <img src="${fight.img }" class="aviation"><span class="fi">${fight.company }</span>&nbsp;<span class="number">${fight.fightNum }</span>
-                    <span class="fly">${fight.departureTime?string('hh:mm')}</span><span class="travel-time">2小时55分钟</span><span class="flys"> ${fight.landingTime?string('hh:mm')}</span><span class="qian">￥</span><span
+                    <span class="fly">${fight.departureTime?substring(0,5)}</span><span class="travel-time">2小时55分钟</span><span class="flys"> ${fight.landingTime?string('hh:mm')}</span><span class="qian">￥</span><span
                             id="Price">${fight.price?string("0") }</span><span class="qi">起</span>
                     <div id="dp" class="dp11">
                         <input type="hidden" value="${fight.fightNum }" id="hbid">
                         <a href="/dingdan/${fight.fightNum }"><span class="dp1">订票</span></a>
                     </div>
                     <!-- <img src="img/304894340e716debfd6c7cbb2ff20d9.png" class="dp" > -->
-                    <br><span class="jc">浦东机场</span><span class="xian">--------&gt;</span><span class="jc2">江北机场</span>
+
+                    <br>
+
+                    <span class="jc">${fight.takeOffAirport}</span>
+
+                    <span class="xian">--------&gt;</span>
+
+                    <span class="jc2">${fight.arrivalAtTheAirport}</span>
 
                 </div>
 
@@ -162,18 +168,69 @@
 
     </div>
 </div>
-<#--<script type="text/javascript">-->
-<#--    $(".dp11").click(function (){-->
-<#--        var id= $(this).find("#hbid").val();-->
+<script type="text/javascript">
+    $(function(){
+        $("#departureTime").change(function (){
+            var departureTime = $('#departureTime').val();
+            var takeOffAirport = $('#takeOffAirport').val();
+            var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
+            var company = $('#company').val();
+            var aircraftType = $('#aircraftType').val();
+            var params = {"departureTime":departureTime,"takeOffAirport":takeOffAirport,"arrivalAtTheAirport":arrivalAtTheAirport,"company":company,"aircraftType":aircraftType};
+            $.ajax({
+                async:true,
+                type:"POST",
+                dataType:"json",
+                url:"/screeningFlights",
+                data:params,
+                success:function (json) {
+                    // $("#total-text").text(json.length);
+                    // var html= ""
+                    // for(var index in json){
+                    //     html=html+""
+                    // console.log(json);
+                    alert(json);
+                }
+            });
 
-<#--        var params={"id":id};-->
-<#--        $.get("<%=request.getContextPath()%>/dingdanServlet",params,function(obj){-->
 
-<#--        },"josn");-->
+        });
+        $("#takeOffAirport").change(function (){
+            var departureTime = $('#departureTime').val();
+            var takeOffAirport = $('#takeOffAirport').val();
+            var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
+            var company = $('#company').val();
+            var aircraftType = $('#aircraftType').val();
 
-<#--        location.href = "${pageContext.request.contextPath }/main.jsp?f=dingdan";-->
+        });
+        $("#arrivalAtTheAirport").change(function (){
+            var departureTime = $('#departureTime').val();
+            var takeOffAirport = $('#takeOffAirport').val();
+            var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
+            var company = $('#company').val();
+            var aircraftType = $('#aircraftType').val();
 
-<#--    });-->
-<#--</script>-->
+        });
+        $("#company").change(function (){
+            var departureTime = $('#departureTime').val();
+            var takeOffAirport = $('#takeOffAirport').val();
+            var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
+            var company = $('#company').val();
+            var aircraftType = $('#aircraftType').val();
+
+        });
+        $("#aircraftType").change(function (){
+            var departureTime = $('#departureTime').val();
+            var takeOffAirport = $('#takeOffAirport').val();
+            var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
+            var company = $('#company').val();
+            var aircraftType = $('#aircraftType').val();
+
+        });
+
+    });
+
+</script>
+
 </body>
 </html>

@@ -8,12 +8,14 @@ import com.mfw.planeticket.service.AirTicketsService;
 import com.mfw.planeticket.service.FightService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import sun.security.pkcs11.Secmod;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,7 +39,7 @@ public class AirTicketsController {
         Date departureTime =  null;
         Date returnTime =  null;
         try {
-            departureTime = simpleDateFormat.parse(departureDateDTO.getDepartureDate());
+          departureTime = simpleDateFormat.parse(departureDateDTO.getDepartureDate());
             returnTime = simpleDateFormat.parse(departureDateDTO.getReturnDate());
 
         } catch (ParseException e) {
@@ -48,9 +50,35 @@ public class AirTicketsController {
         modelAndView.addObject("returnTime",returnTime);
         Map<String, Object> map = this.date(departureTime, fightDTOS.get(0).getPrice());
         modelAndView.addObject("map",map);
+        List<FightDTO> fightDTO = (List<FightDTO>) fightService.selecttakeOffAirport(departureDateDTO.getDeparture());
+        modelAndView.addObject("fightDTO",fightDTO);
+        List<FightDTO> fightDTOS1=(List<FightDTO>) fightService.selectarrivalAtTheAirport(departureDateDTO.getArrival());
+        modelAndView.addObject("fightDTOS1",fightDTOS1);
+        List<FightDTO> fightDTOdepartureTime= fightService.selectdepartureTime(departureDateDTO.getDeparture());
+        modelAndView.addObject("fightDTOdepartureTime",fightDTOdepartureTime);
+        List<FightDTO> fightDTOaircraftType= fightService.selectaircraftType(departureDateDTO.getDeparture());
+        modelAndView.addObject("fightDTOaircraftType",fightDTOaircraftType);
+        List<FightDTO> fightDTOcompany= fightService.selectcompany(departureDateDTO.getDeparture());
+        modelAndView.addObject("fightDTOcompany",fightDTOcompany);
         modelAndView.setViewName("jp");
         return modelAndView;
     }
+
+//    public ModelAndView timeDifference(DepartureDateDTO departureDateDTO){
+//        ModelAndView modelAndView1 = new ModelAndView();
+//        List<FightDTO> fightDTOSs = fightService.selectPlaneticket(departureDateDTO.getDeparture(),departureDateDTO.getArrival());
+//        modelAndView1.addObject("fightDTOSs",fightDTOSs);
+//        modelAndView1.addObject("departureDateDTO",departureDateDTO);
+//        DepartureDateDTO departureDateDTO1 = new DepartureDateDTO();
+//        Date getLandingTime = departureDateDTO1.getLandingTime();
+//        Date getDepartureTime= departureDateDTO1.getDepartureTime();
+//        long getDeparture = getDepartureTime.getTime();
+//        long getLanding = getLandingTime.getTime();
+//        long timedifference = (getDeparture-getLanding)/(1000*3600);
+//        return modelAndView1;
+//
+//
+//    }
     @RequestMapping("/dingdan/{id}")
     public ModelAndView selectFight(@PathVariable("id") String fightNum){
         ModelAndView modelAndView = new ModelAndView();
@@ -85,8 +113,11 @@ public class AirTicketsController {
         hasMap.put("prices",prices);
         return hasMap;
     }
-
-
+    @RequestMapping("/screeningFlights")
+    public  List<FightDTO> FilterAllInformation(FightDTO fightDTO){
+        List<FightDTO> screeningInformation = fightService.screeningInformation(fightDTO);
+        return screeningInformation;
+    }
 
 
 

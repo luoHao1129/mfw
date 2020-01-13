@@ -57,11 +57,7 @@
                     <a href="" class="a1"><span style="font-size: 12px; color: #FFA800;">删除</span></a>
                 </select>
             </form>
-            <div id="d4">
-						<span id="span1">
-							十 添加乘机人
-						</span>
-            </div>
+
         </div>
         <br>
         <div id="Insurance">
