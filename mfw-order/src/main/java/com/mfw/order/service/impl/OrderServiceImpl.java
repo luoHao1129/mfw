@@ -24,12 +24,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getOrderByCase(String orderId) {
-        return orderDAO.selectOrderByUserId(orderId);
+    public OrderDTO getOrderByCase(String orderId) {
+
+        return orderDAO.selectOrderById(orderId);
+    }
+
+    @Override
+    public List<OrderDTO> getOrderDetailsById(String userId) {
+        return orderDAO.selectOrderByUserId(userId);
+    }
+
+    @Override
+    public void updateOrder(OrderDTO orderDTO) {
+
+        orderDAO.updateOrder(orderDTO);
     }
 
 
-    }
+}
 
 
 

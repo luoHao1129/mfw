@@ -1,0 +1,23 @@
+.hotel-sort{
+	display: inline-block;
+}
+
+.hotel-sort #search1{
+	margin-left: 270px;
+}
+.hotel-sort #search2{
+	margin-left: 20px;
+}
+.hotel-sort #search3{
+	margin-left: 30px;
+}
+
+
+.hotel-sort a{
+	color:#575A5B;
+	text-decoration: none;
+	
+}
+a:hover{
+	color: #FF8A00;
+}

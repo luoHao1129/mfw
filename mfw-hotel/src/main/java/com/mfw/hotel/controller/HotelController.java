@@ -3,6 +3,7 @@ package com.mfw.hotel.controller;
 
 import com.mfw.api.dto.HotelDTO;
 import com.mfw.api.dto.RoomDetailsDTO;
+import com.mfw.api.dto.UserDTO;
 import com.mfw.api.util.PageStatic;
 import com.mfw.hotel.dto.HotelNum;
 import com.mfw.hotel.service.HotelService;
@@ -12,10 +13,12 @@ import freemarker.template.Configuration;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,6 +166,26 @@ public class HotelController {
         List<HotelDTO> hotelDTOList = hotelService.selectHotelByPrice(city,min,max);
         return hotelDTOList;
     }
+
+    /**
+     * 静态页面异步获取session中的用户数据
+     * @param session
+     * @return
+     */
+    @RequestMapping("/getSession")
+    @ResponseBody
+    public Map<String, Object> test(HttpSession session){
+        Map<String,Object> json = new HashMap<>();
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if(null != user){
+            json.put("isSession",true);
+            json.put("user",user);
+        }else {
+            json.put("isSession",false);
+        }
+        return json;
+    }
+
 
 
 }

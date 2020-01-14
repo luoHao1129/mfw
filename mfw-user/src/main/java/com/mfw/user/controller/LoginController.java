@@ -37,7 +37,7 @@ public class LoginController {
 
 
     @RequestMapping("/login")
-    public String login(String account, String password, HttpSession session) {
+    public String login(String account, String password, HttpServletRequest request) {
         UserDTO userDTO = loginService.loginByAccount(account);
         MessageDigest md;
         String pwd = "";
@@ -51,11 +51,18 @@ public class LoginController {
         Map<String, Object> a = new HashMap<>();
         a.put("user", userDTO);
         if (userDTO.getPwd().equals(pwd)) {
-            session.setAttribute("user", userDTO);
-            return "personal";
+            request.getSession().setAttribute("user", userDTO);
+            System.out.println(request.getSession().getId());
+            return "redirect:http://localhost:8089/main";
         } else {
             return "login";
         }
+    }
+
+
+    @RequestMapping("/toPersonal")
+    public String toPersonal(){
+        return "personal";
     }
 
 }

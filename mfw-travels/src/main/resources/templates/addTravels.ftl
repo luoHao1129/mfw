@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .title_div{
+            height: 506px;
+        }
+        .title_bj{
+            position: absolute;
+            width: 100%;
+            height: 506px;
+            z-index: -1;
+        }
+
+        .up_pic{
+            display: block;
+            margin: auto;
+            position: relative;
+            top: 205px;
+            z-index: 2;
+            background-color: #000000;
+            left: -160px;
+            height: 60px;
+            width: 60px;
+            opacity: 0;
+        }
+
+        .up_img{
+            height: 60px;
+            width: 60px;
+            display: block;
+            margin: auto;
+            position: relative;
+            top: 150px;
+            left: -160px;
+            z-index: 1;
+        }
+
+        .up_text{
+            /* display: block; */
+            margin: auto;
+            position: relative;
+            top: 90px;
+            left: 650px;
+
+        }
+
+        .up_text span{
+            font-size: 20px;
+        }
+
+        .up_text p{
+            margin-top: 5px;
+        }
+
+        .title_text{
+            display: block;
+            margin: auto;
+            position: relative;
+            top: 260px;
+            height: 30px;
+            width: 900px;
+            font-size: 20px;
+            padding: 10px;
+        }
+
+
+        .edit_text{
+            width: 60%;
+            margin: auto;
+        }
+        .textarea{
+            border: none;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            margin: 10px;
+        }
+        .text{
+            width: 70%;
+        }
+        .img_youji{
+            width: 100%;
+        }
+        .edit_util{
+            position:fixed;
+            top: 596px;
+            left: 970px;
+        }
+
+        .edit_util ul{
+            float: right;
+            list-style: none;
+            font-size: 22px;
+            margin-top: 5px;
+        }
+
+        .edit_util ul li{
+            display:block;
+            margin-bottom: 37px;
+        }
+        .up_pic_util{
+            position: absolute;
+            top: 3px;
+            opacity: 0;
+
+        }
+
+        .edit_util ul li:hover{
+            color: #FEA901;
+            cursor: pointer;
+        }
+
+        .up_pic_util:hover{
+            cursor: pointer;
+
+        }
+
+
+
+        .caogao_save{
+            display: block;
+            margin: auto;
+            background-color: #FFFFFF;
+            border: 1px #D6D6D6 solid;
+            border-radius: 40px;
+            height: 45px;
+            width: 150px;
+
+        }
+        .caogao_save:hover{
+            background-color: #FEA901;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        .text_save{
+            display: block;
+            margin: auto;
+            background-color: #FEA901;
+            border: 1px #D6D6D6 solid;
+            border-radius: 40px;
+            height: 60px;
+            width: 220px;
+            font-size: 20px;
+            color: #FFFFFF;
+
+
+        }
+
+        .textarea{
+            outline: none;
+            overflow-y: auto;
+        }
+
+
+    </style>
+
+    <script src="/js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+
+<body>
+
+
+<div class="title_div">
+
+    <#if travels.tpic?? || travels.tpic =="">
+        <img class="title_bj" src="/${travels.tpic }" >
+    <#else >
+        <img class="title_bj" src="../img/addyoujibj.jpg" >
+
+        <input class="up_pic" type="file"/>
+        <img class="up_img" src="../img/shangchuan.PNG" />
+        <div class="up_text">
+            <span>设置游记头图</span>
+            <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
+        </div>
+
+
+
+
+    </#if>
+    <#if travels.title?? || travels.title == "">
+        <input class="title_text" type="text" value="${travels.title }" />
+    <#else >
+        <input class="title_text" type="text" placeholder="填写游记标题"/>
+
+    </#if>
+
+    <input type="hidden" id="travels_id" value="${travels.id}">
+
+</div>
+
+<div class="edit_text">
+    <div class="edit_text_ok">
+        <#list travels.contents as content>
+             <div class="text"  data-id="">
+                <div class="textarea _j_textarea" contenteditable="true" onblur="contentText(this)"
+                     data-exclude_class="_j_textarea _j_textareaplc" data-id="${content.id}" data-sequence="${content.sequence}" id="textarea${content.sequence}">
+                    ${content.text}
+                    <#if content_has_next>
+
+                        <#else >
+
+                    </#if>
+                </div>
+                 <#if content.pic?? && content.pic != "">
+                     <img class="img_youji" src="/${content.pic}"  />
+
+                     <#if content_has_next>
+                         <#else >
+                             <input type="hidden" value="${content.sequence+1}" id="sequence">
+                             <input type="hidden" value="" id="content_id">
+
+                     </#if>
+
+                     <#elseif content_has_next>
+
+                     <#else >
+                     <input type="hidden" value="${content.sequence}" id="sequence">
+                     <input type="hidden" value="" id="content_id">
+                 </#if>
+
+            </div>
+        </#list>
+
+    </div>
+    <div class="text" data-id="">
+        <div class="textarea _j_textarea" contenteditable="true" onblur="contentText(this)"  data-exclude_class="_j_textarea _j_textareaplc" data-id="" id="textarea">
+        </div>
+        <img class="img_youji" src=""  />
+    </div>
+
+    <a href="" style="text-decoration: none" id="text_save">
+        <input type="submit" class="text_save" value="发表游记"/>
+    </a>
+
+</div>
+
+<div class="edit_util">
+    <img src="/img/edit_util.PNG" >
+    <ul>
+        <li>插入图片</li>
+        <li>插入表情</li>
+        <li>插入视频</li>
+        <li>插入段落标题</li>
+        <li>插入添加游记音乐</li>
+    </ul>
+    <input class="up_pic_util" type="file"/>
+    <a href="http://localhost:8081/toPersonal">
+        <input type="submit" class="caogao_save" value="保存草稿"/>
+    </a>
+</div>
+<#--<script type="text/javascript" src="js/main.js"></script>-->
+
+
+
+
+<link href="https://css.mafengwo.net/css/mfw-footer.css?1558532347" rel="stylesheet" type="text/css">
+
+<div id="footer">
+    <div class="ft-content" style="width: 1105px">
+        <div class="ft-info clearfix">
+            <dl class="ft-info-col ft-info-intro">
+                <dd><strong>马蜂窝旅游网</strong></dd>
+                <dd>中国年轻一代用得更多的旅游网站</dd>
+                <dd>上亿旅行者共同打造的<strong>"旅行神器"</strong></dd>
+                <dd><strong>60,000</strong> 多个全球旅游目的地</dd>
+                <dd><strong>600,000</strong> 个细分目的地新玩法</dd>
+                <dd><strong>760,000,000</strong> 次攻略下载</dd>
+                <dd><strong>38,000</strong> 家旅游产品供应商</dd>
+            </dl>
+            <dl class="ft-info-col ft-info-about">
+                <dt>关于我们</dt>
+                <dd><a href="http://www.mafengwo.cn/s/about.html" rel="nofollow">关于马蜂窝</a><a href="http://www.mafengwo.cn/s/contact.html"
+                                                                                             class="m_l_10" rel="nofollow">联系我们</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/private.html" rel="nofollow">隐私政策</a><a href="http://www.mafengwo.cn/s/logo.html"
+                                                                                              rel="nofollow" class="m_l_10">商标声明</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/agreement.html" rel="nofollow">服务协议</a><a href="http://www.mafengwo.cn/s/rules.html"
+                                                                                                rel="nofollow" class="m_l_10">游记协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/salesagreement.html" rel="nofollow">商城平台服务协议</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/property.html" rel="nofollow">网络信息侵权通知指引</a></dd>
+                <dd style="white-space: nowrap;"><a href="http://www.mafengwo.cn/s/monitor.html" rel="nofollow">马蜂窝旅游网服务监督员</a></dd>
+                <dd><a href="http://www.mafengwo.cn/s/sitemap.html" target="_blank">网站地图</a><a class="joinus highlight m_l_10"
+                                                                                               title="马蜂窝团队招聘" target="_blank" href="https://app.mokahr.com/apply/mafengwo1/173#/page/社会招聘?_k=j4j3ux" rel="nofollow">加入马蜂窝</a></dd>
+            </dl>
+            <dl class="ft-info-col ft-info-service">
+                <dt>旅行服务</dt>
+                <dd>
+                    <ul class="clearfix">
+                        <li><a target="_blank" href="http://www.mafengwo.cn/gonglve/">旅游攻略</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/hotel/">酒店预订</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/sales/">旅游特价</a></li>
+                        <li><a target="_blank" href="http://zuche.mafengwo.cn/">国际租车</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/wenda/">旅游问答</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/insure/">旅游保险</a></li>
+                        <li><a target="_blank" href="http://z.mafengwo.cn">旅游指南</a></li>
+                        <li><a target="_blank" href="http://huoche.mafengwo.cn">订火车票</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/travel-news/">旅游资讯</a></li>
+                        <li><a target="_blank" href="http://www.mafengwo.cn/app/intro/gonglve.php">APP下载</a></li>
+                        <li style="width: 120px;"><a target="_blank" href="http://www.mafengwo.cn/sales/alliance.php" class="highlight">旅行商城全球商家入驻</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="ft-info-col ft-info-qrcode">
+                <dd>
+                    <span class="ft-qrcode-tejia"></span>
+                    <p>马蜂窝良品<br>官方服务号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin"></span>
+                    <p>马蜂窝旅游<br>订阅号</p>
+                </dd>
+                <dd>
+                    <span class="ft-qrcode-weixin" style="background-image: url('https://p3-q.mafengwo.net/s10/M00/48/A9/wKgBZ1t_4sSAVJ6uAAAlzJ0PZgU881.png?imageMogr2%2Fthumbnail%2F%2194x90r%2Fgravity%2FCenter%2Fcrop%2F%2194x90%2Fquality%2F90')"></span>
+                    <p>马蜂窝APP<br>扫描立即下载</p>
+                </dd>
+            </dl>
+            <dl class="ft-info-social">
+                <dt>旅游之前，先上马蜂窝！</dt>
+                <dd>
+                    <a class="ft-social-weibo" target="_blank" href="http://weibo.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qqt" target="_blank" href="http://t.qq.com/mafengwovip" rel="nofollow"><i class="ft-social-icon"></i></a>
+                    <a class="ft-social-qzone" target="_blank" href="http://1213600479.qzone.qq.com/" rel="nofollow"><i class="ft-social-icon"></i></a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="ft-links">
+            <a target="_blank" href="http://china.makepolo.com/">马可波罗</a><a target="_blank" href="http://www.onlylady.com/">Onlylady女人志</a><a
+                    target="_blank" href="http://trip.elong.com/">艺龙旅游指南</a><a target="_blank" href="http://www.cncn.com">欣欣旅游网</a><a
+                    target="_blank" href="http://www.8264.com/">户外运动</a><a target="_blank" href="http://www.yue365.com/">365音乐网</a><a
+                    target="_blank" href="http://ishare.iask.sina.com.cn/">爱问共享资料</a><a target="_blank" href="http://www.uzai.com/">旅游网</a><a
+                    target="_blank" href="http://www.zongheng.com/">小说网</a><a target="_blank" href="http://www.xuexila.com/">学习啦</a><a
+                    target="_blank" href="http://www.yododo.com">游多多自助游</a><a target="_blank" href="http://www.zhcpic.com/">问答</a><a
+                    target="_blank" href="http://huoche.mafengwo.cn/">火车时刻表</a><a target="_blank" href="http://www.lvmama.com">驴妈妈旅游网</a><a
+                    target="_blank" href="http://www.haodou.com/">好豆美食网</a><a target="_blank" href="http://www.taoche.com/">二手车</a><a
+                    target="_blank" href="http://www.lvye.cn">绿野户外</a><a target="_blank" href="http://www.tuniu.com/">途牛旅游网</a><a
+                    target="_blank" href="http://www.mapbar.com/">图吧</a><a target="_blank" href="http://www.chnsuv.com">SUV联合越野</a><a
+                    target="_blank" href="http://www.uc.cn/">手机浏览器</a><a target="_blank" href="http://sh.city8.com/">上海地图</a><a
+                    target="_blank" href="http://www.tianqi.com/">天气预报查询</a><a target="_blank" href="http://www.ly.com/">同程旅游</a><a
+                    target="_blank" href="http://www.tieyou.com/">火车票</a><a target="_blank" href="https://daxue.mafengwo.cn/#/">马蜂窝大学</a><a
+                    target="_blank" href="https://m.weelv.com">马尔代夫旅游</a><a target="_blank" href="http://www.yunos.com/">YunOS</a><a
+                    target="_blank" href="http://you.ctrip.com/">携程旅游</a><a target="_blank" href="http://www.jinjiang.com">锦江旅游</a><a
+                    target="_blank" href="http://www.huoche.net/">火车时刻表</a><a target="_blank" href="http://www.tripadvisor.cn/">TripAdvisor</a><a
+                    target="_blank" href="http://www.tianxun.com/">天巡网</a><a target="_blank" href="http://www.mayi.com/">短租房</a><a
+                    target="_blank" href="http://www.zuzuche.com">租租车</a><a target="_blank" href="http://www.5fen.com/">五分旅游网</a><a
+                    target="_blank" href="http://www.zhuna.cn/">酒店预订</a><a target="_blank" href="http://www.ailvxing.com">爱旅行网</a><a
+                    target="_blank" href="http://360.mafengwo.cn/all.php">旅游</a><a target="_blank" href="http://vacations.ctrip.com/">旅游网</a><a
+                    target="_blank" href="http://www.wed114.cn">wed114结婚网</a><a target="_blank" href="http://www.chexun.com/">车讯网</a><a
+                    target="_blank" href="http://www.aoyou.com/">遨游旅游网</a><a target="_blank" href="http://www.91.com/">手机</a>
+            <a href="http://www.mafengwo.cn/s/link.html" target="_blank">更多友情链接&gt;&gt;</a>
+        </div>
+
+        <div class="ft-copyright">
+            <a href="http://www.mafengwo.cn"><i class="ft-mfw-logo"></i></a>
+            <p>© 2019 Mafengwo.cn
+                <a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">京ICP备11015476号</a>
+                <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502013401" target="_blank"><img src="https://images.mafengwo.net/images/footer/police_record.png"
+                                                                                                                           width="12" style="margin:0 2px 4px 0;">京公网安备11010502013401号</a>
+                <a href="https://n2-q.mafengwo.net/s14/M00/CB/D1/wKgE2l1eMEaAY8n4AA4wSFefaLc94.jpeg" target="_blank" rel="nofollow">京ICP证110318号</a>
+                <span class="m_l_10">违法和不良信息举报电话: 010-83416877 举报邮箱: mfwjubao@mafengwo.com</span>
+            </p>
+            <p>
+                <a href="https://n2-q.mafengwo.net/s14/M00/CB/4C/wKgE2l1eMB-AFs0sAB7jJAiDaNA17.jpeg" target="_blank" rel="nofollow"
+                   class="m_l_10">网络出版服务许可证</a>
+                <a href="https://b4-q.mafengwo.net/s14/M00/CB/FA/wKgE2l1eMFGAQI4LABmNJYlBasQ00.jpeg" target="_blank" rel="nofollow"
+                   class="m_l_10">增值电信业务经营许可证</a>
+                <a href="https://p1-q.mafengwo.net/s14/M00/B0/74/wKgE2l1CgbCAXc97ACZLiibfY8M62.jpeg" target="_blank" rel="nofollow"
+                   class="m_l_10">营业执照</a>
+                <a href="https://p1-q.mafengwo.net/s14/M00/CC/28/wKgE2l1eMF2AcAOpABhXGZtsUJ820.jpeg" target="_blank" rel="nofollow"
+                   class="m_l_10">广播电视节目制作经营许可证</a>
+                <a href="/sales/uhelp/doc" target="_blank" rel="nofollow" class="m_l_10">帮助中心</a>
+                <span class="m_l_10">马蜂窝客服：国内</span><span class="highlight">4006-345-678</span>
+                <span class="m_l_10">海外</span> <span class="highlight">+86-10-8341-6888</span>
+            </p>
+        </div>
+        <div class="ft-safety">
+            <a class="s-a" target="_blank" href="https://search.szfw.org/cert/l/CX20140627008255008321" id="___szfw_logo___"></a>
+            <a class="s-b" href="https://ss.knet.cn/verifyseal.dll?sn=e130816110100420286o93000000&amp;ct=df&amp;a=1&amp;pa=787189"
+               target="_blank" rel="nofollow"></a>
+            <a class="s-c" href="http://www.itrust.org.cn/Home/Index/itrust_certifi/wm/1669928206.html" target="_blank" rel="nofollow"></a>
+            <a class="s-d" href="http://www.itrust.org.cn/Home/Index/satification_certificate/wm/MY2019051501.html" target="_blank"
+               rel="nofollow"></a>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    // 获取滑动事件
+    $(window).scroll(function(){
+        var allHeight = Math.max(document.documentElement.scrollHeight, document.documentElement.clientHeight);
+        if(window.pageYOffset<(allHeight-987)){
+            // 判断滑动量大小,根据滑动的大小来调整滑块的偏移量
+            if(window.pageYOffset>506){
+                $('.edit_util').css('top','0');
+                $('.edit_util').css('position','fixed');
+
+            }
+            else{
+                $('.edit_util').css('position','fixed');
+                $('.edit_util').css('top',(506-window.pageYOffset)+'px');
+            }
+        }else{
+            // alert((allHeight-1800)-window.pageYOffset);
+            // $('.edit_util').css('position','absolute');
+            $('.edit_util').css('top',(allHeight-987)-window.pageYOffset+'px');
+        }
+    });
+
+
+    /**
+     * 头部图片上传
+     */
+    $('.up_pic').change(function () {
+        var formData = new FormData();
+        var travelsId = $('#travels_id').val();
+        formData.append('file', $('.up_pic')[0].files[0]);
+        formData.append("travelsId",travelsId);
+
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json",
+            url: "/uploadTitleImg",
+            data:formData,
+            processData: false,
+            contentType: false,
+            success: function (json) {
+
+                console.log(json);
+                if(json.msg == "200"){
+                    $('.title_bj').attr('src',json.imgPath);
+                    $('.title_bj').css('opacity',1);
+                    $('.up_text').hide();
+                    $('.up_img').hide();
+                    $('#travels_id').val(json.tId);
+                    $('#text_save').attr("href","/toPublish/"+json.tId);
+                }else if (json.msg == "500"){
+                    alert("图片上传失败，请重新上传");
+                }else if(json.msg == "404"){
+                    alert("上传图片为空，请重新上传");
+                }
+            }
+        });
+    });
+
+    var index_text = $('#sequence').val();
+    $('.up_pic_util').change(function () {
+        var formData = new FormData();
+        var text = $('#textarea').html();
+        var travelsId = $('#travels_id').val();
+        var sequence = index_text;
+        var contentID = $('#content_id').val();
+        formData.append('file', $('.up_pic_util')[0].files[0]);
+        formData.append("travelsId",travelsId);
+        formData.append("sequence",sequence);
+        formData.append("cId",contentID);
+        formData.append("text",text);
+        var html = "";
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json",
+            url: "/uploadContentImg",
+            data:formData,
+            processData: false,
+            contentType: false,
+            success: function (json) {
+                console.log(json);
+                if(json.msg == "200"){
+
+                    var html = "  <div class=\"text\" >\n" +
+                        "\t\t\t\t<div class=\"textarea _j_textarea\" contenteditable=\"true\"  onblur=\"contentText(this)\" " +
+                        " style='margin: 10px 1px' id='textarea"+json.sequence+"' \n" +
+                        " data-exclude_class=\"_j_textarea _j_textareaplc\" data-id='"+json.contentId+"'data-sequence='"+json.sequence+"'>\n" +
+                        "\n" +json.cText+
+                        "\t\t\t\t</div>\n" +
+                        "        <img class=\"img_youji\" src=\"/"+json.imgPath+"\" />\n" +
+                        "    </div>";
+                    $('.edit_text_ok').append(html);
+                    $('#travels_id').val(json.tId);
+                    index_text++;
+                    $('#sequence').val(index_text);
+                    $('#content_id').val("");
+                    $('#textarea').html("");
+                    $('#textarea').attr("data-id","");
+                    $('#text_save').attr("href","/toPublish/"+json.tId);
+                    if(index_text == 3){
+                        $('.text').css("height","");
+                    }
+                }else if (json.msg == "500"){
+                    alert("图片上传失败，请重新上传");
+                }
+            }
+        });
+    });
+
+    $('.title_text').blur(function () {
+        var travelsId = $('#travels_id').val();
+        var title = $('.title_text').val();
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json",
+            url: "/updateTravelsTitle",
+            data:{"id":travelsId,"title":title},
+            success:function (msg) {
+                if(msg.msg == "success"){
+                }
+                $('#travels_id').val(msg.tId);
+                $('#text_save').attr("href","/toPublish/"+msg.tId);
+            }
+        });
+    });
+
+
+
+
+    function contentText(a) {
+        var text = $(a).html();
+        var contentID = $(a).attr('data-id');
+        var travelsId = $('#travels_id').val();
+        var sequence = $('#sequence').val();
+        if(sequence == ""){
+            sequence = 1;
+        }
+        console.log(sequence +"=============="+contentID)
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json",
+            url: "/saveContentText",
+            data:{"travelsId":travelsId,"text":text,"contentID":contentID,"sequence":sequence},
+            success:function (msg) {
+                $(a).attr('data-id',msg.contentID);
+                $('#content_id').val(msg.contentID);
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>
+

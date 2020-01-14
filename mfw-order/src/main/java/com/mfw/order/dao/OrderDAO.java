@@ -11,7 +11,11 @@ public interface OrderDAO {
 
 	void addOrder(OrderDTO orderDTO);
 
-	List<OrderDTO> selectOrderByUserId(String orderId);
+	OrderDTO selectOrderById(String orderId);
+
+	List<OrderDTO> selectOrderByUserId(String userId);
+
+	void updateOrder(OrderDTO orderDTO);
 
 
 }

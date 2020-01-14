@@ -26,14 +26,12 @@ public class InitPage implements ApplicationRunner {
 
         int pageNo = 1;
         int pageSize = 9;
-//		if(pageNo == null&& pageSize == null) {
-//			pageNo = 1;
-//			pageSize = 5;
-//		}
-//		分页查询
         List<Travels> travels = travelsServiceImpl.selectLimit(pageNo, pageSize);
         int pagelength = travelsServiceImpl.selectCount();
         int page = pagelength/pageSize;
+        if ((pagelength%pageSize) != 0){
+                page = page+1;
+        }
         Map<String,Object> data = new HashMap<>();
         List<Integer> pages = new ArrayList<>();
         for(int i = 1; i <= page; i++){
@@ -44,5 +42,13 @@ public class InitPage implements ApplicationRunner {
         data.put("page",page);
         data.put("travelsai" , travels);
         PageStatic.toHtmlFile(cfg,data,"main","e:/webpath/");
+
+        List<String> idList = travelsServiceImpl.selectID();
+        for (String id : idList){
+            Travels travelsById = travelsServiceImpl.selectTravelsById(id);
+            Map<String,Object> datas = new HashMap<>();
+            datas.put("travels",travelsById);
+            PageStatic.travelToHtmlFile(cfg,datas,"travel","e:/webpath/",id);
+        }
     }
 }

@@ -1,58 +1,84 @@
 package com.mfw.order.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import com.mfw.api.dto.OrderDTO;
+import com.mfw.api.dto.UserDTO;
+import com.mfw.api.util.Sms;
+import com.mfw.order.OrderDetailesPageDTO;
+import com.mfw.order.mail.MailComponent;
+import com.mfw.order.service.OrderDetailsService;
+import com.mfw.order.service.OrderService;
 import com.mfw.order.util.AlipayConfig;
+import com.mfw.order.util.OrderUtil;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 public class AlipayController {
+    private MailComponent mailComponent;
+    private UserDTO userDTO;
+    private OrderUtil orderUtil = new OrderUtil();
 
-    @RequestMapping("/pay")
-    public String alipayController(){
+    @Resource
+    private RestTemplate restTemplate;
+    @Value("${OrderService.hotelOrderServiceURLGet}")
+    private String hotelOrderServiceURLGet;
+    @Value("${OrderService.fightOrderServiceURLGet}")
+    private String fightOrderServiceURLGet;
+    @Resource
+    private OrderDetailsService orderDetailsService;
+    @Resource
+    private OrderService orderService;
+    @RequestMapping("/pay/{id}")
+    @ResponseBody
+    public String alipayController(@PathVariable("id")String id, HttpSession session){
+        OrderDTO orderByCase = orderService.getOrderByCase(id);
+        this.userDTO = (UserDTO) session.getAttribute("user");
+
 
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
         //设置请求参数
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
-//        alipayRequest.setReturnUrl(AlipayConfig.return_url);
+
+        alipayRequest.setReturnUrl(AlipayConfig.return_url);
 //        alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
 
-        //商户订单号，商户网站订单系统中唯一订单号，必填
-        //String out_trade_no = new String(request.getParameter("1001").getBytes("ISO-8859-1"),"UTF-8");
-        //付款金额
-        //String total_amount = new String(request.getParameter("1").getBytes("ISO-8859-1"),"UTF-8");
-        //订单名称
-        //String subject = new String (request.getParameter("123").getBytes("ISO-8859-1"),"UTF-8");
-        //商品描述
-        //String body = new String(request.getParameter("没有描述").getBytes("ISO-8859-1"),"UTF-8");
-
-        alipayRequest.setBizContent("{\"out_trade_no\":\""+ "2365987548" +"\","
-                + "\"total_amount\":\""+ "1000" +"\","
-                + "\"subject\":\""+ "酒店" +"\","
-                + "\"body\":\""+ "酒店预订" +"\","
+        String type = "";
+        if(orderByCase.getTypeId()==1){
+            type = "酒店";
+        }else if(orderByCase.getTypeId()==2){
+            type = "机票";
+        }
+        alipayRequest.setBizContent("{\"out_trade_no\":\""+ orderByCase.getOrderId() +"\","
+                + "\"total_amount\":\""+ orderByCase.getAmount() +"\","
+                + "\"subject\":\""+ type +"\","
+                + "\"body\":\""+ type + "预定" +"\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
 
-        //请求
-//        String form = "";
-//        try{
-//            form = alipayClient.pageExecute(alipayRequest).getBody(); //调用SDK生成表单
-//        }catch(AlipayApiException e){
-//            e.printStackTrace();
-//        }
-//        response.setContentType("text/html;charset=" + AlipayConfig.charset);
-//        response.getWriter().write(form);//直接将完整的表单html输出到页面
-//        response.getWriter().flush();
-//        response.getWriter().close();
+
         AlipayTradePagePayResponse response1 = null;
         try {
             response1 = alipayClient.pageExecute(alipayRequest);
@@ -64,5 +90,78 @@ public class AlipayController {
         } else {
             return "调用失败";
         }
+    }
+
+    @RequestMapping("/message")
+    public String payment(HttpServletRequest request) throws ClientException {
+        String out_trade_no = request.getParameter("out_trade_no");
+
+       //查询订单
+        OrderDTO orderByCase = orderService.getOrderByCase(out_trade_no);
+        orderByCase.setStatus(1);
+        orderService.updateOrder(orderByCase);
+        this.HotelSMS(orderByCase);
+        return "redirect:/getOrderDetails";
+
+    }
+
+    /**
+     * 酒店短信通知
+     */
+    public String HotelSMS(OrderDTO orderDTO) throws ClientException {
+        OrderDetailesPageDTO orderDetailes = orderUtil.getOrderDetailes(orderDTO,restTemplate,hotelOrderServiceURLGet,orderDetailsService);
+        String jsonContent = "{" +
+                "\"name\":\"" + userDTO.getName() + "\"," +
+                "\"hotelname\":\"" + orderDetailes.getCompanyName() + "\"," +
+                "\"orderId\":\"" + orderDTO.getOrderId() + "\"" +
+                "}";
+
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("phoneNumber", userDTO.getTel());
+        paramMap.put("msgSign", Sms.MSG_SIGN);
+        paramMap.put("templateCode", Sms.TEMPLATE_CODE_HOTEL);
+        paramMap.put("jsonContent", jsonContent);
+        SendSmsResponse sendSmsResponse = Sms.sendSms(paramMap);
+        Map<String,Object> json = new HashMap<>();
+        if (!(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK"))) {
+            if (sendSmsResponse.getCode() == null) {
+                json.put("code", "n");
+            }
+            if (!sendSmsResponse.getCode().equals("OK")) {
+                json.put("code", "n");
+            }
+        }
+        json.put("code", "y");
+        return JSON.toJSONString(json);
+    }
+
+    /**
+     * 机票短信通知
+     */
+    public String FightSMS(OrderDTO orderDTO) throws ClientException {
+        OrderDetailesPageDTO orderDetailes = orderUtil.getOrderDetailes(orderDTO,restTemplate,fightOrderServiceURLGet,orderDetailsService);
+        String jsonContent = "{" +
+                "\"name\":\"" + userDTO.getName() + "\"," +
+                "\"fightname\":\"" + orderDetailes.getCompanyName() + "\"," +
+                "\"orderId\":\"" + orderDTO.getOrderId() + "\"" +
+                "}";
+
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("phoneNumber", userDTO.getTel());
+        paramMap.put("msgSign", Sms.MSG_SIGN);
+        paramMap.put("templateCode", Sms.TEMPLATE_CODE_FIGHT);
+        paramMap.put("jsonContent", jsonContent);
+        SendSmsResponse sendSmsResponse = Sms.sendSms(paramMap);
+        Map<String,Object> json = new HashMap<>();
+        if (!(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK"))) {
+            if (sendSmsResponse.getCode() == null) {
+                json.put("code", "n");
+            }
+            if (!sendSmsResponse.getCode().equals("OK")) {
+                json.put("code", "n");
+            }
+        }
+        json.put("code", "y");
+        return JSON.toJSONString(json);
     }
 }

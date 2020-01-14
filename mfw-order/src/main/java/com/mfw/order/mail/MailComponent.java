@@ -36,8 +36,7 @@ public class MailComponent {
 	@Autowired
 	private MyJavaMailSenderImpl javaMailSender;
 
-	public void sendMail(String email) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public void sendMail(String email,Map<String, Object> map) {
 		map.put("email", email);
 		try {
 			String text = getTextByTemplate(template, map);

@@ -6,8 +6,9 @@ spring:
     time-zone: Asia/Chongqing
     #redis
   redis:
-    host: 127.0.0.1
+    host: yizumafengwo.redis.rds.aliyuncs.com
     port: 6379
+    password: yizu123456A
     database: 0
     jedis:
       pool:
@@ -53,7 +54,7 @@ spring:
   mvc:
     static-path-pattern: /**
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/static,classpath:/resources/,classpath:/public/,file:${web.upload-path}
+    static-locations: classpath:/META-INF/resources/,classpath:/static/,classpath:/resources/,classpath:/public/,file:${web.upload-path}
     #配置文件传输
   servlet:
     multipart:
@@ -79,7 +80,7 @@ web.upload-path: e:/webpath/
 spring:
   profiles: dev
 server:
-  port: 8086
+  port: 8089
 ---
 spring:
   profiles: test

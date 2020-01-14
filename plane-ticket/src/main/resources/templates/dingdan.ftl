@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="../css/dingdan.css"/>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 </head>
 <body>
 <div id="d1">
@@ -13,13 +14,13 @@
         <div id="frame">
 
             <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="word" >${fdto.departure }-${fdto.arrival }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="word">11月06日 星期三</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="word" >${fdto.departure }-${fdto.arrival }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="word"></span>
             <br>
             <br>
 
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="date">${fdto.departureTime?string('hh:mm')}</span >&nbsp;<span class="line">--------------------------</span>&nbsp;<span class="date">${fdto.landingTime?string('hh:mm')}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="date">${fdto.departureTime}</span >&nbsp;<span class="line">--------------------------</span>&nbsp;<span class="date">${fdto.landingTime}</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">浦东机场T2</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">江北机场T3</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">${fdto.takeOffAirport}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">${fdto.arrivalAtTheAirport}</span>
             <br>
             <br>
             <span style="" class="line">--------------------------------------------------</span>
@@ -54,14 +55,11 @@
                     <option value ="">军官证</option>
                     <option value ="">回乡证</option>
                     <input type="" name="" id="input2" value="" placeholder="请输入证件号" />
+                    <span class="arr5" style="font-size: 8px; color: red;"></span><br/>
                     <a href="" class="a1"><span style="font-size: 12px; color: #FFA800;">删除</span></a>
                 </select>
             </form>
-            <div id="d4">
-						<span id="span1">
-							十 添加乘机人
-						</span>
-            </div>
+
         </div>
         <br>
         <div id="Insurance">
@@ -93,6 +91,7 @@
             <span id="Contacts-1">联系人</span>
             <br />
             <span class="one">1</span><input type="" name="" id="input1" value="" placeholder="输入联系人姓名" />
+            <span class="arr1" style="font-size: 8px; color: red;"></span>
             <img src="../img/1f343e533a15d1facad02d6a3e9a678.png" style="margin-bottom: -13px;" >
 
             <form action="" method="">
@@ -103,6 +102,7 @@
                     <option value ="">阿富汗120</option>
                     <option value ="">伊拉克119</option>
                     <input type="" name="" id="phone" value="" placeholder="请输入联系人手机号" />
+                    <span class="arr8" style="font-size: 8px; color: red;"></span>
                     <a href="" class="a1"><span style="font-size: 12px; color: #FFA800;">删除</span></a>
                 </select>
             </form>
@@ -129,16 +129,15 @@
         </div>
 
         <br>
+
         <form action="" method="post">
-            <input type="hidden" value="${fdto.company }" name="" id="" >
+            <input type="hidden" value="${fdto.company }" name="fightName" id="" >
             <input type="hidden" value="2" name="typeId" id="typeId" >
-            <input type="hidden" value="${fdto.departureTime?time }" name="checkInTime" id="" >
-            <input type="hidden" value="${fdto.landingTime?time }" name="checkOutTime" id="" >
+            <input type="hidden" value="${fdto.departureTime }" name="departureTime" id="" >
+            <input type="hidden" value="${fdto.landingTime }" name="landingTime" id="" >
             <input type="hidden" value="${fdto.price }" name="amount" id="" >
             <input type="hidden" value="${fdto.fightNum }" name="commodityId" id="" >
             <input type="hidden" value="1" name="status" id="status" >
-
-
             <input type="submit" value="提交订单" id="" style="height: 50px; width: 550px;background-color: #EDA000; color:#fff ;font-size: 25px;margin-left: 370px; cursor: pointer; ">
 
         </form>
@@ -147,6 +146,51 @@
     </div>
 
 </div>
+<script>
+    $("#phone").blur(function () {
+        var phoneNumReg = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+        // 通过正则表达式验证手机号
+        if (!phoneNumReg.test($('#phone').val())) {
+            $(".arr8").text("手机号码不能为空");
+            return false;
+        } else {
+            $.ajax({
+                async: true,
+                type: "GET",
+                dataType: "json",
+                url: "/isPhone",
+                data: {"phone": $('#phone').val()},
+                success: function (msg) {
+                    if (msg.msg == "手机号可用") {
+                        $(".arr8").css("color", "green");
+                    }
+                    $(".arr8").text(msg.msg);
+                }
+            });
+
+
+        }
+    });
+    $('#input1').blur(function () {
+        var user = $("#input1").val();
+        if (user == "") {
+            $(".arr1").text("姓名不能为空");
+            return false;
+        } else {
+            $(".arr1").text("");
+        }
+    })
+    $("#input2").blur(function () {
+        var idcard_patter =
+            /^[1-9][0-9]{5}([1][9][0-9]{2}|[2][0][0|1][0-9])([0][1-9]|[1][0|1|2])([0][1-9]|[1|2][0-9]|[3][0|1])[0-9]{3}([0-9]|[X])$/;
+        if (!idcard_patter.test($("#input2").val())) {
+            $(".arr5").text("身份证号输入有误");
+        } else {
+            $(".arr5").text("");
+        }
+    });
+
+</script>
 
 </body>
 </html>

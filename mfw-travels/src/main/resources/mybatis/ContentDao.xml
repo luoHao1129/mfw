@@ -7,7 +7,7 @@
 
 
 <!--    配置department映射-->
-    <resultMap id="resultMap" type="Travels">
+    <resultMap id="resultMap" type="Content">
         <id property="id" column="cId" javaType="String"/>
         <result property="text" column="text" javaType="String"/>
         <result property="pic" column="pic" javaType="String"/>
@@ -35,6 +35,11 @@
     <select id="sselectContentById" parameterType="String" resultMap="resultMap">
         select * from content where cId=#{id}
     </select>
+
+    <select id="selectContentByIdAndSequence" parameterType="Content" resultMap="resultMap">
+        select * from content where cId=#{id}
+    </select>
+
 
     <select id="selectContentByTravelsId" resultMap="resultMap">
         select * from content where travelsId=#{travelsId}
