@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import sun.security.pkcs11.Secmod;
 
@@ -86,8 +87,8 @@ public class AirTicketsController {
         modelAndView.addObject("fdto",FightDTOs);
         modelAndView.setViewName("dingdan");
         return  modelAndView;
-
     }
+
 
     public Map<String, Object>  date(Date date, int price){
         List<DatePriceDTO> prices=  new ArrayList<>();
@@ -114,6 +115,7 @@ public class AirTicketsController {
         return hasMap;
     }
     @RequestMapping("/screeningFlights")
+    @ResponseBody
     public  List<FightDTO> FilterAllInformation(FightDTO fightDTO){
         List<FightDTO> screeningInformation = fightService.screeningInformation(fightDTO);
         return screeningInformation;

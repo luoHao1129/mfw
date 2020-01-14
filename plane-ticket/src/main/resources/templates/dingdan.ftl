@@ -13,13 +13,13 @@
         <div id="frame">
 
             <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="word" >${fdto.departure }-${fdto.arrival }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="word">11月06日 星期三</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="word" >${fdto.departure }-${fdto.arrival }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="word"></span>
             <br>
             <br>
 
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="date">${fdto.departureTime?string('hh:mm')}</span >&nbsp;<span class="line">--------------------------</span>&nbsp;<span class="date">${fdto.landingTime?string('hh:mm')}</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="date">${fdto.departureTime}</span >&nbsp;<span class="line">--------------------------</span>&nbsp;<span class="date">${fdto.landingTime}</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">浦东机场T2</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">江北机场T3</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">${fdto.takeOffAirport}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Airpo">${fdto.arrivalAtTheAirport}</span>
             <br>
             <br>
             <span style="" class="line">--------------------------------------------------</span>

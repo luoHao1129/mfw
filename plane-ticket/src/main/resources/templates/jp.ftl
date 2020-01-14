@@ -136,17 +136,17 @@
             <a href=""><span class="ift">航空信息</span></a><a href=""><span class="ift">起飞时间</span></a><a href=""><span class="ift">到达时间</span></a><a
                     href=""><span class="ift">价格</span></a>
         </div>
-
+    <div id="f_id">
         <#list fightDTOS as fight>
 
                 <div id="flight">
 
                     <img src="${fight.img }" class="aviation"><span class="fi">${fight.company }</span>&nbsp;<span class="number">${fight.fightNum }</span>
-                    <span class="fly">${fight.departureTime?substring(0,5)}</span><span class="travel-time">2小时55分钟</span><span class="flys"> ${fight.landingTime?string('hh:mm')}</span><span class="qian">￥</span><span
+                    <span class="fly">${fight.departureTime?substring(0,5)}</span><span class="travel-time">2小时55分钟</span><span class="flys"> ${fight.landingTime?substring(0,5)}</span><span class="qian">￥</span><span
                             id="Price">${fight.price?string("0") }</span><span class="qi">起</span>
                     <div id="dp" class="dp11">
                         <input type="hidden" value="${fight.fightNum }" id="hbid">
-                        <a href="/dingdan/${fight.fightNum }"><span class="dp1">订票</span></a>
+                        <a href="/dingdan/${fight.fightNum }/${map.prices[0].date}"><span class="dp1">订票</span></a>
                     </div>
                     <!-- <img src="img/304894340e716debfd6c7cbb2ff20d9.png" class="dp" > -->
 
@@ -164,72 +164,277 @@
 
 
         </#list>
-
+    </div>
 
     </div>
 </div>
 <script type="text/javascript">
-    $(function(){
-        $("#departureTime").change(function (){
+    $(function() {
+        $("#departureTime").change(function () {
             var departureTime = $('#departureTime').val();
             var takeOffAirport = $('#takeOffAirport').val();
             var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
             var company = $('#company').val();
             var aircraftType = $('#aircraftType').val();
+            var departure = $('#departure').val();
+            var arrival = $('#arrival').val();
+            var params = {
+                "departureTime": departureTime,
+                "takeOffAirport": takeOffAirport,
+                "arrivalAtTheAirport": arrivalAtTheAirport,
+                "company": company,
+                "aircraftType": aircraftType
+            };
             var params = {"departureTime":departureTime,"takeOffAirport":takeOffAirport,"arrivalAtTheAirport":arrivalAtTheAirport,"company":company,"aircraftType":aircraftType};
+            var html = "";
             $.ajax({
-                async:true,
-                type:"POST",
-                dataType:"json",
-                url:"/screeningFlights",
-                data:params,
-                success:function (json) {
-                    // $("#total-text").text(json.length);
-                    // var html= ""
-                    // for(var index in json){
-                    //     html=html+""
-                    // console.log(json);
-                    alert(json);
+                async: true,
+                type: "POST",
+                dataType: "json",
+                url: "/screeningFlights",
+                data: params,
+                success: function (json) {
+                    $("#total-text").text(json.length);
+                    for (var index in json) {
+                        html = html + "    <div id=\"flight\">\n" +
+                            "\n" +
+                            "                    <img src=\"" + json[index].img + "\" class=\"aviation\"><span class=\"fi\">" + json[index].company + " </span>&nbsp;<span class=\"number\">" + json[index].fightNum + "</span>\n" +
+                            "                    <span class=\"fly\">" + json[index].departureTime + "</span><span class=\"travel-time\">2小时55分钟</span><span class=\"flys\">" + json[index].landingTime + "</span><span class=\"qian\">￥</span><span\n" +
+                            "                            id=\"Price\">" + json[index].price + "</span><span class=\"qi\">起</span>\n" +
+                            "                    <div id=\"dp\" class=\"dp11\">\n" +
+                            "                        <input type=\"hidden\" value=\"" + json[index].fightNum + " \" id=\"hbid\">\n" +
+                            "                        <a href=\"/dingdan/" + json[index].fightNum + "\"><span class=\"dp1\">订票</span></a>\n" +
+                            "                    </div>\n" +
+                            "                    <!-- <img src=\"img/304894340e716debfd6c7cbb2ff20d9.png\" class=\"dp\" > -->\n" +
+                            "\n" +
+                            "                    <br>\n" +
+                            "\n" +
+                            "                    <span class=\"jc\">" + json[index].takeOffAirport + "</span>\n" +
+                            "\n" +
+                            "                    <span class=\"xian\">--------&gt;</span>\n" +
+                            "\n" +
+                            "                    <span class=\"jc2\">" + json[index].arrivalAtTheAirport + "</span>\n" +
+                            "\n" +
+                            "                </div>\n"
+
+
+                    }
+                    $('#f_id').html(html);
                 }
             });
 
 
         });
-        $("#takeOffAirport").change(function (){
+        $("#takeOffAirport").change(function () {
             var departureTime = $('#departureTime').val();
             var takeOffAirport = $('#takeOffAirport').val();
             var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
             var company = $('#company').val();
             var aircraftType = $('#aircraftType').val();
+            var departure = $('#departure').val();
+            var arrival = $('#arrival').val();
+            var params = {
+                "departureTime": departureTime,
+                "takeOffAirport": takeOffAirport,
+                "arrivalAtTheAirport": arrivalAtTheAirport,
+                "company": company,
+                "aircraftType": aircraftType
+            };
+            var params = {"departureTime":departureTime,"takeOffAirport":takeOffAirport,"arrivalAtTheAirport":arrivalAtTheAirport,"company":company,"aircraftType":aircraftType};
+            var html = "";
+            $.ajax({
+                async: true,
+                type: "POST",
+                dataType: "json",
+                url: "/screeningFlights",
+                data: params,
+                success: function (json) {
+                    $("#total-text").text(json.length);
+                    for (var index in json) {
+                        html = html + "    <div id=\"flight\">\n" +
+                            "\n" +
+                            "                    <img src=\"" + json[index].img + "\" class=\"aviation\"><span class=\"fi\">" + json[index].company + " </span>&nbsp;<span class=\"number\">" + json[index].fightNum + "</span>\n" +
+                            "                    <span class=\"fly\">" + json[index].departureTime + "</span><span class=\"travel-time\">2小时55分钟</span><span class=\"flys\">" + json[index].landingTime + "</span><span class=\"qian\">￥</span><span\n" +
+                            "                            id=\"Price\">" + json[index].price + "</span><span class=\"qi\">起</span>\n" +
+                            "                    <div id=\"dp\" class=\"dp11\">\n" +
+                            "                        <input type=\"hidden\" value=\"" + json[index].fightNum + " \" id=\"hbid\">\n" +
+                            "                        <a href=\"/dingdan/" + json[index].fightNum + "\"><span class=\"dp1\">订票</span></a>\n" +
+                            "                    </div>\n" +
+                            "                    <!-- <img src=\"img/304894340e716debfd6c7cbb2ff20d9.png\" class=\"dp\" > -->\n" +
+                            "\n" +
+                            "                    <br>\n" +
+                            "\n" +
+                            "                    <span class=\"jc\">" + json[index].takeOffAirport + "</span>\n" +
+                            "\n" +
+                            "                    <span class=\"xian\">--------&gt;</span>\n" +
+                            "\n" +
+                            "                    <span class=\"jc2\">" + json[index].arrivalAtTheAirport + "</span>\n" +
+                            "\n" +
+                            "                </div>\n"
 
+
+                    }
+                    $('#f_id').html(html);
+                }
+            });
         });
-        $("#arrivalAtTheAirport").change(function (){
+        $("#arrivalAtTheAirport").change(function () {
             var departureTime = $('#departureTime').val();
             var takeOffAirport = $('#takeOffAirport').val();
             var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
             var company = $('#company').val();
             var aircraftType = $('#aircraftType').val();
+            var departure = $('#departure').val();
+            var arrival = $('#arrival').val();
+                var params = {"departureTime":departureTime,"takeOffAirport":takeOffAirport,"arrivalAtTheAirport":arrivalAtTheAirport,"company":company,"aircraftType":aircraftType,"departure":departure,"arrival":arrival};
+                var html = "";
+                $.ajax({
+                    async:true,
+                    type:"POST",
+                    dataType:"json",
+                    url:"/screeningFlights",
+                    data:params,
+                    success:function (json) {
+                        $("#total-text").text(json.length);
+                        for (var index in json) {
+                            html = html + "    <div id=\"flight\">\n" +
+                                "\n" +
+                                "                    <img src=\""+json[index].img+"\" class=\"aviation\"><span class=\"fi\">"+json[index].company+" </span>&nbsp;<span class=\"number\">"+json[index].fightNum+"</span>\n" +
+                                "                    <span class=\"fly\">"+json[index].departureTime+"</span><span class=\"travel-time\">2小时55分钟</span><span class=\"flys\">"+json[index].landingTime+"</span><span class=\"qian\">￥</span><span\n" +
+                                "                            id=\"Price\">"+json[index].price+"</span><span class=\"qi\">起</span>\n" +
+                                "                    <div id=\"dp\" class=\"dp11\">\n" +
+                                "                        <input type=\"hidden\" value=\""+json[index].fightNum+" \" id=\"hbid\">\n" +
+                                "                        <a href=\"/dingdan/"+json[index].fightNum+"\"><span class=\"dp1\">订票</span></a>\n" +
+                                "                    </div>\n" +
+                                "                    <!-- <img src=\"img/304894340e716debfd6c7cbb2ff20d9.png\" class=\"dp\" > -->\n" +
+                                "\n" +
+                                "                    <br>\n" +
+                                "\n" +
+                                "                    <span class=\"jc\">"+json[index].takeOffAirport+"</span>\n" +
+                                "\n" +
+                                "                    <span class=\"xian\">--------&gt;</span>\n" +
+                                "\n" +
+                                "                    <span class=\"jc2\">"+json[index].arrivalAtTheAirport+"</span>\n" +
+                                "\n" +
+                                "                </div>\n"
+
+
+                        }
+                        $('#f_id').html(html);
+                    }
+                });
+
+            });
+
 
         });
-        $("#company").change(function (){
+        $("#company").change(function () {
             var departureTime = $('#departureTime').val();
             var takeOffAirport = $('#takeOffAirport').val();
             var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
             var company = $('#company').val();
             var aircraftType = $('#aircraftType').val();
+            var departure = $('#departure').val();
+            var arrival = $('#arrival').val();
+            var params = {
+                "departureTime": departureTime,
+                "takeOffAirport": takeOffAirport,
+                "arrivalAtTheAirport": arrivalAtTheAirport,
+                "company": company,
+                "aircraftType": aircraftType
+            };
+            var params = {"departureTime":departureTime,"takeOffAirport":takeOffAirport,"arrivalAtTheAirport":arrivalAtTheAirport,"company":company,"aircraftType":aircraftType};
+            var html = "";
+            $.ajax({
+                async: true,
+                type: "POST",
+                dataType: "json",
+                url: "/screeningFlights",
+                data: params,
+                success: function (json) {
+                    $("#total-text").text(json.length);
+                    for (var index in json) {
+                        html = html + "    <div id=\"flight\">\n" +
+                            "\n" +
+                            "                    <img src=\"" + json[index].img + "\" class=\"aviation\"><span class=\"fi\">" + json[index].company + " </span>&nbsp;<span class=\"number\">" + json[index].fightNum + "</span>\n" +
+                            "                    <span class=\"fly\">" + json[index].departureTime + "</span><span class=\"travel-time\">2小时55分钟</span><span class=\"flys\">" + json[index].landingTime + "</span><span class=\"qian\">￥</span><span\n" +
+                            "                            id=\"Price\">" + json[index].price + "</span><span class=\"qi\">起</span>\n" +
+                            "                    <div id=\"dp\" class=\"dp11\">\n" +
+                            "                        <input type=\"hidden\" value=\"" + json[index].fightNum + " \" id=\"hbid\">\n" +
+                            "                        <a href=\"/dingdan/" + json[index].fightNum + "\"><span class=\"dp1\">订票</span></a>\n" +
+                            "                    </div>\n" +
+                            "                    <!-- <img src=\"img/304894340e716debfd6c7cbb2ff20d9.png\" class=\"dp\" > -->\n" +
+                            "\n" +
+                            "                    <br>\n" +
+                            "\n" +
+                            "                    <span class=\"jc\">" + json[index].takeOffAirport + "</span>\n" +
+                            "\n" +
+                            "                    <span class=\"xian\">--------&gt;</span>\n" +
+                            "\n" +
+                            "                    <span class=\"jc2\">" + json[index].arrivalAtTheAirport + "</span>\n" +
+                            "\n" +
+                            "                </div>\n"
+
+
+                    }
+                    $('#f_id').html(html);
+                }
+            });
 
         });
-        $("#aircraftType").change(function (){
+        $("#aircraftType").change(function () {
             var departureTime = $('#departureTime').val();
             var takeOffAirport = $('#takeOffAirport').val();
             var arrivalAtTheAirport = $('#arrivalAtTheAirport').val();
             var company = $('#company').val();
             var aircraftType = $('#aircraftType').val();
+            var departure = $('#departure').val();
+            var arrival = $('#arrival').val();
+            var params = {
+                "departureTime": departureTime,
+                "takeOffAirport": takeOffAirport,
+                "arrivalAtTheAirport": arrivalAtTheAirport,
+                "company": company,
+                "aircraftType": aircraftType
+            };
+            var params = {"departureTime":departureTime,"takeOffAirport":takeOffAirport,"arrivalAtTheAirport":arrivalAtTheAirport,"company":company,"aircraftType":aircraftType};
+            var html = "";
+            $.ajax({
+                async: true,
+                type: "POST",
+                dataType: "json",
+                url: "/screeningFlights",
+                data: params,
+                success: function (json) {
+                    $("#total-text").text(json.length);
+                    for (var index in json) {
+                        html = html + "    <div id=\"flight\">\n" +
+                            "\n" +
+                            "                    <img src=\"" + json[index].img + "\" class=\"aviation\"><span class=\"fi\">" + json[index].company + " </span>&nbsp;<span class=\"number\">" + json[index].fightNum + "</span>\n" +
+                            "                    <span class=\"fly\">" + json[index].departureTime + "</span><span class=\"travel-time\">2小时55分钟</span><span class=\"flys\">" + json[index].landingTime + "</span><span class=\"qian\">￥</span><span\n" +
+                            "                            id=\"Price\">" + json[index].price + "</span><span class=\"qi\">起</span>\n" +
+                            "                    <div id=\"dp\" class=\"dp11\">\n" +
+                            "                        <input type=\"hidden\" value=\"" + json[index].fightNum + " \" id=\"hbid\">\n" +
+                            "                        <a href=\"/dingdan/" + json[index].fightNum + "\"><span class=\"dp1\">订票</span></a>\n" +
+                            "                    </div>\n" +
+                            "                    <!-- <img src=\"img/304894340e716debfd6c7cbb2ff20d9.png\" class=\"dp\" > -->\n" +
+                            "\n" +
+                            "                    <br>\n" +
+                            "\n" +
+                            "                    <span class=\"jc\">" + json[index].takeOffAirport + "</span>\n" +
+                            "\n" +
+                            "                    <span class=\"xian\">--------&gt;</span>\n" +
+                            "\n" +
+                            "                    <span class=\"jc2\">" + json[index].arrivalAtTheAirport + "</span>\n" +
+                            "\n" +
+                            "                </div>\n"
 
-        });
 
+                    }
+                    $('#f_id').html(html);
+                }
+            });
     });
-
 </script>
 
 </body>
