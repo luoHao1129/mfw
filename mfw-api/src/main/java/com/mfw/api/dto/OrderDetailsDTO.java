@@ -19,6 +19,8 @@ public class OrderDetailsDTO implements Serializable {
 	private String orderId;
 	private Date checkInTime;
 	private Date checkOutTime;
+	private Date departureTime;
+	private Date landingTime;
 
 	
 

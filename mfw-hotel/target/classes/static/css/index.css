@@ -1,0 +1,202 @@
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+.banner{
+	width: 70%;
+	margin: 20px auto;
+	/* background-color: #eee; */
+	height: 2400px;
+}
+
+.map ul{
+	height: 57px;
+	list-style: none;
+}
+.map ul li{
+	display: inline;
+	
+}
+.map_item{
+	background-color: #fff;
+	border: #ddd 1px solid;
+	padding: 5px;
+	/* width: 160px; */
+	float: left;
+	border-radius: 5px;
+	margin-right: 10px;
+}
+.map_item_text{
+	float: left;
+	/* margin-right: 5px ; */
+	width: 84px;
+}
+.map_item h4{
+	display: inline;
+}
+.map_item img{
+	float: right;
+	height: 45px;
+	width: 38px;
+}
+.map_item_text label{
+	font-size: 10px;
+	color: #aaa;
+}
+.map_item:hover{
+	cursor:pointer;
+	box-shadow: 2px 4px 6px #ddd;
+}
+.youji{
+	width: 66%;
+	/* background-color: #AAAAAA; */
+	/* position: absolute; */
+	margin-left: 33.5%;
+	padding: 10px 0px;
+	
+	
+}
+.youji_head{
+	padding: 10px 0px;
+	border-bottom: #ddd 2px solid;
+}
+.youji_head ul {
+	margin: 0px;
+	list-style: none;
+	font-size: 18px;
+	display: inline;
+}
+.youji_head ul li{
+	display: inline;
+}
+.youji ul li a{
+	text-decoration: none;
+	color: #000;
+	display: inline-block;
+}
+.youji ul li a:hover{
+	color: darkorange;
+}
+
+.youji_head ul li label{
+	display: inline-block;
+	font-size: 10px;
+	height: 20px;
+	width: 60px;
+	text-align: center;
+}
+
+.youji_head ul li label:hover{
+	cursor:pointer;
+	background-color: darkorange;
+	color: #fff;
+}
+.youji_edit {
+	float: right;
+	width: 150px;
+	height: 30px;
+	text-align: center;
+	background-color: darkorange;
+	border-radius: 5px;
+	line-height: 30px;
+	color: #FFFFFF;
+}
+
+.youji_edit:hover{
+	cursor: pointer;
+}
+.youji_edit label:hover{
+	cursor: pointer;
+}
+.youji_item{
+	margin-top: 20px;
+	padding: 5px;
+	background-color: #FFFFFF;
+}
+.youji_item:hover{
+	cursor: pointer;
+	box-shadow: 2px 4px 6px #ddd;
+}
+
+.youji_item:hover .youji_item_title{
+	color: #FF8C00;
+}
+
+.youji_item img{
+	height: 150px;
+	width: 220px;
+}
+.youji_item_text{
+	display: inline-block;
+	height: 150px;
+	width: 455px;
+	font-size: 14px;
+}
+.youji_item_title{
+	display: inline-block;
+	margin-bottom: 20px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.youji_item_text ul{
+	list-style: none;
+}
+
+.youji_item_text ul li{
+	display: inline;
+}
+.youji_item_text ul li img{
+	height: 20px;
+	width: 20px;
+}
+
+.youji_item_text ul li a{
+	color: #FF8C00;
+}
+.youji_item_text_t{
+}
+
+.youji_item_text_d{
+	float: right;
+	margin-top: -8px;
+	
+
+}
+#liu{
+	width: 25px;
+}
+#ding{
+	height: 36px;
+	width: 42px;
+}
+.youji_bot{
+	text-align: right;
+}
+.youji_bot ul{
+	list-style: none;
+}
+.youji_bot ul li{
+	display: inline-block;
+	margin-left: 5px;
+	
+	border-radius: 3px;
+}
+.num{
+	width: 20px;
+	text-align: center;
+}
+.num:hover{
+	background-color: #EEEEEE;
+	
+}
+.youji_bot ul li a:hover{
+	color: #000000;
+}
+.upd{
+	background-color: #FF8C00;
+	color: #FFFFFF;
+}
+.upd:hover{
+	cursor: pointer;
+}

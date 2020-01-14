@@ -15,4 +15,5 @@ public interface ContentDao {
 	void updateContent(Content content);
 	Content selectContentById(String id);
 	List<Content> selectContentByTravelsId(String travelsId);
+	Content selectContentByIdAndSequence(Content content);
 }

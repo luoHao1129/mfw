@@ -126,15 +126,13 @@
 
         <br>
         <form action="" method="post">
-            <input type="hidden" value="${fdto.company }" name="" id="" >
+            <input type="hidden" value="${fdto.company }" name="fightName" id="" >
             <input type="hidden" value="2" name="typeId" id="typeId" >
-            <input type="hidden" value="${fdto.departureTime?time }" name="checkInTime" id="" >
-            <input type="hidden" value="${fdto.landingTime?time }" name="checkOutTime" id="" >
+            <input type="hidden" value="${fdto.departureTime }" name="departureTime" id="" >
+            <input type="hidden" value="${fdto.landingTime }" name="landingTime" id="" >
             <input type="hidden" value="${fdto.price }" name="amount" id="" >
             <input type="hidden" value="${fdto.fightNum }" name="commodityId" id="" >
             <input type="hidden" value="1" name="status" id="status" >
-
-
             <input type="submit" value="提交订单" id="" style="height: 50px; width: 550px;background-color: #EDA000; color:#fff ;font-size: 25px;margin-left: 370px; cursor: pointer; ">
 
         </form>

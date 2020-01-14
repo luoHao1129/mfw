@@ -73,9 +73,9 @@
                 <li><a href=""><img src="img/qq.png" >    </a></li>
                 <li><a href=""><img src="img/weixin.png"></a></li>
 
-                <li class="login_li"><a href="login.jsp">登录</a></li>
+                <li class="login_li"><a href="http://localhost:8081/login.html">登录</a></li>
                 <li class="line">|</li>
-                <li class="touxiang_li"><a href="zhuce.jsp">注册</a></li>
+                <li class="touxiang_li"><a href="http://localhost:8081/zhuce.html">注册</a></li>
 
             </ul>
         </div>

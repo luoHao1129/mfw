@@ -76,14 +76,13 @@
 
         .edit_text{
             width: 60%;
-            margin: auto;
+            margin: 30px auto;
         }
         .textarea{
             border: none;
             display: block;
             overflow: hidden;
             width: 100%;
-            height: 100px;
         }
         .text{
             width: 70%;
@@ -158,6 +157,7 @@
         }
         .textarea{
             outline: none;
+            overflow-y: auto;
         }
 
 
@@ -180,6 +180,7 @@
         <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
     </div>
     <input class="title_text" type="text" placeholder="填写游记标题"/>
+    <input type="hidden" id="travels_id" value="">
 </div>
 
 
@@ -187,17 +188,19 @@
     <div class="edit_text_ok">
 
     </div>
-    <div class="text" style="height: 600px;">
-        <textarea class="textarea _j_textarea"  rows="100" cols="100" data-exclude_class="_j_textarea _j_textareaplc">
+        <div class="text" style="height: 600px;" data-id="">
+            <div class="textarea _j_textarea" contenteditable="true" onblur="contentText(this)"  data-exclude_class="_j_textarea _j_textareaplc" data-id="" id="textarea">
+            </div>
+            <img class="img_youji" src=""  />
+            <input type="hidden" value="" id="sequence">
+            <input type="hidden" value="" id="content_id">
+        </div>
 
-        </textarea>
-        <img class="img_youji" src="" />
-        <input type="hidden" value="">
-    </div>
 
 
+    <a href="" style="text-decoration: none" id="text_save">
     <input type="submit" class="text_save" value="发表游记"/>
-
+    </a>
 
 </div>
 
@@ -211,7 +214,9 @@
         <li>插入添加游记音乐</li>
     </ul>
     <input class="up_pic_util" type="file"/>
-    <input type="submit" class="caogao_save" value="保存草稿"/>
+    <a href="http://localhost:8081/toPersonal">
+        <input type="submit" class="caogao_save" value="保存草稿"/>
+    </a>
 </div>
 <script type="text/javascript" src="js/main.js"></script>
 
@@ -373,28 +378,37 @@
     });
 
 
+    /**
+     * 头部图片上传
+     */
     $('.up_pic').change(function () {
         var formData = new FormData();
+        var travelsId = $('#travels_id').val();
         formData.append('file', $('.up_pic')[0].files[0]);
+        formData.append("travelsId",travelsId);
 
         $.ajax({
             async: true,
             type: "POST",
             dataType: "json",
-            url: "/uploadImg",
+            url: "/uploadTitleImg",
             data:formData,
             processData: false,
             contentType: false,
             success: function (json) {
 
                 console.log(json);
-                if(json.success == "200"){
+                if(json.msg == "200"){
                     $('.title_bj').attr('src',json.imgPath);
                     $('.title_bj').css('opacity',1);
                     $('.up_text').hide();
                     $('.up_img').hide();
-                }else if (json.success == "500"){
+                    $('#travels_id').val(json.tId);
+                    $('#text_save').attr("href","/toPublish/"+json.tId);
+                }else if (json.msg == "500"){
                     alert("图片上传失败，请重新上传");
+                }else if(json.msg == "404"){
+                    alert("上传图片为空，请重新上传");
                 }
             }
             });
@@ -403,42 +417,95 @@
     var index_text = 1;
     $('.up_pic_util').change(function () {
         var formData = new FormData();
+        var text = $('#textarea').html();
+        var travelsId = $('#travels_id').val();
+        var sequence = index_text;
+        var contentID = $('#content_id').val();
         formData.append('file', $('.up_pic_util')[0].files[0]);
+        formData.append("travelsId",travelsId);
+        formData.append("sequence",sequence);
+        formData.append("cId",contentID);
+        formData.append("text",text);
         var html = "";
-
         $.ajax({
             async: true,
             type: "POST",
             dataType: "json",
-            url: "/uploadImg",
+            url: "/uploadContentImg",
             data:formData,
             processData: false,
             contentType: false,
             success: function (json) {
-
                 console.log(json);
-                if(json.success == "200"){
+                if(json.msg == "200"){
 
-                    var html = "  <div class=\"text\">\n" +
-                        "\t\t\t\t<textarea class=\"textarea _j_textarea\"  rows=\"100\" cols=\"100\"\n" +
-                        "                          data-exclude_class=\"_j_textarea _j_textareaplc\">\n" +
-                        "\n" +
-                        "\t\t\t\t</textarea>\n" +
+                    var html = "  <div class=\"text\" >\n" +
+                        "\t\t\t\t<div class=\"textarea _j_textarea\" contenteditable=\"true\"  onblur=\"contentText(this)\" " +
+                        " style='margin: 10px 1px' id='textarea"+json.sequence+"' \n" +
+                        " data-exclude_class=\"_j_textarea _j_textareaplc\" data-id='"+json.contentId+"'data-sequence='"+json.sequence+"'>\n" +
+                        "\n" +json.cText+
+                        "\t\t\t\t</div>\n" +
                         "        <img class=\"img_youji\" src=\""+json.imgPath+"\" />\n" +
-                            "<input type=\"hidden\" value=\""+index_text+"\">"+
-                        "    </div>"
+                        "    </div>";
                     $('.edit_text_ok').append(html);
+                    $('#travels_id').val(json.tId);
                     index_text++;
-                }else if (json.success == "500"){
+                    $('#sequence').val(index_text);
+                    $('#content_id').val("");
+                    $('#textarea').html("");
+                    $('#textarea').attr("data-id","");
+                    $('#text_save').attr("href","/toPublish/"+json.tId);
+                    if(index_text == 3){
+                        $('.text').css("height","");
+                    }
+                }else if (json.msg == "500"){
                     alert("图片上传失败，请重新上传");
                 }
             }
         });
     });
 
-    $('.text_save').click(function () {
-        alert("ok");
+    $('.title_text').blur(function () {
+        var travelsId = $('#travels_id').val();
+        var title = $('.title_text').val();
+            $.ajax({
+                async: true,
+                type: "POST",
+                dataType: "json",
+                url: "/updateTravelsTitle",
+                data:{"id":travelsId,"title":title},
+                success:function (msg) {
+                    if(msg.msg == "success"){
+                    }
+                    $('#travels_id').val(msg.tId);
+                    $('#text_save').attr("href","/toPublish/"+msg.tId);
+                }
+            });
     });
+
+
+
+
+    function contentText(a) {
+        var text = $(a).html();
+        var contentID = $(a).attr('data-id');
+        var travelsId = $('#travels_id').val();
+        var sequence = $('#sequence').val();
+        if(sequence == ""){
+            sequence = 1;
+        }
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json",
+            url: "/saveContentText",
+            data:{"travelsId":travelsId,"text":text,"contentID":contentID,"sequence":sequence},
+            success:function (msg) {
+                $(a).attr('data-id',msg.contentID);
+                $('#content_id').val(msg.contentID);
+            }
+        });
+    }
 
 
 </script>

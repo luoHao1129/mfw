@@ -4,6 +4,7 @@ package com.mfw.travels.service.impl;
 
 import com.mfw.api.dto.Content;
 import com.mfw.api.dto.Travels;
+import com.mfw.api.dto.UserDTO;
 import com.mfw.travels.dao.ContentDao;
 import com.mfw.travels.dao.TravelsDao;
 import com.mfw.travels.service.TravelsService;
@@ -12,7 +13,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service("travelsService")
@@ -21,21 +24,29 @@ public class TravelsServiceImpl implements TravelsService {
 	
 	@Resource
 	private TravelsDao travelsDao;
-	@Resource
-	private ContentDao contentDao;
-
 	@Override
 	public void addTravels(Travels travels) {
-		travelsDao.addTravels(travels);
-		if(null != travels.getContents()) {
-			for (Content content : travels.getContents()) {
-				contentDao.addContent(content);
-			}
+		if(travels.getTpic() == null||travels.getTpic().equals("") ){
+
+			travels.setTravelstype("2")
+					.setPageviews(0)
+					.setTpic("img/addyoujibj.jpg")
+					.setDestination("")
+					.setDate(new Date())
+					.setLikeNum(0);
+		}else {
+			travels.setTravelstype("2")
+					.setPageviews(0)
+					.setDestination("")
+					.setDate(new Date())
+					.setLikeNum(0);
 		}
+
+		travelsDao.addTravels(travels);
 	}
 
 	@Override
-	public void deleteTravels(int id) {
+	public void deleteTravels(String  id) {
 		travelsDao.deleteTravels(id);
 		
 
@@ -58,6 +69,12 @@ public class TravelsServiceImpl implements TravelsService {
 		return travelsDao.selectTravelsById(id);
 		
 	}
+
+	@Override
+	public Travels findTravelsById(String id) {
+		return travelsDao.findTravelsById(id);
+	}
+
 
 	@Override
 	public List<Travels> selectAllByAuthorId(String authorId) {
@@ -87,6 +104,11 @@ public class TravelsServiceImpl implements TravelsService {
 	@Override
 	public int selectCount() {
 		return travelsDao.selectCount();
+	}
+
+	@Override
+	public List<String> selectID() {
+		return travelsDao.selectID();
 	}
 
 
