@@ -61,7 +61,7 @@ public class AirTicketsController {
         modelAndView.addObject("fightDTOaircraftType",fightDTOaircraftType);
         List<FightDTO> fightDTOcompany= fightService.selectcompany(departureDateDTO.getDeparture());
         modelAndView.addObject("fightDTOcompany",fightDTOcompany);
-        modelAndView.setViewName("jp");
+        modelAndView.setViewName("main");
         return modelAndView;
     }
 

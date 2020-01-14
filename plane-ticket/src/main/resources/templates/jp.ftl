@@ -146,7 +146,7 @@
                             id="Price">${fight.price?string("0") }</span><span class="qi">起</span>
                     <div id="dp" class="dp11">
                         <input type="hidden" value="${fight.fightNum }" id="hbid">
-                        <a href="/dingdan/${fight.fightNum }/${map.prices[0].date}"><span class="dp1">订票</span></a>
+                        <a href="/dingdan/${fight.fightNum }"><span class="dp1">订票</span></a>
                     </div>
                     <!-- <img src="img/304894340e716debfd6c7cbb2ff20d9.png" class="dp" > -->
 
