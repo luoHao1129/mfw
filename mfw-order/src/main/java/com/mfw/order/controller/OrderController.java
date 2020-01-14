@@ -63,8 +63,8 @@ public class OrderController {
     //从酒店机票拿到需要的订单详情
     @Autowired
     private RestTemplate restTemplate;
-    @Value("${OrderService.hotelOrderServieURLGet}")
-    private String hotelOrderServieURLGet;
+    @Value("${OrderService.hotelOrderServiceURLGet}")
+    private String hotelOrderServiceURLGet;
 
     private OrderUtil orderUtil = new OrderUtil();
 
@@ -77,7 +77,7 @@ public class OrderController {
         for(OrderDTO orderDTO:ordersDTO){
             switch (orderDTO.getTypeId()){
                 case 1:
-                    OrderDetailesPageDTO orderDetailesPageDTO = orderUtil.getOrderDetailes(orderDTO,restTemplate,hotelOrderServieURLGet,orderDetailsService);
+                    OrderDetailesPageDTO orderDetailesPageDTO = orderUtil.getOrderDetailes(orderDTO,restTemplate,hotelOrderServiceURLGet,orderDetailsService);
                     orderDetailesPageDTOs.add(orderDetailesPageDTO);
 
             }

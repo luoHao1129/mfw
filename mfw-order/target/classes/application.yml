@@ -1,6 +1,6 @@
 OrderService:
-  hotelOrderServieURLGet: http://localhost:8088/getHotelDTO/
-  fightOrderServieURLPost: http://localhost:8086/getFightDTO/
+  hotelOrderServiceURLGet: http://localhost:8088/getHotelDTO/
+  fightOrderServiceURLGet: http://localhost:8086/getFightDTO/
 
 #时间格式化
 spring:
@@ -9,8 +9,9 @@ spring:
     #时区设置
     time-zone: Asia/Chongqing
   redis:
-    host: 127.0.0.1
+    host: yizumafengwo.redis.rds.aliyuncs.com
     port: 6379
+    password: yizu123456A
     database: 0
 
   profiles:

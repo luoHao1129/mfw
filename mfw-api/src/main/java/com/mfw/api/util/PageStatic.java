@@ -61,4 +61,20 @@ public class PageStatic {
             e.printStackTrace();
         }
     }
+
+    public static void travelToHtmlFile(Configuration cfg, Map<String, Object> data, String ftlName,String pagePath,String id) {
+
+        String ftlFile =  ftlName + ".ftl";
+        try {
+            Template temp = cfg.getTemplate(ftlFile);
+            String path = pagePath + ftlName + id + ".html";
+            Writer file = new FileWriter(new File(path));
+            temp.process(data, file);
+            file.flush();
+            file.close();
+
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+        }
+    }
 }

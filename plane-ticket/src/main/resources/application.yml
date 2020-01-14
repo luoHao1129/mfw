@@ -6,8 +6,9 @@ spring:
     time-zone: Asia/Chongqing
     #redis
   redis:
-    host: 127.0.0.1
+    host: yizumafengwo.redis.rds.aliyuncs.com
     port: 6379
+    password: yizu123456A
     database: 0
     jedis:
       pool:

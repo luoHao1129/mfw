@@ -18,7 +18,7 @@
     <div class="biaotihang">
         <ul>
             <li>
-                <a href="http://www.mafengwo.cn/">首页</a>
+                <a href="http://localhost:8089/main">首页</a>
             </li>
             <li>
                 <a href="http://www.mafengwo.cn/wenda/">问答</a>
@@ -70,13 +70,13 @@
                 <a class="my_link" href="">我的窝</a>
             </li>
             <li>
-                <a class="my_link" href="">我的游记</a>
+                <a class="my_link" href="http://localhost:8089/toUserTravels">我的游记</a>
             </li>
             <li>
                 <a class="my_link" href="">我的问答</a>
             </li>
             <li>
-                <a class="my_link" id="myOrder">我的订单</a>
+                <a class="my_link" id="myOrder" href="http://locahost:8083/getOrderDetails">我的订单</a>
             </li>
             <li>
                 <a class="my_link" href="">我的点评</a>
@@ -142,7 +142,7 @@
         <div class="center_right1">
             <ul>
                 <li>
-                    <a href="http://www.mafengwo.cn/note/create_index.php" target="_parent">
+                    <a href="http://http://localhost:8089/addTravels.html" target="_parent">
                         <i class="note"></i>
                         <span>写游记</span>
                     </a>
@@ -169,7 +169,7 @@
         </div>
         <div class="center_right2">
             <div class="jiyi">
-                <p><strong>不怕得</strong>，这里是你的【窝】！</p>
+                <p><strong>${user.name}</strong>，这里是你的【窝】！</p>
                 <p>是记录你的旅行记忆，结交各路豪杰的地盘儿。现在开启马蜂窝旅程！</p>
             </div>
             <div class="jiyi1">
@@ -215,31 +215,31 @@
             </div>
         </div>
         <div class="center_right3">
-            <div class="xieyouji">
-                <h2>我的游记</h2>
-                <span href="" title="写游记" class="btn_write">写游记</span>
-            </div>
-            <div class="notes">
-                <div class="notes_pic"></div>
-            </div>
-        </div>
-        <div class="center_right4">
-            <div class="xiedianping">
-                <h2>我的点评</h2>
-            </div>
-            <div class="xiedianpingA">
-                <i class="ico_notes"></i>
-                <div>
-                    <p>
-                        点评，不仅是旅途记忆，
-                        <br/>
-                        更是帮助他人的宝贵财富。
-                    </p>
+            <#--            <div class="xieyouji">-->
+            <#--                <h2>我的游记</h2>-->
+            <#--                <span href="" title="写游记" class="btn_write">写游记</span>-->
+            <#--            </div>-->
+            <#--            <div class="notes">-->
+            <#--                <div class="notes_pic"></div>-->
+            <#--            </div>-->
+            <#--        </div>-->
+            <div class="center_right4">
+                <div class="xiedianping">
+                    <h2>我的点评</h2>
+                </div>
+                <div class="xiedianpingA">
+                    <i class="ico_notes"></i>
+                    <div>
+                        <p>
+                            点评，不仅是旅途记忆，
+                            <br/>
+                            更是帮助他人的宝贵财富。
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="footer"></div>
+    <div class="footer"></div>
 </body>
 </html>

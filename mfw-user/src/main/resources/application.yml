@@ -4,10 +4,19 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     #时区设置
     time-zone: Asia/Chongqing
+  #redis
   redis:
-    host: 127.0.0.1
+    host: yizumafengwo.redis.rds.aliyuncs.com
     port: 6379
+    password: yizu123456A
     database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: 10000
+        max-idle: 8
+        min-idle: 0
+    timeout: 300
 
   profiles:
     active: dev
@@ -50,7 +59,8 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/static,classpath:/resources/,classpath:/public/,file:${web.upload-path}
-
+  #session:
+    #store-type: redis
 #mybatis
 mybatis:
   mapper-locations: classpath:mybatis/*.xml

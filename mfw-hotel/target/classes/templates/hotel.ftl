@@ -50,7 +50,7 @@
                 <!-- 城市 -->
                 <div id="in_city" style="display: none"></div>
 
-                <script type="text/javascript" src="../js/cityTemplate.js"></script>
+
                 <script type="text/javascript">
                     var cityA = $(".city_a_le1 a"); //城市
                     var dest = $("#destination"); //目的地

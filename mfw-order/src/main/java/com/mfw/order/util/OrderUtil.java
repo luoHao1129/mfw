@@ -15,9 +15,9 @@ public class OrderUtil {
 
 
 
-    public OrderDetailesPageDTO getOrderDetailes(OrderDTO orderDTO,RestTemplate restTemplate,String hotelOrderServieURLGet,OrderDetailsService orderDetailsService){
+    public OrderDetailesPageDTO getOrderDetailes(OrderDTO orderDTO,RestTemplate restTemplate,String hotelOrderServiceURLGet,OrderDetailsService orderDetailsService){
         OrderDetailsDTO orderDetailsDoTOS = orderDetailsService.selectOrderDetailsById(orderDTO.getDetails());
-        HotelDTO hotelDTO = restTemplate.getForObject(hotelOrderServieURLGet + orderDetailsDoTOS.getCommodityId(), HotelDTO.class);
+        HotelDTO hotelDTO = restTemplate.getForObject(hotelOrderServiceURLGet + orderDetailsDoTOS.getCommodityId(), HotelDTO.class);
         OrderDetailesPageDTO orderDetailesPageDTO = new OrderDetailesPageDTO();
         orderDetailesPageDTO.setOrderId(orderDTO.getOrderId())
                 .setOrderTime(orderDTO.getOrderTime())

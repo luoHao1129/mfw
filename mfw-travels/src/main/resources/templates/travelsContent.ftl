@@ -19,7 +19,7 @@
     <div class="biaotihang">
         <ul>
             <li>
-                <a href="http://www.mafengwo.cn/">首页</a>
+                <a href="http://localhost:8089/main">首页</a>
             </li>
             <li>
                 <a href="http://www.mafengwo.cn/wenda/">问答</a>
@@ -68,7 +68,7 @@
     <div class="center">
         <ul class="my">
             <li class="down_line">
-                <a class="my_link" href="">我的窝</a>
+                <a class="my_link" href="http://localhost:8081/toPersonal">我的窝</a>
             </li>
             <li>
                 <a class="my_link" href="">我的游记</a>
@@ -153,7 +153,7 @@
 
                                 </div>
                                 <div>
-                                    <a href="">已发表</a>
+                                    <a href="" id="publish">已发表</a>
                                 </div>
                             </div>
                         </li>
@@ -164,7 +164,7 @@
 
                                 </div>
                                 <div>
-                                    <a href="">待审核</a>
+                                    <a href="" id="audit">待审核</a>
                                 </div>
                             </div>
                         </li>
@@ -173,9 +173,10 @@
                                 <div id="">
                                     ${draft}
 
+
                                 </div>
                                 <div>
-                                    <a href="">草稿箱</a>
+                                    <a href="" id="braft">草稿箱</a>
                                 </div>
                             </div>
                         </li>
@@ -193,7 +194,7 @@
                             <input type="hidden" value="${travels.id }" name="id" class="travelsIde">
 
                             <div class="youji_item_text">
-                                <label class="youji_item_title">${travels.title }</label><br />
+                                <label class="youji_item_title">${travels.title}</label><br />
                                 <label>
                                     ${travels.contents[0].text }
                                 </label>
@@ -227,5 +228,10 @@
 
 </div>
 <div class="footer"></div>
+
+<script type="text/javascript">
+    $('#publish').cli
+</script>
 </body>
+
 </html>

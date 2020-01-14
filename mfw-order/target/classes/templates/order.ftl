@@ -13,12 +13,12 @@
 <body>
 <div class="topA">
     <div class="logoA">
-        <a title="马蜂窝自由行" href="http://localhost:8080/mfw/"><img src="img/gerenzhuye1.jpg" ></a>
+        <a title="马蜂窝自由行" href="http://localhost:8089/main"><img src="img/gerenzhuye1.jpg" ></a>
     </div>
     <div class="biaotihang">
         <ul>
             <li>
-                <a href="http://localhost:8080/mfw/">首页</a>
+                <a href="http://localhost:8089/main">首页</a>
             </li>
             <li>
                 <a href="http://www.mafengwo.cn/wenda/">问答</a>
@@ -74,13 +74,13 @@
                 <a class="my_link" href="">我的窝</a>
             </li>
             <li>
-                <a class="my_link" href="">我的游记</a>
+                <a class="my_link" href="http://localhost:8089/toUserTravels">我的游记</a>
             </li>
             <li>
                 <a class="my_link" href="">我的问答</a>
             </li>
             <li>
-                <a class="my_link" href="">我的足迹</a>
+                <a class="my_link" id="myOrder" href="http://locahost:8083/getOrderDetails">我的订单</a>
             </li>
             <li>
                 <a class="my_link" href="">我的点评</a>

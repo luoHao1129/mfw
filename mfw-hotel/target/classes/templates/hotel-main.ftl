@@ -39,7 +39,7 @@
     <div class="head">
         <img src="img/logo.PNG" class="logo" >
         <ul>
-            <li class="hd_li  in " id="index"><a id="index_a" class="hd_li_a go_lv ">首页</a></li>
+            <li class="hd_li  in " id="index"><a id="index_a" class="hd_li_a go_lv " href="http://localhost:8089/main">首页</a></li>
             <li class="hd_li" id="destination_index"><a id="destination_a" class="hd_li_a">目的地</a></li>
             <li class="hd_li" id="stratey"><a id="stratey_a" href="strategy.html" class="hd_li_a">旅游攻略</a></li>
             <li class="go hd_li" id="go_journey">
@@ -52,7 +52,7 @@
                     <li class="go_li"><a href="">签证</a></li>
                 </ul>
             </li>
-            <li class="hd_li" id="plane_ticket"><a id="plane_ticket_a" class="hd_li_a">机票</a></li>
+            <li class="hd_li" id="plane_ticket"><a id="plane_ticket_a" class="hd_li_a" href="http://localhost:8086/plane_ticket.html">机票</a></li>
             <li class="hd_li" id="hotel"><a id="hotel_a" class="hd_li_a">订酒店</a></li>
             <li class="hd_li" ><a href="" class="hd_li_a">社区&nbsp;v</a></li>
             <li class="hd_li"><a href="https://www.mafengwo.cn/app/intro/gonglve.php" class="hd_li_a">APP</a></li>
