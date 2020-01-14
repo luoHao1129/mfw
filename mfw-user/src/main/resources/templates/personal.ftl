@@ -142,7 +142,7 @@
         <div class="center_right1">
             <ul>
                 <li>
-                    <a href="http://http://localhost:8089/addTravels.html" target="_parent">
+                    <a href="http://localhost:8089/addTravels.html" target="_parent">
                         <i class="note"></i>
                         <span>写游记</span>
                     </a>

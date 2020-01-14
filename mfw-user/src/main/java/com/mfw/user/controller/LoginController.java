@@ -53,7 +53,7 @@ public class LoginController {
         if (userDTO.getPwd().equals(pwd)) {
             request.getSession().setAttribute("user", userDTO);
             System.out.println(request.getSession().getId());
-            return "redirect:http://localhost:8089/main/";
+            return "redirect:http://localhost:8089/main";
         } else {
             return "login";
         }

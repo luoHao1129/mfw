@@ -18,12 +18,13 @@ public class FightDTO implements Serializable {
 	private String img;
 	private List<AirTicketsDTO> airTicketsDTOls;
 	private String company;
-	private String departure;
+	private String fightNum;
+	private String departureTime;
+	private String landingTime;
 	private String arrival;
 	private String aircraftType;
-	private String fightNum;
-	private Date departureTime;
-	private Date landingTime;
-	
+	private String takeOffAirport;
+	private String arrivalAtTheAirport;
+	private String departure;
 
 }
