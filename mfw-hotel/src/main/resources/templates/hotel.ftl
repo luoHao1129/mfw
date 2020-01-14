@@ -46,7 +46,7 @@
     <form method="post" action="/selectHotelCity">
         <div class="clearfix date-warp">
             <div class="add-travle">
-                <input type="text" placeholder="出行目的地" id="destination" name="city">
+                <input type="text" placeholder="出行目的地" autocomplete="off" id="destination" name="city">
                 <!-- 城市 -->
                 <div id="in_city" style="display: none"></div>
 
