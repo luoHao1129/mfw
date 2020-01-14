@@ -16,7 +16,7 @@
         <result property="arrival" column="arrival" javaType="String"/>
         <result property="aircraftType" column="aircraftType" javaType="String"/>
         <result property="departureTime" column="departureTime" javaType="String"/>
-        <result property="landingTime" column="landingTime" javaType="Date"/>
+        <result property="landingTime" column="landingTime" javaType="String"/>
         <result property="takeOffAirport" column="take_off_airport" javaType="String"/>
         <result property="arrivalAtTheAirport" column="arrival_at_the_airport" javaType="String"/>
 <!--        <collection property="airTicketsDTOls" ofType="com.mfw.api.dto.AirTicketsDTO">-->
@@ -60,22 +60,32 @@
         select * from fight
 
         <where>
-        <if test="departureTime !=''">
-            and  departureTime=${departureTime}
-        </if>
-        <if test="departure !=''">
-            and departure=${departure}
-        </if>
-        <if test="arrival !=''">
-            and arrival=${arrival}
-        </if>
-        <if test="company !=''">
-            and company=${company}
-        </if>
-        <if test="aircraftType !=''">
-            and aircraftType=${aircraftType}
+        <if test="departureTime !='' and departureTime != null">
+             departureTime=#{departureTime}
         </if>
 
+         <if test="takeOffAirport !='' and takeOffAirport != null ">
+            and take_off_airport=#{takeOffAirport}
+         </if>
+
+        <if test="departure !='' and departure != null ">
+            and departure=#{departure}
+        </if>
+        <if test="arrival !='' and arrival != null">
+            and arrival=#{arrival}
+        </if>
+        <if test="company !='' and company != null">
+            and company=#{company}
+        </if>
+        <if test="arrivalAtTheAirport !='' and arrivalAtTheAirport != null">
+            and arrival_at_the_airport=#{arrivalAtTheAirport}
+        </if>
+        <if test="departure !='' and departure !=null">
+            and departure=#{departure}
+        </if>
+            <if test="arrival !='' and arrival !=null">
+                and arrival=#{arrival}
+            </if>
         </where>
 
     </select>
